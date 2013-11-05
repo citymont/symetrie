@@ -1,10 +1,12 @@
-symetrie
+Symétrie
 ========
 
 soon ... Symétrie is a simple tool to build website with no sql database and in-place editing
 
 ## Installation
-``` $ composer install
+
+```
+$ composer install
 $ php app/commands/install.php
 ```
 
@@ -14,6 +16,7 @@ $ php app/commands/install.php
 
 ## Directories
 
+```
 admin/
     lib/
         history.php - save json file when editing/saving a document
@@ -46,3 +49,5 @@ public/
     css/            - css files
     js/             - js files
     index.php       - load public app 
+```
+
