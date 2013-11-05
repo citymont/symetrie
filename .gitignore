@@ -1,3 +1,4 @@
+composer.lock
 /app/data/*
 /app/storage/cache/*
 /app/storage/views/*
