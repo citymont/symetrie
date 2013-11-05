@@ -1,9 +1,9 @@
 <?php 
 	
-define("ASSETS", "http://localhost:8080/test/nocms/vendors/zenpen/");
+define("ASSETS", "http://localhost:8080/symetrie/public/js/vendor/zenpen/");
 define("ADMIN",true);
 
-require(__DIR__."/../vendors/ToroPHP/src/Toro.php");
+require(__DIR__."/../vendor/torophp/torophp/src/Toro.php");
 require(__DIR__."/../app/src/index.actions.php");
 require(__DIR__."/../app/src/app.php"); 
 
