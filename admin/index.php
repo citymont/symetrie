@@ -1,6 +1,6 @@
 <?php 
 	
-define("ASSETS", "http://localhost:8080/symetrie/public/js/vendor/zenpen/");
+define("ASSETS", "http://localhost:8080/symetrie/public/");
 define("ADMIN",true);
 
 require(__DIR__."/../vendor/torophp/torophp/src/Toro.php");
