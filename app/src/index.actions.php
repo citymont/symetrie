@@ -31,10 +31,21 @@ class IndexHandler {
     			$uri = App::parseUrl('/');
 
 				$file = __DIR__."/../../app/data/".$this->modelName."".$uri['id']."/choose.json"; // last file
-				$json = file_get_contents($file);
 
-				// Render
-				echo $twig->render($this->modelName.'.tpl.html', json_decode($json, true));
+				try {
+					if (!file_exists($file)) {
+						throw new Exception('No data');
+					} else {
+						$json = file_get_contents($file);
+						// Render
+						echo $twig->render($this->modelName.'.tpl.html', json_decode($json, true));
+					}
+					
+				} catch (Exception $e) {
+					 echo 'Erreur : ' . $e->getMessage();
+				}
+
+				
 
 			}
 
