@@ -1,0 +1,27 @@
+<!-- JS -->
+		<script type="text/javascript">
+		var Conf = Conf || {};
+
+			<?php $uri = App::parseUrl(); ?>
+
+			Conf.url = "/test/nocms/admin/lib/";
+			Conf.model = "<?php echo $uri['model']; ?>";
+			Conf.id = "<?php echo $uri['id']; ?>";
+
+			// Load required scripts.	
+			head.js( 
+				"http://codeorigin.jquery.com/jquery-1.10.2.min.js",
+				"<?php echo $vendor; ?>js/extra.js",
+				"<?php echo $vendor; ?>js/utils.js",
+				"<?php echo $vendor; ?>js/ui.js",
+				"<?php echo $vendor; ?>js/editor.js",
+	        	function(){
+	            	
+	            	// Initiate ZenPen
+
+	            	editor.init(extra.init());
+	    			ui.init();
+	    			
+	            }
+	        );
+        </script>
