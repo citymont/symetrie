@@ -15,7 +15,7 @@ class Actions {
 	{
 		/* --Start Twig Loader-- */
 
-		require_once __DIR__.'/../../vendors/Twig/lib/Twig/Autoloader.php';
+		require_once __DIR__.'/../../vendor/twig/twig/lib/Twig/Autoloader.php';
 		Twig_Autoloader::register();
 
 		// dossier des templates
