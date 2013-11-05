@@ -6,7 +6,7 @@
  * 
  */
 
-require(__DIR__.'/../../vendors/simple_html_dom.php');
+require(__DIR__.'/../lib/simple_html_dom.php');
 
 
 if ( isset($_SERVER['argv']) ) {
@@ -44,8 +44,8 @@ $file = $dossier.$varsTpl.'.tpl.html';
 $data = trim($section);
 
 // Création du dossier de stockage si n'existe pas
-if(!is_dir(__DIR__.'/../data/'.$varsModel.'./'.$varsPage)) {
-	mkdir(__DIR__.'/../data/'.$varsModel.'./'.$varsPage);
+if(!is_dir(__DIR__.'/../data/'.$varsTpl)) {
+	mkdir(__DIR__.'/../data/'.$varsTpl, 0, true);
 }
 
 // Sauvegarde du template dans un fichier
