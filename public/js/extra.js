@@ -24,6 +24,9 @@ var extra = (function() {
 		saveDocElement = document.querySelector( '.saveDoc' );
 		saveDocElement.onclick = onSaveDoc;
 
+		$('#simple-menu').sidr({side: 'right'});
+	    $('#simple-menu').on('mouseover', getJsonHistory());
+
 	}
 
 	/* Find element editable and options */
@@ -77,6 +80,8 @@ var extra = (function() {
 
 		request.done(function( msg ) {
 			console.log( msg );
+			// get new history
+			getJsonHistory();
 		});
 
 		request.fail(function( jqXHR, textStatus ) {
@@ -92,7 +97,7 @@ var extra = (function() {
 
 	function loadHistoryData( file ) {
 
-		$.getJSON( file , function( json ) {  
+		$.getJSON( Conf.url +"history.php" , { model : Conf.model, id : Conf.id, file : file, method : 'one' }, function( json ) {
 			$.each( json, function( i, value ) {
 				localStorage[i] = value;
 			});
@@ -105,6 +110,26 @@ var extra = (function() {
 				}
 				
 			};
+		});
+	}
+
+	function getJsonHistory() { 
+
+		$("#sidr-model").html(Conf.model);
+		if (Conf.id) { $("#sidr-page").html(Conf.id); };
+		
+		$.ajax({
+			url: Conf.url +"history.php",
+			type: "GET",
+			data: { model : Conf.model, id : Conf.id, method: 'list'},
+			dataType: "html"
+			}).done(function( msg ) {
+
+				$("#sidr-history").html( msg );
+				$("#sidr-history li").on('click',function() {
+					loadHistoryData($(this).html());
+			    });
+
 		});
 	}
 
