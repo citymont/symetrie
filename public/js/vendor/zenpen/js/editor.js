@@ -1,7 +1,7 @@
 var editor = (function() {
 
 	// Editor elements
-	var headerField, contentField, cleanSlate, lastType, currentNodeList, savedSelection;
+	var cleanSlate, lastType, currentNodeList, savedSelection;
 
 	// DOM elements
 	var allElements = [];
@@ -20,7 +20,7 @@ var editor = (function() {
 		// Set cursor position
 		var range = document.createRange();
 		var selection = window.getSelection();
-		range.setStart(headerField, 1);
+		//range.setStart(headerField, 1);
 		selection.removeAllRanges();
 		selection.addRange(range);
 
@@ -29,9 +29,7 @@ var editor = (function() {
 		// Load state if storage is supported
 		if ( supportsHtmlStorage() ) {
 			loadState();
-		} //else {
-			//loadState('1383055390.json'); // load json file
-		//}
+		} 
 	}
 
 
@@ -86,8 +84,6 @@ var editor = (function() {
 
 	function bindElements() {
 
-		headerField = document.querySelector( '.header' );
-		contentField = document.querySelector( '.content' );
 		textOptions = document.querySelector( '.text-options' );
 
 		optionsBox = textOptions.querySelector( '.options' );
@@ -228,9 +224,6 @@ var editor = (function() {
 
 	function saveState( event ) {
 		
-		localStorage[ 'header' ] = headerField.innerHTML.trim();
-		localStorage[ 'content' ] = contentField.innerHTML.trim();
-
 		// dynamic
 		for (var i = allElements.length - 1; i >= 0; i--) {
 			localStorage[preState(allElements[i])] = allElementsField[i].innerHTML.trim();
@@ -238,14 +231,6 @@ var editor = (function() {
 	}
 
 	function loadState() {
-
-		if ( localStorage[ 'header' ] ) {
-			headerField.innerHTML = localStorage[ 'header' ];
-		}
-
-		if ( localStorage[ 'content' ] ) {
-			contentField.innerHTML = localStorage[ 'content' ];
-		}
 
 		// dynamic
 		for (var i = allElements.length - 1; i >= 0; i--) {
@@ -358,21 +343,11 @@ var editor = (function() {
 		window.getSelection().addRange( lastSelection );
 	}
 
-	function getWordCount() {
-		
-		var text = get_text( contentField );
-
-		if ( text === "" ) {
-			return 0
-		} else {
-			return text.split(/\s+/).length;
-		}
-	}
 
 	return {
 		init: init,
 		saveState: saveState,
-		getWordCount: getWordCount
+
 	}
 
 })();
