@@ -80,6 +80,7 @@ var extra = (function() {
 
 		request.done(function( msg ) {
 			console.log( msg );
+			$('.saveDoc').css({color:'black'});
 			// get new history
 			getJsonHistory();
 		});
