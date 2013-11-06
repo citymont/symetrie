@@ -10,14 +10,15 @@
 
 			// Load required scripts.	
 			head.js( 
-				"http://codeorigin.jquery.com/jquery-1.10.2.min.js",
 				"<?php echo $vendor; ?>js/extra.js",
 				"<?php echo $vendor; ?>js/vendor/zenpen/js/editor.js",
+				"<?php echo $vendor; ?>js/libs/jquery.sidr.js",
 	        	function(){
 	            	
 	            	// Initiate ZenPen
 	            	editor.init(extra.init());
-	    			
+	            		    			
 	            }
 	        );
+	        
         </script>
