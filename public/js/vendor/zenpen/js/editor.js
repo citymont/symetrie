@@ -228,6 +228,7 @@ var editor = (function() {
 		for (var i = allElements.length - 1; i >= 0; i--) {
 			localStorage[preState(allElements[i])] = allElementsField[i].innerHTML.trim();
 		};
+		$('.saveDoc').css({color:'red'});
 	}
 
 	function loadState() {
