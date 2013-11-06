@@ -1,6 +1,6 @@
 var extra = (function() {
 
-	var saveDocElement, headerField, contentField;
+	var saveDocElement;
 	
 	// DOM elements
 	var allElements = [];
@@ -13,16 +13,13 @@ var extra = (function() {
 
 		// Load state if storage is supported
 		if ( ! supportsHtmlStorage() ) {
-			loadHistoryData('1383055390.json'); // load json file
+			loadHistoryData('../../app/data/index/1383055390.json'); // load json file
 		}
 
 		return findElementsEditable();
 	}
 	
 	function bindElements() {
-		
-		headerField = document.querySelector( '.header' );
-		contentField = document.querySelector( '.content' );
 
 		saveDocElement = document.querySelector( '.saveDoc' );
 		saveDocElement.onclick = onSaveDoc;
@@ -32,7 +29,7 @@ var extra = (function() {
 	/* Find element editable and options */
 	function findElementsEditable() {
 
-		$('div[contenteditable=true]').each(function() {
+		$('*[contenteditable=true]').each(function() {
 
 			var classNames = $(this).attr('class');
 			var className = classNames.split(" ",1);
@@ -100,13 +97,6 @@ var extra = (function() {
 				localStorage[i] = value;
 			});
 
-			if ( localStorage[ 'header' ] ) {
-				headerField.innerHTML = localStorage[ 'header' ];
-			}
-
-			if ( localStorage[ 'content' ] ) {
-				contentField.innerHTML = localStorage[ 'content' ];
-			} 
 			// dynamic
 			for (var i = allElements.length - 1; i >= 0; i--) {
 
@@ -124,3 +114,15 @@ var extra = (function() {
 
 
 })();
+
+// Utility functions
+
+String.prototype.trim = function(){ return this.replace(/^\s+|\s+$/g, ''); };
+
+function supportsHtmlStorage() {
+	try {
+		return 'localStorage' in window && window['localStorage'] !== null;
+	} catch (e) {
+		return false;
+	}
+}
