@@ -56,4 +56,25 @@ class App {
 
 		Toro::serve($routes);
 	}
+
+	public function setFlash($text) {
+
+		$_SESSION['flash'] = array();
+		$_SESSION['flash']['time'] = time();
+		$_SESSION['flash']['text'] = $text;
+
+	}
+
+	public function getFlash(){
+		
+		if(isset($_SESSION['flash'])) {
+			$f = $_SESSION['flash']['text'];
+			unset($_SESSION['flash']);
+			return $f;
+		} else {
+			return null;
+		}
+	
+		
+	}
 }
