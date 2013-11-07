@@ -72,7 +72,7 @@ var extra = (function() {
 		//console.log(JSON.stringify(localStorage));
 
 		var request = $.ajax({
-			url: Conf.url +"history.php",
+			url: Conf.url +"history",
 			type: "POST",
 			data: { data : JSON.stringify(localStorage, null, '\t'), model : Conf.model, id : Conf.id },
 			dataType: "html"
@@ -98,7 +98,7 @@ var extra = (function() {
 
 	function loadHistoryData( file ) {
 
-		$.getJSON( Conf.url +"history.php" , { model : Conf.model, id : Conf.id, file : file, method : 'one' }, function( json ) {
+		$.getJSON( Conf.url +"history" , { model : Conf.model, id : Conf.id, file : file, method : 'one' }, function( json ) {
 			$.each( json, function( i, value ) {
 				localStorage[i] = value;
 			});
@@ -120,7 +120,7 @@ var extra = (function() {
 		if (Conf.id) { $("#sidr-page").html(Conf.id); };
 		
 		$.ajax({
-			url: Conf.url +"history.php",
+			url: Conf.url +"history",
 			type: "GET",
 			data: { model : Conf.model, id : Conf.id, method: 'list'},
 			dataType: "html"
