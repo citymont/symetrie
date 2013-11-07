@@ -61,7 +61,8 @@ ToroHook::add("after_handler", function() {
 	if( ! defined('BRUT') ) { 
 	$vendor = ASSETS;
 	include(__DIR__."/../app/views/main/editJs.tpl.html"); 
-
+	$app = new App();
+	print $app->getFlash();
 	print'</body>	</html>';
 	 }
 

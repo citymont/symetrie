@@ -22,6 +22,8 @@ class AdminLoginHandler {
 
 			$_SESSION['key'] = $loginkey; 
 			$_SESSION['role'] = 'ADMIN'; 
+			$app->setFlash('Logged in with success');
+			
 			header('Location: ../index');
 			exit;
 
