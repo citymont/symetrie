@@ -33,3 +33,7 @@ display: block;
   outline-offset: 1px         !important; 
   outline-radius: 5px         !important; 
 }
+.empty:before {
+	content : 'Insert your content';
+	color:grey;
+}

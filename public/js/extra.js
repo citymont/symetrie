@@ -25,7 +25,7 @@ var extra = (function() {
 		saveDocElement.onclick = onSaveDoc;
 
 		$('#simple-menu').sidr({side: 'right'});
-	    $('#simple-menu').on('mouseover', getJsonHistory());
+		$('#simple-menu').on('mouseover', getJsonHistory());
 
 	}
 
@@ -39,15 +39,43 @@ var extra = (function() {
 
 			allElements.push('.' + className);
 			allElementsField.push(document.querySelector( '.' + className ));
+
 			if($(this).data('type') =="oneline") {
 				document.querySelector('.' + className).onkeypress = onelineKeyPress;
 			}
 			editorContentOption($(this),className);
 			editorContentFocusable($(this));
-		});
-		
 
+			if ( $(this).text().trim() === '' ) {
+				$(this).addClass('empty');
+			}
+
+			
+		});
+
+		editorContentEmpty();
+		
 		return config(allElements,allElementsField);
+	}
+	
+	/**
+	 * find empty editable.div and add custom class
+	 */
+	function editorContentEmpty () {
+
+		$('*[contenteditable=true].empty').each(function() {
+
+			$(this).on('click', function(event) {
+				event.preventDefault();
+				$(this).removeClass('empty');
+			}).on('focusout', function(event) {
+				event.preventDefault();
+				if( $(this).text().trim()  === '' ) {
+					$(this).addClass('empty');
+				}
+			});
+
+		});
 	}
 
 	function editorContentFocusable ( target ){
