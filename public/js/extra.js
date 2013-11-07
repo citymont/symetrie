@@ -42,11 +42,37 @@ var extra = (function() {
 			if($(this).data('type') =="oneline") {
 				document.querySelector('.' + className).onkeypress = onelineKeyPress;
 			}
+			editorContentOption($(this),className);
+
 
 		});
 		
 
 		return config(allElements,allElementsField);
+	}
+
+	function editorContentOption( target,className ) {
+
+		var thisP = target.innerWidth();
+		var $options = $('<div class="cEdit-option"></div>').css({left: thisP});
+		
+		// clean HTML on div
+		var $box = $('<a href="clean">1</a> ')
+				.on('click', function(event) {
+					event.preventDefault();
+					$('.'+className).html($('.'+className).text());
+				});
+		
+		// unclean HTML on div
+		var $box2 = $('<a href="clean">2</a>')
+				.on('click', function(event) {
+					event.preventDefault();
+					$('.'+className).html(localStorage[className]);
+				});
+			
+		$options.append($box).append($box2);
+		target.before($options.hide());
+
 	}
 
 	function onelineKeyPress( event ) {

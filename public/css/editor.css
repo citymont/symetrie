@@ -1,3 +1,12 @@
 .sidr-open .text-options {
 	margin-left: 260px;
 }
+
+.cEdit-option {
+position: relative;
+width: 137px;
+height: 0px;
+overflow: inherit;
+display: block;
+
+}
