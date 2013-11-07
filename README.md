@@ -17,10 +17,7 @@ $ php app/commands/install.php
 ## Directories
 
 ```
-admin/
-    lib/
-        history.php - save json file when editing/saving a document
-    index.php       - load editor app 
+
 app/
     commands/
         page.php    - add document to a collection
@@ -33,6 +30,7 @@ app/
     model/          - file like *.editable.html as the model
 
     src/
+        admin/      - actions handlers for admin
         actions.php - rendering functions related to actions
         app.php     - app functions
         cache.php   - functions related to static cache
@@ -49,5 +47,6 @@ public/
     css/            - css files
     js/             - js files
     index.php       - load public app 
+    admin.php       - load editor app 
 ```
 
