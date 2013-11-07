@@ -46,7 +46,7 @@ var extra = (function() {
 			editorContentOption($(this),className);
 			editorContentFocusable($(this));
 
-			if ( $(this).text().trim() === '' ) {
+			if ( $(this).text().trim() === '' && localStorage[className].trim() === '' || localStorage[className].trim() === '&nbsp;') {
 				$(this).addClass('empty');
 			}
 
@@ -57,7 +57,7 @@ var extra = (function() {
 		
 		return config(allElements,allElementsField);
 	}
-	
+
 	/**
 	 * find empty editable.div and add custom class
 	 */
