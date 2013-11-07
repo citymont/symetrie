@@ -43,12 +43,18 @@ var extra = (function() {
 				document.querySelector('.' + className).onkeypress = onelineKeyPress;
 			}
 			editorContentOption($(this),className);
-
-
+			editorContentFocusable($(this));
 		});
 		
 
 		return config(allElements,allElementsField);
+	}
+
+	function editorContentFocusable ( target ){
+		target.on('click', function(event) {
+			event.preventDefault();
+			target.focus();
+		});
 	}
 
 	function editorContentOption( target,className ) {
