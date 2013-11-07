@@ -13,7 +13,7 @@ class App {
 	public static function parseUrl($extra = null) {
 
 		$serv = $_SERVER['REQUEST_URI']; 
-		$a = explode("index.php/", $serv);
+		$a = (defined('ADMIN')) ? explode("admin.php/", $serv) : explode("index.php/", $serv);
 		$b = explode("/", $a[1]);
 		$model = $b[0];
 
@@ -45,6 +45,7 @@ class App {
 		    "/index" => "IndexHandler",
 		    "/index/:alpha" => "IndexHandler",
 		    "/index/:alpha/:alpha" => "IndexHandler",
+		    "/admin/history" => "AdminHistoryHandler"
 		));
 	}
 }
