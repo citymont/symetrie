@@ -5,6 +5,7 @@
 
 class App {
 
+	public $loginKey = "aa3261152486caad6c230b4b6d384361";
 	/**
 	 * Fonction de parsage de l'URI courante
 	 * @param  string $extra ajouter un / pour accéder au dossier
@@ -38,14 +39,21 @@ class App {
     		exit;
 		});
 
-		/*ToroHook::add("before_request", function() { echo microtime();});
-		ToroHook::add("after_request", function() {echo microtime();});*/
-
-		Toro::serve(array(
+		$routes = array(
 		    "/index" => "IndexHandler",
 		    "/index/:alpha" => "IndexHandler",
-		    "/index/:alpha/:alpha" => "IndexHandler",
-		    "/admin/history" => "AdminHistoryHandler"
-		));
+		    "/index/:alpha/:alpha" => "IndexHandler"
+		);
+
+		$routesAdmin = array(
+			"/admin/history" => "AdminHistoryHandler",
+		    "/admin/login" => "AdminLoginHandler",
+		    "/admin/logout" => "AdminLogoutHandler");
+		
+		if( defined('ADMIN') ) { 
+			$routes = array_merge($routes, $routesAdmin);
+		}
+
+		Toro::serve($routes);
 	}
 }
