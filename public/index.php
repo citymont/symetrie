@@ -30,7 +30,7 @@ ToroHook::add("before_handler", function($vars) {
 		/* Header */
 
 		$vendor = ASSETS;
-		include(__DIR__."/../app/views/main/editheader.tpl.html"); 
+		include(__DIR__."/../app/views/main/header.tpl.html"); 
 	}
 });
 
