@@ -1,15 +1,37 @@
+/* menu admin */
+
 .sidr-open .text-options {
 	margin-left: 260px;
 }
+.sidr {
+  padding: 10px;!important
+}
+
+.ui button {
+  font-family: inherit;
+  background: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: inherit;
+  opacity: 0.9;
+  padding: 0px;
+  border: 0px;
+}
 
 .cEdit-option {
-position: relative;
-width: 137px;
-height: 0px;
-overflow: inherit;
-display: block;
-
+  position: relative;
+  width: 137px;
+  height: 0px;
+  overflow: inherit;
+  display: block;
 }
+
+/* fileds */
+.empty:before {
+  content : 'Insert your content';
+  color:rgba(0,0,0,0.2);
+}
+
 ::-webkit-scrollbar {
     width: 12px;
 }
@@ -26,14 +48,10 @@ display: block;
 
 *:focus 
 { 
-  -moz-outline: 1px solid #00F !important; 
+  -moz-outline: 1px solid rgba(0,0,0,0.2) !important; 
   -moz-outline-offset: 1px         !important; 
   -moz-outline-radius: 5px         !important; 
-  outline: 1px solid #00F  !important; 
+  outline: 1px solid rgba(0,0,0,0.2)  !important; 
   outline-offset: 1px         !important; 
   outline-radius: 5px         !important; 
-}
-.empty:before {
-	content : 'Insert your content';
-	color:grey;
 }
