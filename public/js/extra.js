@@ -46,7 +46,8 @@ var extra = (function() {
 			editorContentOption($(this),className);
 			editorContentFocusable($(this));
 
-			if ( $(this).text().trim() === '' && localStorage[className].trim() === '' || localStorage[className].trim() === '&nbsp;') {
+			var localV = (localStorage[className]) ? localStorage[className] : '' ; 
+			if ( $(this).text().trim() === '' && localV.trim() === '' || localV.trim() === '&nbsp;') {
 				$(this).addClass('empty');
 			}
 
