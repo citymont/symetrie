@@ -116,7 +116,6 @@ a:hover {
 	z-index: 1000;
 	padding: 5px 4px 5px 5px;
 	width: 125px;
-	height: 40px;
 
 	-webkit-transition: all 300ms ease-in-out;
 	-moz-transition: all 300ms ease-in-out;
