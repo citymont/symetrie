@@ -1,5 +1,7 @@
 /* menu admin */
-
+body {
+  display:none;
+}
 .sidr-open .text-options {
 	margin-left: 260px;
 }

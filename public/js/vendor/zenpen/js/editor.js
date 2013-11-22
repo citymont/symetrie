@@ -229,6 +229,15 @@ var editor = (function() {
 			localStorage[preState(allElements[i])] = allElementsField[i].innerHTML.trim();
 		};
 		$('.saveDoc').css({color:'red'});
+
+		window.onbeforeunload = function (e) {
+			  var message = "Save your changes before quit !",
+			  e = e || window.event;
+			  if (e) {
+			    e.returnValue = message;
+			  }
+			  return message;
+			};
 	}
 
 	function loadState() {
