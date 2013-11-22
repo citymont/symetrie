@@ -9,13 +9,9 @@ var extra = (function() {
 	function init() {
 
 		bindElements();
-		//loadHistoryData('../../app/data/index/1383055390.json');
+		loadHistoryData('choose.json');
 
-		// Load state if storage is supported
-		if ( ! supportsHtmlStorage() ) {
-			loadHistoryData('../../app/data/index/1383055390.json'); // load json file
-		}
-
+		$('body').show();
 		return findElementsEditable();
 	}
 	
@@ -144,6 +140,8 @@ var extra = (function() {
 			$('.saveDoc').css({color:'black'});
 			// get new history
 			getJsonHistory();
+			// clear quit
+			window.onbeforeunload = function (e) { };
 		});
 
 		request.fail(function( jqXHR, textStatus ) {
