@@ -8,7 +8,9 @@ body {
 .sidr {
   padding: 10px;!important
 }
-
+body.ready {
+  display:block;
+}
 .ui button {
   font-family: inherit;
   background: none;
