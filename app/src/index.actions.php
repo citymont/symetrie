@@ -7,7 +7,8 @@ class IndexHandler {
     function __construct() {
 
     	// Slug de la page
-    	$uri = App::parseUrl('/');
+    	$app = new App();
+    	$uri = $app->parseUrl('/');
     	
     	$dir = __DIR__."/../data/".$this->modelName."".$uri['id']."";
 
@@ -28,7 +29,8 @@ class IndexHandler {
 				$twig = $appActions->Twigloader();
 
 				// Slug de la page
-    			$uri = App::parseUrl('/');
+    			$app = new App();
+    			$uri = $app->parseUrl('/');
 
 				$file = __DIR__."/../../app/data/".$this->modelName."".$uri['id']."/choose.json"; // last file
 
