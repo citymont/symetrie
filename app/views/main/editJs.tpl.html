@@ -2,9 +2,9 @@
 		<script type="text/javascript">
 		var Conf = Conf || {};
 
-			<?php $uri = App::parseUrl(); ?>
+			<?php $app = new App(); $uri = $app->parseUrl(); ?>
 
-			Conf.url = "/symetrie/public/admin.php/admin/";
+			Conf.url = "<?php print ADMIN_CONF_URL; ?>";
 			Conf.model = "<?php echo $uri['model']; ?>";
 			Conf.id = "<?php echo $uri['id']; ?>";
 

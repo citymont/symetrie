@@ -1,8 +1,8 @@
 <?php 
-if( !session_id() ) session_start(); 	
-define("ASSETS", "http://localhost:8080/symetrie/public/");
+if( !session_id() ) session_start();
 define("ADMIN",true);
 
+require(__DIR__."/../app/src/conf.php");
 require(__DIR__."/../vendor/torophp/torophp/src/Toro.php");
 require(__DIR__."/../app/src/index.actions.php");
 require(__DIR__."/../app/src/admin/history.actions.php");
