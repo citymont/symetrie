@@ -108,16 +108,18 @@ var editor = (function() {
 	function checkTextHighlighting( event ) {
 
 		var selection = window.getSelection();
+		
+		if(event.target.parentNode !== document) {
 
-		if ( (event.target.className === "url-input" ||
-		     event.target.classList.contains( "url" ) ||
-		     event.target.parentNode.classList.contains( "ui-inputs")) ) {
+			if ( (event.target.className === "url-input" ||
+			     event.target.classList.contains( "url" ) ||
+			     event.target.parentNode.classList.contains( "ui-inputs")) ) {
 
-			currentNodeList = findNodes( selection.focusNode );
-			updateBubbleStates();
-			return;
+				currentNodeList = findNodes( selection.focusNode );
+				updateBubbleStates();
+				return;
+			}
 		}
-
 		// Check selections exist
 		if ( selection.isCollapsed === true && lastType === false ) {
 
@@ -140,6 +142,7 @@ var editor = (function() {
 		}
 
 		lastType = selection.isCollapsed;
+
 	}
 	
 	function updateBubblePosition() {
