@@ -9,9 +9,8 @@ var extra = (function() {
 	function init() {
 
 		bindElements();
-		loadHistoryData('choose.json');
+		loadHistoryData('choose.json', $('body').addClass('ready'));
 
-		$('body').show();
 		return findElementsEditable();
 	}
 	
@@ -155,8 +154,10 @@ var extra = (function() {
 		return v.slice(1);
 	}
 
-	function loadHistoryData( file ) {
+	function loadHistoryData( file , callback) {
 
+		var callback = callback;
+		
 		$.getJSON( Conf.url +"history" , { model : Conf.model, id : Conf.id, file : file, method : 'one' }, function( json ) {
 			$.each( json, function( i, value ) {
 				localStorage[i] = value;
@@ -170,6 +171,8 @@ var extra = (function() {
 				}
 				
 			};
+			
+			callback;
 		});
 	}
 
