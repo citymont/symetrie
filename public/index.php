@@ -1,8 +1,6 @@
 <?php
 
-define("ASSETS", "http://localhost:8080/symetrie/public/");
-define("CACHE_EXPIRE","0");
-
+require(__DIR__."/../app/src/conf.php");
 require(__DIR__."/../vendor/torophp/torophp/src/Toro.php");
 require(__DIR__."/../app/src/cache.php");
 require(__DIR__."/../app/src/actions.php");
