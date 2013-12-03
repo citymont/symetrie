@@ -4,6 +4,7 @@ define("ADMIN",true);
 
 require(__DIR__."/../app/src/conf.php");
 require(__DIR__."/../vendor/torophp/torophp/src/Toro.php");
+require(__DIR__."/../app/src/actions.php");
 require(__DIR__."/../app/src/index.actions.php");
 require(__DIR__."/../app/src/admin/history.actions.php");
 require(__DIR__."/../app/src/admin/login.actions.php");
@@ -24,47 +25,22 @@ ToroHook::add("before_request", function($vars) {
 			if ($_SESSION['role'] = 'ADMIN' and md5($_SESSION['key']) == $login->loginKey ) {
 
 			} else {
-				header('HTTP/1.0 401 Unauthorized');
-		    	echo "Unauthorized"; 
-		    	exit;
+				$login->error401();
 			}
 		} else {
-			header('HTTP/1.0 401 Unauthorized');
-	    	echo "Unauthorized"; 
-	    	exit;
+			$login->error401();
 		}
 }
 	
 
 });
 
-ToroHook::add("before_handler", function($vars) { 
-	
-	/* Header */
-	if( ! defined('BRUT') ) { 
-	print'<!doctype html>	<html>';
-
-	$vendor = ASSETS;
-	include(__DIR__."/../app/views/main/editheader.tpl.html"); 
-
-	print'<body class="yin">';
-
-	include(__DIR__."/../app/views/main/editUI.tpl.html");
-	 }
-
-});
-
+ToroHook::add("before_handler", function($vars) { });
 
 ToroHook::add("after_handler", function() { 
 
-	/* Footer */
-	if( ! defined('BRUT') ) { 
-	$vendor = ASSETS;
-	include(__DIR__."/../app/views/main/editJs.tpl.html"); 
 	$app = new App();
 	print $app->getFlash();
-	print'</body>	</html>';
-	 }
 
 });
 
