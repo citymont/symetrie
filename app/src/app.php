@@ -58,9 +58,7 @@ class App {
 	public function startRoutes() {
 
 		ToroHook::add("404", function() {
-		    header('HTTP/1.0 404 Not Found');
-    		echo "Not found"; 
-    		exit;
+		    $this->error404();
 		});
 
 		$routes = $this->routes;
@@ -71,6 +69,18 @@ class App {
 		}
 
 		Toro::serve($routes);
+	}
+
+	public function error404() {
+		header('HTTP/1.0 404 Not Found');
+    	echo "Not found"; 
+    	exit;  
+	}
+
+	public function error401() {
+		header('HTTP/1.0 401 Unauthorized');
+		echo "Unauthorized"; 
+		exit;  
 	}
 
 	public function setFlash($text) {

@@ -3,7 +3,6 @@
 class AdminLoginHandler {
 
     function __construct() {
-    	define('BRUT', true);
     	
 	    if( !defined('ADMIN') ) { 
 	    	
@@ -15,6 +14,7 @@ class AdminLoginHandler {
     }
 
     function get() {
+    	
     	$app = new App;
 		$loginkey =(isset($_GET['loginkey'])) ? $_GET['loginkey'] : die;
 
