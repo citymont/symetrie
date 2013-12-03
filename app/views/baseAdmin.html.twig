@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block head %}
+            <head>
+			<title>Symétrie EDITOR</title>
+	        <meta charset="utf-8">
+			<meta name="description" content="">
+
+			<link href="{{ conf.vendor }}css/style.css" rel="stylesheet">
+			<script src="{{ conf.vendor }}js/libs/head.min.js"></script>
+	    </head>
+
+        {% endblock %}
+    </head>
+    <body>
+    	<div class="overlay">
+
+		</div>
+
+		<div class="text-options">
+			<div class="options">
+				<span class="no-overflow">
+					<span class="lengthen ui-inputs">
+						<button class="url">url</button>
+						<input class="url-input" type="text" placeholder="Type or Paste URL here"/>
+						<button class="bold">b</button>
+						<button class="italic">i</button>
+						<button class="quote">&rdquo;</button>
+					</span>
+				</span>
+			</div>
+		</div>
+
+		<div class="ui">
+
+			<div class="wrapper">
+
+				<div class="top editing">
+					
+					<button class="" id="simple-menu" >
+						MENU
+					</button>
+
+					<button class="saveDoc" title="SaveDoc Text">
+						SAVE
+					</button>
+					
+				</div>
+
+	
+			</div>
+		</div>
+
+
+		<div id="sidr" class="sidr">
+		  	Model : <span id="sidr-model"></span>
+		  	<br>
+		  	Page : <span id="sidr-page">index</span>
+			<br><br>
+		  	History
+		  	<span id="sidr-history"></span>
+		</div>
+
+        {% block content %}
+
+        {% endblock %}
+
+        {{ flash }}
+
+		<script type="text/javascript">
+		var Conf = Conf || {};
+
+			Conf.url = "{{ conf.admin_conf_url }}";
+			Conf.model = "{{ uri['model'] }}";
+			Conf.id = "{{ uri['id'] }}";
+
+			// Load required scripts.	
+			head.js( 
+				"{{ conf.vendor }}js/libs/jquery-1.10.2.min.js",
+				"{{ conf.vendor }}js/extra.js",
+				"{{ conf.vendor }}js/vendor/zenpen/js/editor.js",
+				"{{ conf.vendor }}js/libs/jquery.sidr.js",
+	        	function(){
+	            	editor.init(extra.init());	    			
+	            }
+	        );
+	        head.load( 
+	        	"{{ conf.vendor }}css/vendor/zenpen/css/style.css",
+	        	"{{ conf.vendor }}css/editor.css",
+	        	"{{ conf.vendor }}css/sidr.dark.css"
+	        	);
+	        
+        </script>
+    </body>
+</html>

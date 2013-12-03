@@ -40,8 +40,11 @@ foreach($html->find('section') as $section) {
 // nom du template FINAL
 $dossier = __DIR__.'/../../app/views/';
 
-$file = $dossier.$varsTpl.'.tpl.html';
-$data = trim($section);
+$file = $dossier.$varsTpl.'.html.twig';
+
+$data = '{% extends "base.html.twig" %}{% block content %}';
+$data .= trim($section);
+$data .='{% endblock %}';
 
 // Création du dossier de stockage si n'existe pas
 if(!is_dir(__DIR__.'/../data/'.$varsTpl)) {

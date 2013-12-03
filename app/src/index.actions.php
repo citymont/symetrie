@@ -14,18 +14,17 @@ class IndexHandler {
 
 	    if (!file_exists($dir)) {
 	    	
-	    	header('HTTP/1.0 404 Not Found');
-    		echo "Not found"; 
-    		exit;  
+	    	$app->error404();
 
 	    }
     }
 
     function get($name = null, $b = null) {
 
-		    if( defined('CACHE_FLAG') ) { 
+    	$appActions = new Actions(); 
 
-		    	$appActions = new Actions(); 
+		    if( defined('CACHE_FLAG') ) { 
+		    	
 				$twig = $appActions->Twigloader();
 
 				// Slug de la page
@@ -40,20 +39,18 @@ class IndexHandler {
 					} else {
 						$json = file_get_contents($file);
 						// Render
-						echo $twig->render($this->modelName.'.tpl.html', json_decode($json, true));
+						echo $twig->render($this->modelName.'.html.twig', json_decode($json, true));
 					}
 					
 				} catch (Exception $e) {
 					 echo 'Erreur : ' . $e->getMessage();
 				}
 
-				
-
 			}
 
 			if( defined('ADMIN') ) { 
-
-				include(__DIR__."/../../app/model/".$this->modelName.".editable.html"); 
+				
+				$appActions->Admin($this->modelName); 
 		
 			}
 
