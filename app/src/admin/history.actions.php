@@ -3,7 +3,7 @@
 class AdminHistoryHandler {
 
     function __construct() {
-    	define("BRUT",true);
+
 	    if( !defined('ADMIN') ) { 
 	    	
 	    	header('HTTP/1.0 404 Not Found');
@@ -51,6 +51,7 @@ class AdminHistoryHandler {
     }
 
     function post() {
+    	
     	$model =$_POST['model'];
 		$id =$_POST['id']; 
 		$dossier = __DIR__."/../../data/".$model."/";

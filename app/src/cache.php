@@ -10,11 +10,10 @@ class Cache {
 	/**
 	 * Vérifie si le fichier en cache est valide (lifetime) 
 	 * @param  string $cache filename
-	 * @param  int $delai delai en minute
 	 * @return bool       
 	 */
 	
-	function check_cache($cache,$delai = ""){
+	function check_cache($cache){
 
 		if(is_file($cache) && filemtime($cache) >= mktime(date("G"),(int)date("i")-CACHE_EXPIRE,date("s"),date("m"),date("d"),date("Y"))) {
 			return true;

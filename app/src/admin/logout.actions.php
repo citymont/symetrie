@@ -3,7 +3,6 @@
 class AdminLogoutHandler {
 
     function __construct() {
-    	define('BRUT', true);
     	
 	    if( !defined('ADMIN') ) { 
 	    	
