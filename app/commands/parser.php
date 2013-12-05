@@ -21,11 +21,8 @@ if ( isset($_SERVER['argv']) ) {
 // Create DOM from HTML PAGE
 $html = file_get_html(__DIR__.'/../model/'.$varsTpl.'.editable.html');
 
-// Find section à templater
-foreach($html->find('section') as $section) {
-   
-	// trouve tous les champs éditable   
-   	$ret = $section->find('*[contenteditable]'); 
+// trouve tous les champs éditable   
+$ret = $html->find('*[contenteditable]'); 
 	foreach ( $ret as $e ) {
 	// Remove a attribute, set it's value as null! 	
 		$e->contenteditable = null;
@@ -34,8 +31,7 @@ foreach($html->find('section') as $section) {
 		$e->innertext='{{ '.$class[0].'|raw }}';
 	}
 	
-	$section = str_replace(array("\n", "\r", "\t"), "", $section);
-}
+$html = str_replace(array("\n", "\r", "\t"), "", $html);
 
 // nom du template FINAL
 $dossier = __DIR__.'/../../app/views/';
@@ -43,7 +39,7 @@ $dossier = __DIR__.'/../../app/views/';
 $file = $dossier.$varsTpl.'.html.twig';
 
 $data = '{% extends "base.html.twig" %}{% block content %}';
-$data .= trim($section);
+$data .= trim($html);
 $data .='{% endblock %}';
 
 // Création du dossier de stockage si n'existe pas
