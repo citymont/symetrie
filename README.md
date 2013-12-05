@@ -1,18 +1,25 @@
 Symétrie
 ========
 
-soon ... Symétrie is a simple tool to build website with no sql database and in-place editing
+Symétrie is a simple and accessible tool to build website with in-place editing and no sql database.
+
+http://symetrie.moderntree.net
 
 ## Installation
 
 ```
 $ composer install
 $ php app/commands/install.php
+$ php app/commands/parser.php index (init the first model)
 ```
 
 ## Dependencies
 1. Twig
 2. ToroPHP
+
+## Licence
+
+MIT
 
 ## Directories
 
