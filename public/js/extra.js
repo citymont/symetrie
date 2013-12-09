@@ -18,6 +18,10 @@ var extra = (function() {
 
 		saveDocElement = document.querySelector( '.saveDoc' );
 		saveDocElement.onclick = onSaveDoc;
+		saveDocPublishElement = document.querySelector( '.saveDocPublish' );
+		saveDocPublishElement.onclick = onSaveDoc;
+		saveUndoElement = document.querySelector( '.undo' );
+		saveUndoElement.onclick = onUndo;
 
 		$('#simple-menu').sidr({side: 'right'});
 		$('#simple-menu').on('mouseover', getJsonHistory());
@@ -123,20 +127,26 @@ var extra = (function() {
 		return JSON.stringify(localStorage);
 	}
 
-	function onSaveDoc( event ) {
+	function onUndo ( event ) {
+		document.execCommand('undo', false, null);
+	}
 
-		//console.log(JSON.stringify(localStorage));
+	function onSaveDoc( event ) {
+		var classNames = $(event.target).attr('class');
+		
+		var publishState = (classNames == "saveDoc") ? false : true;
 
 		var request = $.ajax({
 			url: Conf.url +"history",
 			type: "POST",
-			data: { data : JSON.stringify(localStorage, null, '\t'), model : Conf.model, id : Conf.id },
+			data: { data : JSON.stringify(localStorage, null, '\t'), model : Conf.model, id : Conf.id, publish : publishState },
 			dataType: "html"
 		});
 
 		request.done(function( msg ) {
 			console.log( msg );
 			$('.saveDoc').css({color:'black'});
+			$('.saveDocPublish').show();
 			// get new history
 			getJsonHistory();
 			// clear quit
