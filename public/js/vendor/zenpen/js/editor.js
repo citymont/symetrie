@@ -103,6 +103,9 @@ var editor = (function() {
 		urlInput = textOptions.querySelector( '.url-input' );
 		urlInput.onblur = onUrlInputBlur;
 		urlInput.onkeydown = onUrlInputKeyDown;
+
+		htmlButton = textOptions.querySelector( '.html' );
+		htmlButton.onclick = onHtmlClick;
 	}
 
 	function checkTextHighlighting( event ) {
@@ -263,6 +266,12 @@ var editor = (function() {
 
 	function onItalicClick() {
 		document.execCommand( 'italic', false );
+		saveState();
+	}
+
+	function onHtmlClick() {
+		selection = window.getSelection();
+		document.execCommand( 'insertHTML', false, selection );
 		saveState();
 	}
 
