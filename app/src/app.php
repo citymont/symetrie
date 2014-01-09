@@ -103,4 +103,18 @@ class App {
 	
 		
 	}
+	/**
+	 * Test URI for login
+	 * @param  string $loginRoute login route
+	 */
+	public function testLoginUri($loginRoute = "admin/login") {
+
+		$serv = $_SERVER['REQUEST_URI']; 
+		$a =explode("admin.php/", $serv);
+		$b =explode("?", $a[1]);
+		if($b[0] != $loginRoute) {
+			$this->error401();
+		}
+
+	}
 }
