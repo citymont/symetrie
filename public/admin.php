@@ -18,7 +18,11 @@ $app = new App();
 ToroHook::add("before_request", function($vars) { 
 
 	if( isset($_GET['loginkey']) ) {
-		// LoginHandler
+		
+		// Test login page
+		$loginkeyTest = new App();
+		$loginkeyTest->testLoginUri("admin/login");
+		
 	} else {
 		$login = new App();
 		if( isset($_SESSION['role']) and isset($_SESSION['key'])) {
