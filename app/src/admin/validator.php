@@ -33,7 +33,7 @@ class AdminValidator {
 	    			$test = (in_array($var2, $passModel)) ? true : $this->e500();
 	    			if($test === true ) {
 	    				$passId = $this->validatorModel(__DIR__.'/../../data/'.$var2);
-	    				return (in_array($var, $passModel)) ? $var : $this->e500() ;
+	    				return (in_array($var, $passId)) ? $var : $this->e500() ;
 	    			}
 	    			break;
 
