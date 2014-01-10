@@ -53,7 +53,7 @@ class Actions {
 		$twig->addGlobal('conf',new TwigConf());
 		$app = new App(); 
 
-		echo $twig->render('model.html', array("admin"=>"no", "uri"=>$app->parseUrl(), "flash" => $app->getFlash()));
+		echo $twig->render('model.html', array("admin"=>"no", "uri"=>$app->getRouteInfos(), "flash" => $app->getFlash()));
 	}
 
 	

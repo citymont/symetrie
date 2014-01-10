@@ -3,6 +3,8 @@
  * Application
  */
 
+require_once(__DIR__."/admin/validator.php");
+
 class App {
 
 	public $loginKey = "aa3261152486caad6c230b4b6d384361";
@@ -23,30 +25,58 @@ class App {
 	 * @param  string $extra ajouter un / pour accéder au dossier
 	 * @return array        explosion de chaine
 	 */
-	public function parseUrl($extra = null) {
-
-		$serv = $_SERVER['REQUEST_URI']; 
-
-		if(count(explode("index.php/", $serv)) == 2) {
-			$a = (defined('ADMIN')) ? explode("admin.php/", $serv) : explode("index.php/", $serv);
-			$b = explode("/", $a[1]);
-			$model = $b[0];
-		} else { 
-			$a = explode("/", $serv);
-			$b = explode("/", $a[1]);
-			$model = $b[0];
-		}
-
-		if(isset($b[1])) {
-			$id = $b[1];
-		} else { 
-			$id=""; 
-		}
+	public function getRouteInfos($extra = null) {
 
 		$routes = $this->routes;
-		if (array_key_exists('/', $routes)) {
-		    $model = "index";
-		}
+
+		//from ToroPHP (:23:43)
+		
+		$request_method = strtolower($_SERVER['REQUEST_METHOD']);
+        $path_info = '/';
+        if (!empty($_SERVER['PATH_INFO'])) {
+            $path_info = $_SERVER['PATH_INFO'];
+        }
+        else if (!empty($_SERVER['ORIG_PATH_INFO']) && $_SERVER['ORIG_PATH_INFO'] !== '/index.php') {
+            $path_info = $_SERVER['ORIG_PATH_INFO'];
+        }
+        else {
+            if (!empty($_SERVER['REQUEST_URI'])) {
+                $path_info = (strpos($_SERVER['REQUEST_URI'], '?') > 0) ? strstr($_SERVER['REQUEST_URI'], '?', true) : $_SERVER['REQUEST_URI'];
+            }
+        }
+
+		$discovered_handler = null;
+        $regex_matches = array();
+
+        if (isset($routes[$path_info])) {
+            $discovered_handler = $routes[$path_info];
+        }
+        else if ($routes) {
+            $tokens = array(
+                ':string' => '([a-zA-Z]+)',
+                ':number' => '([0-9]+)',
+                ':alpha'  => '([a-zA-Z0-9-_]+)'
+            );
+            foreach ($routes as $pattern => $handler_name) {
+                $pattern = strtr($pattern, $tokens);
+                if (preg_match('#^/?' . $pattern . '/?$#', $path_info, $matches)) {
+                    $discovered_handler = $handler_name;
+                    $regex_matches = $matches;
+                    break;
+                }
+            }
+        }
+        $modelEx = explode("Handler",$discovered_handler);
+        $model = strtolower($modelEx[0]);
+
+        if(count($regex_matches) >= 2) {
+        	$id = $regex_matches[1];
+        } else {
+        	$id = "";
+        }
+
+        $v = new AdminValidator();
+        $v->validator($id,'model_id',$model);
 
 		return array('model' => $model, 'id' => $extra.$id);
 	}

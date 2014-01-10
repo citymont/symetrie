@@ -2,21 +2,22 @@
 
 class IndexHandler {
 
-	private $modelName = "index";
+	private $modelName = "";
+	private $id = "";
 
     function __construct() {
 
-    	// Slug de la page
     	$app = new App();
-    	$uri = $app->parseUrl('/');
-    	
-    	$dir = __DIR__."/../data/".$this->modelName."".$uri['id']."";
+    	$infos = $app->getRouteInfos('/');
+    	$this->modelName = $infos['model'];
+    	$this->id = $infos['id'];
+    	/*$dir = __DIR__."/../data/".$this->modelName."".$uri['id']."";
 
 	    if (!file_exists($dir)) {
 	    	
 	    	$app->error404();
 
-	    }
+	    }*/
     }
 
     function get($name = null, $b = null) {
@@ -28,10 +29,10 @@ class IndexHandler {
 				$twig = $appActions->Twigloader();
 
 				// Slug de la page
-    			$app = new App();
-    			$uri = $app->parseUrl('/');
+    			//$app = new App();
+    			//$uri = $app->getRouteInfos('/');
 
-				$file = __DIR__."/../../app/data/".$this->modelName."".$uri['id']."/choose.json"; // last file
+				$file = __DIR__."/../../app/data/".$this->modelName."".$this->id."/choose.json"; // last file
 
 				try {
 					if (!file_exists($file)) {
