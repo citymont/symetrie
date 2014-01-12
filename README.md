@@ -26,22 +26,21 @@ MIT
 ```
 
 app/
+    
+    actions/        - controllers/action handler for a model
+    
     commands/
         page.php    - add document to a collection
         parser.php  - write template file from model
+        cache.php   - clear cache
 
     data/
         (modelname)
             /*.json - json file for a document (timestamp history)
 
+    lib/            - app functions
+    
     model/          - file like *.editable.html as the model
-
-    src/
-        admin/      - actions handlers for admin
-        actions.php - rendering functions related to actions
-        app.php     - app functions
-        cache.php   - functions related to static cache
-        (model).actions.php - action handler for a model
 
     storage/
         cache/      - static cache
