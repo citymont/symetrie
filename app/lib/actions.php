@@ -55,13 +55,45 @@ class Actions {
 
 		echo $twig->render('model.html', array("admin"=>"no", "uri"=>$app->getRouteInfos(), "flash" => $app->getFlash()));
 	}
+	/**
+	 * renderView
+	 * @param  obj $engine    template engine
+	 * @param  string $modelName model name
+	 * @param  string $docId     doc name
+	 * @return html            render teamplate + data
+	 */
+	public function renderView($engine, $modelName, $docId) {
+
+		$file = __DIR__."/../data/".$modelName."".$docId."/choose.json"; // last file
+
+		try {
+			if (!file_exists($file)) {
+				throw new Exception('No data');
+			} else {
+				$json = file_get_contents($file);
+				// Render
+				echo $engine->render($modelName.'.html.twig', json_decode($json, true));
+			}
+			
+		} catch (Exception $e) {
+			 echo 'Erreur : ' . $e->getMessage();
+		}
+	}
 
 	
 }
 
 class TwigConf {
 
-	public $vendor = ASSETS;
-	public $admin_conf_url = ADMIN_CONF_URL;
+	/*public $vendor = "";
+	public $admin_conf_url = "";*/
+
+	function __construct(){
+
+		$a = new App();
+		$this->vendor = $a->viewsAssets;
+        $this->admin_conf_url = $a->viewsAdminConfUrl; 
+
+	}
 
 }
