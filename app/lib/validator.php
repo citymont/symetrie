@@ -24,15 +24,15 @@ class AdminValidator {
 	    	switch ($name) {
 
 	    		case 'model':
-	    			$pass = $this->validatorModel(__DIR__.'/../../data'); 
+	    			$pass = $this->validatorModel(__DIR__.'/../data'); 
 	    			return (in_array($var, $pass)) ? $var : $this->e500() ;
 	    			break;
 
 	    		case 'model_id':
-	    			$passModel = $this->validatorModel(__DIR__.'/../../data');
+	    			$passModel = $this->validatorModel(__DIR__.'/../data');
 	    			$test = (in_array($var2, $passModel)) ? true : $this->e500();
 	    			if($test === true ) {
-	    				$passId = $this->validatorModel(__DIR__.'/../../data/'.$var2);
+	    				$passId = $this->validatorModel(__DIR__.'/../data/'.$var2);
 	    				return (in_array($var, $passId)) ? $var : $this->e500() ;
 	    			}
 	    			break;
@@ -86,7 +86,8 @@ class AdminValidator {
 	 * @return header
 	 */
 	function e500() {
-		header('HTTP/1.1 500 Internal Server Error');
+		print 'oups';
+		//header('HTTP/1.1 500 Internal Server Error');
 		//print_r(debug_backtrace());
 		exit;
 	}
