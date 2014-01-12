@@ -47,6 +47,50 @@ if(!is_dir(__DIR__.'/../data/'.$varsTpl)) {
 	mkdir(__DIR__.'/../data/'.$varsTpl, 0, true);
 }
 
+if(!file_exists(__DIR__.'/../actions/'.$varsTpl.'.actions.php')) {
+	$data = '<?php
+
+class '.ucfirst($varsTpl).'Handler {
+
+	private $modelName = "";
+	private $docId = "";
+
+    function __construct() {
+
+    	$app = new App();
+    	$infos = $app->getRouteInfos(\'/\');
+    	$this->modelName = $infos[\'model\'];
+    	$this->docId = $infos[\'id\'];
+
+    }
+
+    function get($name = null, $b = null) {
+
+    	$appActions = new Actions(); 
+
+		    if( defined(\'CACHE_FLAG\') ) { 
+		    	
+				$twig = $appActions->Twigloader();
+
+				$appActions->renderView($twig, $this->modelName,$this->docId);
+
+			}
+
+			if( defined(\'ADMIN\') ) { 
+				
+				$appActions->Admin($this->modelName); 
+		
+			}
+
+      
+    }
+}
+
+
+';
+	file_put_contents(__DIR__.'/../actions/'.$varsTpl.'.actions.php', $data);
+}
+
 // Sauvegarde du template dans un fichier
 file_put_contents($file, $data);
 print '----------------
