@@ -24,7 +24,7 @@ class AdminValidator {
 	    	switch ($name) {
 
 	    		case 'model':
-	    			$pass = $this->validatorModel(__DIR__.'/../../data');
+	    			$pass = $this->validatorModel(__DIR__.'/../../data'); 
 	    			return (in_array($var, $pass)) ? $var : $this->e500() ;
 	    			break;
 
@@ -87,6 +87,7 @@ class AdminValidator {
 	 */
 	function e500() {
 		header('HTTP/1.1 500 Internal Server Error');
+		//print_r(debug_backtrace());
 		exit;
 	}
 }
