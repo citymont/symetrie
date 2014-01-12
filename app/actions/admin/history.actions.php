@@ -1,7 +1,5 @@
 <?php
 
-require(__DIR__."/validator.php");
-
 class AdminHistoryHandler {
 
     function __construct() {
