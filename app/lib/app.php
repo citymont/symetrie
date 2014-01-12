@@ -3,19 +3,22 @@
  * Application
  */
 
-require_once(__DIR__."/admin/validator.php");
+require(__DIR__."/../../vendor/torophp/torophp/src/Toro.php");
+require(__DIR__."/cache.php");
+require(__DIR__."/actions.php");
+require(__DIR__."/validator.php");
 
-class App {
+class AppOrigin {
 
-	public $loginKey = "aa3261152486caad6c230b4b6d384361";
+	public $loginKey = "";
 
-	private $routes = array(
+	protected $routes = array(
 		    "/" => "IndexHandler",
 		    "/:alpha" => "IndexHandler",
 		    "/index/:alpha/:alpha" => "IndexHandler"
 		);
 
-	private $routesAdmin = array(
+	protected $routesAdmin = array(
 			"/admin/history" => "AdminHistoryHandler",
 		    "/admin/login" => "AdminLoginHandler",
 		    "/admin/logout" => "AdminLogoutHandler");
@@ -99,6 +102,79 @@ class App {
 		}
 
 		Toro::serve($routes);
+	}
+
+	public function startCache() {
+
+		ToroHook::add("before_handler", function($vars) { 
+
+			$appCache = new Cache(); 
+			
+			$cacheName = md5($_SERVER['REQUEST_URI']);
+			$cache = __DIR__.'/../storage/cache/'.$cacheName.'.cache.html';
+
+		    if($appCache->check_cache($cache) == true) {
+				readfile($cache);	 
+			}
+			else { 
+				define("CACHE_FLAG", true); 
+				$appCache->start();
+
+			}
+		});
+
+		ToroHook::add("after_handler", function() { 
+
+			if( defined('CACHE_FLAG') ) { 
+
+				$appCache = new Cache(); 
+				$cacheName = md5($_SERVER['REQUEST_URI']);
+				$cache = __DIR__.'/../storage/cache/'.$cacheName.'.cache.html';
+
+				$cachecontent = ob_get_contents();
+
+				$appCache->end($cache,$cachecontent);
+			}
+
+		});
+
+	}
+
+	public function startPrivateAdmin() {
+
+		ToroHook::add("before_request", function($vars) { 
+
+			if( isset($_GET['loginkey']) ) {
+				
+				// Test login page
+				$loginkeyTest = new App();
+				$loginkeyTest->testLoginUri("admin/login");
+				
+			} else {
+				$login = new App();
+				if( isset($_SESSION['role']) and isset($_SESSION['key'])) {
+					if ($_SESSION['role'] = 'ADMIN' and md5($_SESSION['key']) == $login->loginKey ) {
+
+					} else {
+						$login->error401();
+					}
+				} else {
+					$login->error401();
+				}
+		}
+			
+
+		});
+
+		ToroHook::add("before_handler", function($vars) { });
+
+		ToroHook::add("after_handler", function() { 
+
+			$app = new App();
+			print $app->getFlash();
+
+		});
+
 	}
 
 	public function error404() {
