@@ -3,7 +3,7 @@
  * Application
  */
 
-require(__DIR__."/../../vendor/torophp/torophp/src/Toro.php");
+require(__DIR__."/../../vendor/autoload.php");
 require(__DIR__."/cache.php");
 require(__DIR__."/actions.php");
 require(__DIR__."/validator.php");
@@ -91,7 +91,9 @@ class AppOrigin {
 	public function startRoutes() {
 
 		ToroHook::add("404", function() {
-		    $this->error404();
+		    header('HTTP/1.0 404 Not Found');
+    		echo "Not found"; 
+    		exit;  
 		});
 
 		$routes = $this->routes;
