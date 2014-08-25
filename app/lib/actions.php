@@ -9,7 +9,6 @@ class Actions {
 
 	function TwigAutoloader() {
 
-		require_once __DIR__.'/../../vendor/twig/twig/lib/Twig/Autoloader.php';
 		Twig_Autoloader::register();
 	}
 
@@ -18,12 +17,17 @@ class Actions {
 		$this->TwigAutoloader();
 
 		$loader = new Twig_Loader_Filesystem(array(__DIR__.'/../../app/views/')); // or dirname(__FILE__)
-		$twig = new Twig_Environment($loader, array(
-			'debug' => false,
-		    'cache' => __DIR__.'/../../app/storage/views', // to active the cache for template only
-		));
+		
+		$app = new App(); 
+		$twigC = array('debug' => false);
+		if ($app->cacheTwig === true) {
+			$twigC['cache'] = __DIR__.'/../../app/storage/views';
+		}
+
+		$twig = new Twig_Environment($loader, $twigC);
 		$twig->addExtension(new Twig_Extension_Debug());
 		$twig->addGlobal('conf',new TwigConf());
+		$twig->addGlobal('data',new TwigData());
 
 		return $twig;
 	}
@@ -51,6 +55,7 @@ class Actions {
 
 		// add globals variables
 		$twig->addGlobal('conf',new TwigConf());
+		$twig->addGlobal('data',new TwigData());
 		$app = new App(); 
 
 		echo $twig->render('model.html', array("admin"=>"no", "uri"=>$app->getRouteInfos(), "flash" => $app->getFlash()));
@@ -80,20 +85,31 @@ class Actions {
 		}
 	}
 
-	
-}
+	/**
+	 * renderViewExtended
+	 * @param  obj $engine    template engine
+	 * @param  string $modelName model name
+	 * @param  string $docId     doc name
+	 * @param  string $arrayData     array with Data
+	 * @return html            render teamplate + data
+	 */
+	public function renderViewExtended($engine, $modelName, $docId, $arrayData) {
 
-class TwigConf {
+		$file = __DIR__."/../data/".$modelName."".$docId."/choose.json"; // last file
 
-	/*public $vendor = "";
-	public $admin_conf_url = "";*/
-
-	function __construct(){
-
-		$a = new App();
-		$this->vendor = $a->viewsAssets;
-        $this->admin_conf_url = $a->viewsAdminConfUrl; 
-
+		try {
+			if (!file_exists($file)) {
+				throw new Exception('No data');
+			} else {
+				$json = file_get_contents($file);
+				// Render
+				echo $engine->render($modelName.'.html.twig', array_merge(json_decode($json, true),$arrayData));
+			}
+			
+		} catch (Exception $e) {
+			 echo 'Erreur : ' . $e->getMessage();
+		}
 	}
 
+	
 }

@@ -24,6 +24,7 @@ class App extends AppOrigin {
         
         // Cache Expire
         $this->cacheExpire = 0;
+        $this->cacheTwig = false;
 
     }
 
