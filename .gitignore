@@ -3,3 +3,5 @@ composer.lock
 /app/storage/cache/*
 /app/storage/views/*
 /vendor/
+/bower_components/
+/node_modules/
