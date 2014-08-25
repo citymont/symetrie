@@ -6,6 +6,7 @@
 require(__DIR__."/../../vendor/autoload.php");
 require(__DIR__."/cache.php");
 require(__DIR__."/actions.php");
+require(__DIR__."/actions_conf.php");
 require(__DIR__."/validator.php");
 
 class AppOrigin {
@@ -93,7 +94,7 @@ class AppOrigin {
 		ToroHook::add("404", function() {
 		    header('HTTP/1.0 404 Not Found');
     		echo "Not found"; 
-    		exit;  
+    		exit;
 		});
 
 		$routes = $this->routes;

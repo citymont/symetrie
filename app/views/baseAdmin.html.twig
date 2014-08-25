@@ -7,8 +7,8 @@
 	        <meta charset="utf-8">
 			<meta name="description" content="">
 
-			<link href="{{ conf.vendor }}css/style.css" rel="stylesheet">
-			<script src="{{ conf.vendor }}js/libs/head.min.js"></script>
+			<link href="{{ conf.assets_admin }}css/style.css" rel="stylesheet">
+			<script src="{{ conf.assets_admin }}js/libs/head.min.js"></script>
 	    </head>
 
         {% endblock %}
@@ -83,18 +83,18 @@
 
 			// Load required scripts.	
 			head.js( 
-				"{{ conf.vendor }}js/libs/jquery-1.10.2.min.js",
-				"{{ conf.vendor }}js/extra.js",
-				"{{ conf.vendor }}js/vendor/zenpen/js/editor.js",
-				"{{ conf.vendor }}js/libs/jquery.sidr.js",
+				"{{ conf.assets_admin }}js/libs/jquery-1.10.2.min.js",
+				"{{ conf.assets_admin }}js/extra.js",
+				"{{ conf.assets_admin }}js/vendor/zenpen/js/editor.js",
+				"{{ conf.assets_admin }}js/libs/jquery.sidr.js",
 	        	function(){
 	            	editor.init(extra.init());	    			
 	            }
 	        );
 	        head.load( 
-	        	"{{ conf.vendor }}css/vendor/zenpen/css/style.css",
-	        	"{{ conf.vendor }}css/editor.css",
-	        	"{{ conf.vendor }}css/sidr.dark.css"
+	        	"{{ conf.assets_admin }}css/vendor/zenpen/css/style.css",
+	        	"{{ conf.assets_admin }}css/editor.css",
+	        	"{{ conf.assets_admin }}css/sidr.dark.css"
 	        	);
 	        
         </script>

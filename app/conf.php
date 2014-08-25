@@ -7,7 +7,7 @@ class App extends AppOrigin {
 	public function __construct() 
     { 
         // Key login
-        $this->loginKey = "aa3261152486caad6c230b4b6d384361"; 
+        $this->loginKey = "5d933eef19aee7da192608de61b6c23d"; 
         
         // Routes
         $this->routes = array(
@@ -16,14 +16,30 @@ class App extends AppOrigin {
 		    "/index/:alpha/:alpha" => "IndexHandler"
 		);
 
-        // Twig Conf
-        $this->viewsAssets = "/";
-        $this->viewsAdminConfUrl = "/admin.php/admin/"; 
-
+        // Twig Conf Assets
+        $this->assets = "/assets/";
+        $this->adminAssets = "/assets/admin/";
+        $this->adminConfUrl = "/admin.php/admin/";
+        // TwigCustom
+        
         // Cache Expire
         $this->cacheExpire = 0;
 
     }
 
+
+}
+
+class TwigData extends TwigDataOrigin {
+
+    function __construct(){
+
+        // Twig App Variables
+        // https://gist.github.com/whitingx/3840905
+        $this->meta_title = "";
+        $this->meta_description = "single page editor";
+        $this->meta_language = "";
+
+    }
 
 }
