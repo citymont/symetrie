@@ -15,8 +15,8 @@ class Cache {
 	
 	function check_cache($cache){
 		$a = new App();
-
-		if(is_file($cache) && filemtime($cache) >= mktime(date("G"),(int)date("i")-$a->cacheExpire,date("s"),date("m"),date("d"),date("Y"))) {
+		clearstatcache();
+		if(($a->cacheExpire!=0) && is_file($cache) && filemtime($cache) >= mktime(date("G"),(int)date("i")-$a->cacheExpire,date("s"),date("m"),date("d"),date("Y"))) {
 			return true;
 		}
 		else {
