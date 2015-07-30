@@ -1,0 +1,10 @@
+{% extends "base.html.twig" %}
+{% block content %}
+<div class="start-container">
+	<h1>Liste des pages</h1>
+	<ul>
+	{% for key in conf.get_routes|keys %}
+	        <li><a href="{{ conf.admin_conf_base }}{{ key }}">{{ key }}</a></li>
+	    {% endfor %}
+	</ul>
+</div>{% endblock %}

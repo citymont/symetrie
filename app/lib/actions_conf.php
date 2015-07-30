@@ -14,7 +14,9 @@ class TwigConf {
 		$a = new App();
 		$this->assets = $a->assets;
 		$this->assets_admin = $a->adminAssets;
-        $this->admin_conf_url = $a->adminConfUrl; 
+		$this->admin_conf_base = $a->adminConfBase;  
+        $this->admin_conf_url = $a->adminConfBase.'/admin/';
+        $this->get_routes = $a->getRoutes();
 
 	}
 

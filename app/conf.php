@@ -7,19 +7,19 @@ class App extends AppOrigin {
 	public function __construct() 
     { 
         // Key login
-        $this->loginKey = "5d933eef19aee7da192608de61b6c23d"; 
-        
+        $this->loginKey = "$2y$12$7eVYMvmhlCUTjTviJ07OxOd6DKCGRXT7mGtz5DETM/zKzOD.Ufe6a"; 
+
         // Routes
         $this->routes = array(
 		    "/" => "IndexHandler",
-		    "/uuuu/:alpha" => "IndexHandler",
-		    "/index/:alpha/:alpha" => "IndexHandler"
+		    //"/uuuu/:alpha" => "IndexHandler",
+		    //"/index/:alpha/:alpha" => "IndexHandler"
 		);
 
         // Twig Conf Assets
-        $this->assets = "/assets/";
-        $this->adminAssets = "/assets/admin/";
-        $this->adminConfUrl = "/admin.php/admin/";
+        $this->assets = "/public/assets/";
+        $this->adminAssets = "/public/assets/admin/";
+        $this->adminConfBase = "/public/admin.php";
         // TwigCustom
         
         // Cache Expire

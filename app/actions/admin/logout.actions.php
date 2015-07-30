@@ -15,16 +15,20 @@ class AdminLogoutHandler {
 
     function get() {
     	
-		if ( $_SESSION['key'] ) {
+		if ( isset($_SESSION['key']) ) {
 
 			unset($_SESSION['key']); 
 			unset($_SESSION['role']); 
 			unset($_SESSION);
-			header('Location: ../index');
-			exit;
+			session_unset();
+    		session_destroy();
+
+			print 'Bye Bye';
 
 		} else {
-			print 'Already loggout';
+			
+			print 'Bye Bye';
+			
 		}
       
     }

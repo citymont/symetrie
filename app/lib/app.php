@@ -22,6 +22,7 @@ class AppOrigin {
 	protected $routesAdmin = array(
 			"/admin/history" => "AdminHistoryHandler",
 		    "/admin/login" => "AdminLoginHandler",
+		    "/admin/start" => "AdminStartHandler",
 		    "/admin/logout" => "AdminLogoutHandler");
 
 	/**
@@ -146,27 +147,26 @@ class AppOrigin {
 	public function startPrivateAdmin() {
 
 		ToroHook::add("before_request", function($vars) { 
+			
+			$loginkeyTest = new App();
 
-			if( isset($_GET['loginkey']) ) {
-				
-				// Test login page
-				$loginkeyTest = new App();
-				$loginkeyTest->testLoginUri("admin/login");
-				
-			} else {
-				$login = new App();
-				if( isset($_SESSION['role']) and isset($_SESSION['key'])) {
-					if ($_SESSION['role'] = 'ADMIN' and md5($_SESSION['key']) == $login->loginKey ) {
+			$v = $loginkeyTest->testLoginUri();
+			if($v == "admin/login" OR $v == "admin/logout") {
+					
+			} else { 
+					$login = new App();
+					if( isset($_SESSION['role']) and isset($_SESSION['key'])) {
+						if ($_SESSION['role'] = 'ADMIN' and $this->passwordCheck($_SESSION['key'], $loginkeyTest->loginKey) ) {
 
-					} else {
+						} else { 
+							$login->error401();
+						}
+					} else { 
 						$login->error401();
 					}
-				} else {
-					$login->error401();
-				}
-		}
-			
+			}
 
+		
 		});
 
 		ToroHook::add("before_handler", function($vars) { });
@@ -192,6 +192,11 @@ class AppOrigin {
 		exit;  
 	}
 
+	public function errorGoToLogin() {
+		header('Location: admin/login');
+		exit;  
+	}
+
 	public function setFlash($text) {
 
 		$_SESSION['flash'] = array();
@@ -212,6 +217,12 @@ class AppOrigin {
 	
 		
 	}
+
+	public function getRoutes(){
+		
+		return $this->routes;
+	
+	}
 	/**
 	 * Test URI for login
 	 * @param  string $loginRoute login route
@@ -220,10 +231,24 @@ class AppOrigin {
 
 		$serv = $_SERVER['REQUEST_URI']; 
 		$a =explode("admin.php/", $serv);
-		$b =explode("?", $a[1]);
-		if($b[0] != $loginRoute) {
-			$this->error401();
-		}
+		$b =explode("?", $a[1]); 
+		//if($b[0] != $loginRoute) {
+			//$this->error401();
+			return $b[0];
+		//}
 
+	}
+
+	/**
+	 * Password checking
+	 * @param  boolean	true/false
+	 */
+	public function passwordCheck($value,$hash) {
+
+		/* Choose hash related to your php version */
+		/* if PHP >= 5.5 */
+		return password_verify($value, $hash);
+		/* if PHP < 5.5 */
+		//return (md5($value) == $hash);
 	}
 }

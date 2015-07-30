@@ -86,6 +86,23 @@ class Actions {
 	}
 
 	/**
+	 * renderViewStatic
+	 * @param  obj $engine    template engine
+	 * @param  string $modelName model name
+	 * @return html            render teamplate + data
+	 */
+	public function renderViewStatic($engine, $modelName) {
+
+		try {
+			$app = new App();
+			echo $engine->render($modelName.'.html.twig');
+
+		} catch (Exception $e) {
+			 echo 'Erreur : ' . $e->getMessage();
+		}
+	}
+
+	/**
 	 * renderViewExtended
 	 * @param  obj $engine    template engine
 	 * @param  string $modelName model name
