@@ -13,9 +13,18 @@ $ php app/commands/install.php
 $ php app/commands/parser.php index (init the first model)
 ```
 
+## Start
+
+Login to edit page :  /public/admin.php/admin/login
+
+Edit default page :  /public/admin.php/
+
+Show default page :  /public/index.php/
+
 ## Dependencies
 1. Twig
-2. ToroPHP
+2. ToroPHP (PHP >= 5.3)
+3. PHP >= 5.5.0 (for Password Hashing API)
 
 ## Licence
 
@@ -33,6 +42,7 @@ app/
         page.php    - add document to a collection
         parser.php  - write template file from model
         cache.php   - clear cache
+        generatepwd.php    - generate admin password
 
     data/
         (modelname)
