@@ -1,6 +1,6 @@
 {
     "require": {
         "torophp/torophp": "dev-master",
-        "twig/twig": "1.16.*@dev"
+        "twig/twig": "1.18.*"
     }
 }
