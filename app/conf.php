@@ -20,27 +20,15 @@ class App extends AppOrigin {
         $this->assets = "/public/assets/";
         $this->adminAssets = "/public/assets/admin/";
         $this->adminConfBase = "/public/admin.php";
-        // TwigCustom
-        
+
+        // Dev Mode : model autoparser
+        $this->devMode = true;
+
         // Cache Expire
         $this->cacheExpire = 0;
         $this->cacheTwig = false;
 
     }
 
-
-}
-
-class TwigData extends TwigDataOrigin {
-
-    function __construct(){
-
-        // Twig App Variables
-        // https://gist.github.com/whitingx/3840905
-        $this->meta_title = "";
-        $this->meta_description = "single page editor";
-        $this->meta_language = "";
-
-    }
 
 }

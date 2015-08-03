@@ -251,4 +251,9 @@ class AppOrigin {
 		/* if PHP < 5.5 */
 		//return (md5($value) == $hash);
 	}
+
+	public function devModeAutoParser($model) {
+		require(__DIR__.'/../commands/parser.php');
+    	initParser($model,false);
+	}
 }

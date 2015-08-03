@@ -1,4 +1,3 @@
-#!/usr/bin/php
 <?php 
 /**
  * CLI : $ php app/commands/parser.php index
@@ -8,16 +7,22 @@
 
 require(__DIR__.'/../lib/simple_html_dom.php');
 
-
 if ( isset($_SERVER['argv']) ) {
 	// variable command line
 	$vars = $_SERVER['argv'];
 	$varsTpl = $vars[1];
+	initParser($varsTpl,true);
+}
 
-} else {
+if (isset($_GET['model'])) {
 	// variable URI
 	$varsTpl = $_GET['model'];
+	initParser($varsTpl,true);
 }
+
+
+function initParser($varsTpl,$result) {
+
 // Create DOM from HTML PAGE
 $html = file_get_html(__DIR__.'/../model/'.$varsTpl.'.editable.html');
 
@@ -93,10 +98,17 @@ class '.ucfirst($varsTpl).'Handler {
 
 // Sauvegarde du template dans un fichier
 file_put_contents($file, $data);
-print '----------------
 
-';
-print 'Generation du Template  : '.$varsTpl.' ';
-print '
+if($result) {
 
-----------------';
+	print '----------------
+
+	';
+	print 'Generation du Template  : '.$varsTpl.' ';
+	print '
+
+	----------------';
+		
+	}
+
+}
