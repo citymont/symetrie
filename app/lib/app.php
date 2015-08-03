@@ -156,7 +156,7 @@ class AppOrigin {
 			} else { 
 					$login = new App();
 					if( isset($_SESSION['role']) and isset($_SESSION['key'])) {
-						if ($_SESSION['role'] = 'ADMIN' and $this->passwordCheck($_SESSION['key'], $loginkeyTest->loginKey) ) {
+						if ($_SESSION['role'] = 'ADMIN' and $loginkeyTest->passwordCheck($_SESSION['key'], $loginkeyTest->loginKey) ) {
 
 						} else { 
 							$login->error401();
