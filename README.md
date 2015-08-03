@@ -26,6 +26,11 @@ Show default page :  /public/index.php/
 2. ToroPHP (PHP >= 5.3)
 3. PHP >= 5.5.0 (for Password Hashing API)
 
+## Extras
+1. [Vagrant Box Symétrie](https://github.com/citymont/symetrie-vagrant)
+2. [Frontpack for Symétrie (Grunt, bootstrap)](https://github.com/citymont/symetrie-bootstrap)
+
+
 ## Licence
 
 MIT

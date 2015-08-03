@@ -13,7 +13,6 @@ class IndexHandler {
     	$this->docId = $infos['id'];
 
     	if($app->devMode) $app->devModeAutoParser($infos['model']);
- 
     	
     }
 
