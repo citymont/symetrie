@@ -22,11 +22,34 @@ class TwigConf {
 
 }
 
-class TwigDataOrigin {
+class TwigData {
 
 	function __construct(){
+
+		foreach ($this->getData('data') as $key => $data) {
+			$this->{$key} = $data;
+		}
 
 
 	}
 
+	function getData($datafile) {
+ 
+    	$file = __DIR__."/../data/_".$datafile.".json"; // custom file
+ 
+    	try {
+			if (!file_exists($file)) {
+				throw new Exception('No readfile');
+			} else {
+				$json2 = file_get_contents($file);
+				return json_decode($json2, true);
+			}
+			
+		} catch (Exception $e) {
+			 echo 'Erreur getdata() : ' . $e->getMessage();
+		}
+ 
+    }
+
 }
+
