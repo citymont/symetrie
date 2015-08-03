@@ -67,6 +67,8 @@ class '.ucfirst($varsTpl).'Handler {
     	$this->modelName = $infos[\'model\'];
     	$this->docId = $infos[\'id\'];
 
+    	if($app->devMode) $app->devModeAutoParser($infos[\'model\']);
+
     }
 
     function get($name = null, $b = null) {
