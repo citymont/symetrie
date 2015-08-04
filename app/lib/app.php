@@ -232,25 +232,31 @@ class AppOrigin {
 		$serv = $_SERVER['REQUEST_URI']; 
 		$a =explode("admin.php/", $serv);
 		$b =explode("?", $a[1]); 
-		//if($b[0] != $loginRoute) {
-			//$this->error401();
-			return $b[0];
-		//}
+
+		return $b[0];
 
 	}
 
-	/**
-	 * Password checking
-	 * @param  boolean	true/false
-	 */
-	public function passwordCheck($value,$hash) {
+    /**
+     * Password checking
+     * @param  boolean  true/false
+     */
+    public function passwordCheck($value,$hash) {
 
-		/* Choose hash related to your php version */
-		/* if PHP >= 5.5 */
-		return password_verify($value, $hash);
-		/* if PHP < 5.5 */
-		//return (md5($value) == $hash);
-	}
+        if (version_compare(phpversion(), '5.5.0', '<')) {
+            
+            /* if PHP < 5.5 */
+            return (md5($value) == $hash);
+
+        } else {
+
+            /* if PHP >= 5.5 */
+            return password_verify($value, $hash);
+
+        }
+        
+    }
+
 
 	public function devModeAutoParser($model) {
 		require(__DIR__.'/../commands/parser.php');

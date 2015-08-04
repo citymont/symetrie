@@ -1,20 +1,37 @@
 <?php 
 /**
- * CLI : $ php app/commands/generatepwd.php 
- * URI : /app/commands/generatepwd.php
+ * CLI : $ php app/commands/generatepwd.php xxx 
+ * URI : /app/commands/generatepwd.php?pwd=xxx
  *
  * Paste the result on conf.php $this->loginKey
  * 
  */
 
-/* if PHP >= 5.5 */
-$options = [
-    'cost' => 12,
-];
+if ( isset($_SERVER['argv']) ) {
+	// variable command line
+	$vars = $_SERVER['argv'];
+	$varsPwd = $vars[1];
+}
 
-print password_hash("admin", PASSWORD_BCRYPT, $options);
+if (isset($_GET['model'])) {
+	// variable URI
+	$varsPwd = $_GET['pwd'];
+}
 
-/* if PHP < 5.5 */
-/* 
-print md5("admin");
-*/
+if(empty($varsPwd)) return print 'error';
+
+if (version_compare(phpversion(), '5.5.0', '<')) {
+	
+	/* if PHP < 5.5 */
+	print md5($varsPwd);
+
+} else  {  
+	
+	/* if PHP >= 5.5 */
+	$options = [
+    	'cost' => 12,
+	];
+
+	print password_hash($varsPwd, PASSWORD_BCRYPT, $options);
+
+}
