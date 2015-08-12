@@ -1,0 +1,56 @@
+	<div class="sym-editor">
+    	<div class="overlay">
+
+		</div>
+
+		<div class="text-options">
+			<div class="options">
+				<span class="no-overflow">
+					<span class="lengthen ui-inputs">
+						<button class="url">url</button>
+						<input class="url-input" type="text" placeholder="Type or Paste URL here"/>
+						<button class="bold">b</button>
+						<button class="italic">i</button>
+						<button class="quote">&rdquo;</button>
+						<button class="html">&lt;/&gt;</button>
+					</span>
+				</span>
+			</div>
+		</div>
+
+		<div class="ui menu-ui">
+
+			<div class="wrapper">
+				<span class="logo">Symétrie</span>
+				<div class="top editing">
+					
+					
+
+					<button class="saveDoc" title="SaveDoc Text">
+						SAVE
+					</button>
+					
+					<button class="undo" title="SaveDoc Text">
+						UNDO
+					</button>
+					<button class="saveDocPublish" title="SaveDoc Text">
+						PUBLISH
+					</button>
+				</div>
+
+				<div id="extra-menu" class="extra-menu">
+					<div class="sym-logout"><a href="{{ conf.admin_conf_url }}logout">Logout</a></div>
+					<b>Model</b> : <span id="extra-menu-model"></span> <a href="{{ conf.admin_conf_url }}start">change</a>
+				  	<br>
+				  	<b>Page</b> : <span id="extra-menu-page">index</span>
+					<br><br>
+				  	<b>Content History</b>
+				  	<span id="extra-menu-history"></span>
+				</div>
+
+	
+			</div>
+			<div class="menu-ui-overlay"></div>
+		</div>
+
+	</div>

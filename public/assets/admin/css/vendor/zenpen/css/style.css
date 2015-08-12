@@ -6,7 +6,7 @@
  * Copyright (C) Tim Holman, http://tholman.com
  */
 
-.no-overflow {
+.sym-editor .no-overflow {
 	overflow: hidden;
 	display: block;
 	height: 100%;
@@ -14,13 +14,13 @@
 }
 
 /* Used by the ui bubble to stop wrapping */
-.lengthen {
+.sym-editor .lengthen {
 	display: block;
 	width: 300px;
 	height: 100%;
 }
 
-.ui {
+.sym-editor .ui {
 	position: fixed;
 	padding: 20px;
 	width: 167px;
@@ -30,15 +30,15 @@
 	height: 40px;
 }
 
-.ui:hover button {
+.sym-editor .ui:hover button {
 	opacity: 0.4;
 }
 
-.ui button:hover {
+.sym-editor .ui button:hover {
 	opacity: 1;
 }
 
-.text-options button {
+.sym-editor .text-options button {
 
 	-webkit-transition: opacity 400ms;
 	-moz-transition: opacity 400ms;
@@ -57,19 +57,19 @@
 	width: 25px;
 	border: 0px;
 }
-.text-options button.html {
+.sym-editor .text-options button.html {
 	font-size: 15px;
 }
-a {
+.sym-editor a {
 	text-decoration: none;
 	color: deepskyblue;
 }
 
-a:hover {
+.sym-editor a:hover {
 	text-decoration: underline;
 }
 
-.quote {
+.sym-editor .quote {
 	line-height: 60px !important;
 	font-size: 49px !important;
 }
@@ -80,7 +80,7 @@ a:hover {
  * UI BUBBLE
  *********************************************/
 
-.text-options {
+.sym-editor .text-options {
 
 	-webkit-transition: opacity 250ms, margin 250ms;
 	-moz-transition: opacity 250ms, margin 250ms;
@@ -99,17 +99,17 @@ a:hover {
 	opacity: 0;
 }
 
-.text-options.fade {
+.sym-editor .text-options.fade {
 	opacity: 0;
 	margin-top: -5px;
 }
 
-.text-options.active {
+.sym-editor .text-options.active {
 	opacity: 1;
 	margin-top: 0px;
 }
 
-.options {
+.sym-editor .options {
 	background-color: rgba(0,0,0,0.9);
 	position: absolute;
 	border-radius: 5px;
@@ -126,23 +126,23 @@ a:hover {
 	transition: all 300ms ease-in-out;
 }
 
-.options.url-mode {
+.sym-editor .options.url-mode {
 	width: 275px;
 	margin-left: -137px;
 }
 
-.options.url-mode .bold, .options.url-mode .italic, .options.url-mode .quote {
+.sym-editor .options.url-mode .bold, .sym-editor .options.url-mode .italic, .sym-editor .options.url-mode .quote {
 	width: 0px;
 	overflow: hidden;
 	margin-right: 0px;
 	opacity: 0;
 }
 
-.options .italic {
+.sym-editor .options .italic {
 	font-style: italic;
 }
 
-.options button {
+.sym-editor .options button {
 	-webkit-transition: all 250ms ease-in-out;
 	-moz-transition: all 250ms ease-in-out;
 	-ms-transition: all 250ms ease-in-out;
@@ -158,14 +158,14 @@ a:hover {
 	font-family: 'Lora', serif;
 }
 
-.options.url-mode input{
+.sym-editor .options.url-mode input{
 	border-left: 2px solid transparent;
 	padding-right: 5px;
 	padding-left: 5px;
 	width: 236px;
 }
 
-.options input {
+.sym-editor .options input {
 	-webkit-transition: all 300ms ease-in-out;
 	-moz-transition: all 300ms ease-in-out;
 	-ms-transition: all 300ms ease-in-out;
@@ -183,17 +183,17 @@ a:hover {
 	width: 0px;
 }
 
-.options button.active {
+.sym-editor .options button.active {
 	background-color: rgba(255,255,255,0.4);
 	opacity: 1;
 }
 
 
-.options button:hover {
+.sym-editor .options button:hover {
 	opacity: 0.95;
 }
 
-.options:before {
+.sym-editor .options:before {
 	content: "";
 	border-top: 5px solid rgba(0,0,0,0.9);
 	border-bottom: 5px solid transparent;
@@ -207,21 +207,21 @@ a:hover {
 	left: 50%;
 }
 
-.url {
+.sym-editor .url {
 	-webkit-font-smoothing: antialiased;
 }
 
-.top {
+.sym-editor .top {
 	position: absolute;
 	top: 0px;
 }
 
-.bottom {
+.sym-editor .bottom {
 	position: absolute;
 	bottom: 0px;
 }
 
-.wrapper {
+.sym-editor .wrapper {
 	position: relative;
 	height: 100%;
 }

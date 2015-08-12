@@ -61,8 +61,9 @@ class AdminLoginHandler {
 		} else if ($loginkey) {
 			$appActions = new Actions(); 
 		    $twig = $appActions->Twigloader();
+		    $app->setFlash('Unknown password');
 			$appActions->renderViewStatic($twig, $this->modelName);
-			$app->setFlash('Unknown password');
+			
 		}
 
 

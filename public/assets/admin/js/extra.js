@@ -23,9 +23,38 @@ var extra = (function() {
 		saveUndoElement = document.querySelector( '.undo' );
 		saveUndoElement.onclick = onUndo;
 
-		$('#simple-menu').sidr({side: 'right'});
-		$('#simple-menu').on('mouseover', getJsonHistory());
+		$('.ui.menu-ui .wrapper .logo').on('mouseover', getJsonHistory());
+		$('.ui.menu-ui .wrapper .logo').on('click', function() { 
+			
+			if($(this).hasClass('active')) {
+				$(this).removeClass('active');
+				$('.ui.menu-ui .wrapper').css({'right':'0px'});
+				menuResize();
+			} else {
+				$(this).addClass('active');
+				$('.ui.menu-ui .wrapper').css({'right':'300px'});
+				$('.menu-ui-overlay').css({'width':'400px', 'height':'100%'});
+			}
+			
+		});
 
+	}
+
+	function menuResize() {
+		if($('.saveDoc').hasClass('sym-display') ) { 
+			var heightOverlay = '150px'} 
+		else {
+			heightOverlay = '40px';
+		}
+
+		if($('.ui.menu-ui .wrapper .logo').hasClass('active')) {
+			var widthOverlay = '400px';
+			var heightOverlay = '100%'} 
+		else {
+			widthOverlay = '100px';
+		}
+
+		$('.menu-ui-overlay').css({'width':widthOverlay, 'height':heightOverlay});
 	}
 
 	/* Find element editable and options */
@@ -134,7 +163,7 @@ var extra = (function() {
 	function onSaveDoc( event ) {
 		var classNames = $(event.target).attr('class');
 		
-		var publishState = (classNames == "saveDoc") ? false : true;
+		var publishState = (classNames == "saveDocPublish sym-display") ? true : false;
 
 		var request = $.ajax({
 			url: Conf.url +"history",
@@ -145,8 +174,12 @@ var extra = (function() {
 
 		request.done(function( msg ) {
 			console.log( msg );
-			$('.saveDoc').css({color:'black'});
-			$('.saveDocPublish').show();
+			$('.saveDoc, .undo').removeClass('sym-display');
+			if(!publishState) { 
+				$('.saveDocPublish').addClass('sym-display'); 
+			} else { 
+				$('.saveDocPublish').removeClass('sym-display'); 
+			}
 			// get new history
 			getJsonHistory();
 			// clear quit
@@ -188,8 +221,8 @@ var extra = (function() {
 
 	function getJsonHistory() { 
 
-		$("#sidr-model").html(Conf.model);
-		if (Conf.id) { $("#sidr-page").html(Conf.id); };
+		$("#extra-menu-model").html(Conf.model);
+		if (Conf.id) { $("#extra-menu-page").html(Conf.id); };
 		
 		$.ajax({
 			url: Conf.url +"history",
@@ -198,16 +231,20 @@ var extra = (function() {
 			dataType: "html"
 			}).done(function( msg ) {
 
-				$("#sidr-history").html( msg );
-				$("#sidr-history li").on('click',function() {
-					loadHistoryData($(this).html());
+				$("#extra-menu-history").html( msg );
+				$("#extra-menu-history li").on('click',function() {
+					loadHistoryData($(this).attr('data-val'));
+					$("#extra-menu-history li").removeClass('active');
+					$(this).addClass('active');
+					$('.saveDocPublish').addClass('sym-display'); 
 			    });
 
 		});
 	}
 
 	return {
-		init: init
+		init: init,
+		menuResize : menuResize
 	};
 
 

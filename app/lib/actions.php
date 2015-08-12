@@ -45,12 +45,14 @@ class Actions {
 		$model .= file_get_contents(__DIR__."/../../app/model/".$modelName.".editable.html");
 		$model .= '{% endblock %}';
 
+		$loaderFiles = new Twig_Loader_Filesystem(array(__DIR__.'/../../app/views/')); // or dirname(__FILE__)
+		
 		$loader = new Twig_Loader_Array(array(
 				'baseAdmin.html.twig' => file_get_contents(__DIR__."/../../app/views/baseAdmin.html.twig"),
 				'model.html' => $model,
 		));
 
-		$loader = new Twig_Loader_Chain(array($loader));
+		$loader = new Twig_Loader_Chain(array($loader, $loaderFiles));
 		$twig = new Twig_Environment($loader);
 
 		// add globals variables
@@ -95,7 +97,7 @@ class Actions {
 
 		try {
 			$app = new App();
-			echo $engine->render($modelName.'.html.twig');
+			echo $engine->render($modelName.'.html.twig', array("flash" => $app->getFlash()));
 
 		} catch (Exception $e) {
 			 echo 'Erreur : ' . $e->getMessage();

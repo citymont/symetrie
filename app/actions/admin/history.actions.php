@@ -28,10 +28,17 @@ class AdminHistoryHandler {
 			$files = scandir($dossier, 1);
 
 			$output ="<ul>";
+			$i = 0;
 
 			foreach ($files as $value) {
+			
+				$time = explode('.',$value);
 				if($value === '.' || $value === '..' || $value === 'choose.json') {continue;} 
-				$output .= "<li>".$value."</li>";
+				$output .= "<li data-val='".$value."'>".date('d/m/Y h:m:s',$time[0])."</li>";
+				
+				$i++;
+				if($i == 25) break;
+			
 			}
 
 			$output .="</ul>";

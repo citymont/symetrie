@@ -234,7 +234,9 @@ var editor = (function() {
 		for (var i = allElements.length - 1; i >= 0; i--) {
 			localStorage[preState(allElements[i])] = allElementsField[i].innerHTML.trim();
 		};
-		$('.saveDoc').css({color:'red'});
+		$('.saveDocPublish').removeClass('sym-display');
+		$('.saveDoc, .undo').addClass('sym-display');
+		extra.menuResize();
 
 		window.onbeforeunload = function (e) {
 			  var message = "Save your changes before quit !",

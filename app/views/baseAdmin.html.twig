@@ -2,77 +2,21 @@
 <html>
     <head>
         {% block head %}
-            <head>
-			<title>Symétrie EDITOR</title>
-	        <meta charset="utf-8">
-			<meta name="description" content="">
-
-			<link href="{{ conf.assets_admin }}css/style.css" rel="stylesheet">
-			<script src="{{ conf.assets_admin }}js/libs/head.min.js"></script>
-	    </head>
-
+        {% include 'main/header.tpl.html' %}
+        <link href="{{ conf.assets_admin }}css/editor.css" rel="stylesheet">
+		<script src="{{ conf.assets_admin }}js/libs/head.min.js"></script>
         {% endblock %}
     </head>
     <body>
-    	<div class="overlay">
-
-		</div>
-
-		<div class="text-options">
-			<div class="options">
-				<span class="no-overflow">
-					<span class="lengthen ui-inputs">
-						<button class="url">url</button>
-						<input class="url-input" type="text" placeholder="Type or Paste URL here"/>
-						<button class="bold">b</button>
-						<button class="italic">i</button>
-						<button class="quote">&rdquo;</button>
-						<button class="html">&lt;/&gt;</button>
-					</span>
-				</span>
-			</div>
-		</div>
-
-		<div class="ui">
-
-			<div class="wrapper">
-
-				<div class="top editing">
-					
-					<button class="" id="simple-menu" >
-						MENU
-					</button>
-
-					<button class="saveDoc" title="SaveDoc Text">
-						SAVE
-					</button>
-					<button class="saveDocPublish" title="SaveDoc Text" style="display:none;">
-						PUBLISH
-					</button>
-					<button class="undo" title="SaveDoc Text">
-						UNDO
-					</button>
-				</div>
-
-	
-			</div>
-		</div>
-
-
-		<div id="sidr" class="sidr">
-		  	Model : <span id="sidr-model"></span>
-		  	<br>
-		  	Page : <span id="sidr-page">index</span>
-			<br><br>
-		  	History
-		  	<span id="sidr-history"></span>
-		</div>
+    	{% include 'admin/editorControls.html.twig' %}
 
         {% block content %}
 
         {% endblock %}
 
-        {{ flash }}
+        {% if flash is empty %}{% else %}
+		<div class="sym-flash">{{ flash }}</div>
+		{% endif %}
 
 		<script type="text/javascript">
 		var Conf = Conf || {};
@@ -81,21 +25,20 @@
 			Conf.model = "{{ uri['model'] }}";
 			Conf.id = "{{ uri['id'] }}";
 
+			// Load CSS
+			head.load( 
+	        	"{{ conf.assets_admin }}css/vendor/zenpen/css/style.css"
+	        );
 			// Load required scripts.	
 			head.js( 
 				"{{ conf.assets_admin }}js/libs/jquery-1.10.2.min.js",
 				"{{ conf.assets_admin }}js/extra.js",
 				"{{ conf.assets_admin }}js/vendor/zenpen/js/editor.js",
-				"{{ conf.assets_admin }}js/libs/jquery.sidr.js",
 	        	function(){
 	            	editor.init(extra.init());	    			
 	            }
 	        );
-	        head.load( 
-	        	"{{ conf.assets_admin }}css/vendor/zenpen/css/style.css",
-	        	"{{ conf.assets_admin }}css/editor.css",
-	        	"{{ conf.assets_admin }}css/sidr.dark.css"
-	        	);
+	        
 	        
         </script>
     </body>
