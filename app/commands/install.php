@@ -10,18 +10,18 @@ print '----------------
 
 ';
 if(!is_dir(__DIR__.'/../storage/')) {
-	mkdir(__DIR__.'/../storage/');
+	mkdir(__DIR__.'/../storage/',0777, true);
 }
 
 if(!is_dir(__DIR__.'/../storage/cache/')) {
-	mkdir(__DIR__.'/../storage/cache/');
+	mkdir(__DIR__.'/../storage/cache/',0777, true);
 
 print '
 Cache : OK
 ';
 } 
 if(!is_dir(__DIR__.'/../storage/views/')) {
-	mkdir(__DIR__.'/../storage/views/');
+	mkdir(__DIR__.'/../storage/views/',0777, true);
 	
 print '
 Cache Views : OK
