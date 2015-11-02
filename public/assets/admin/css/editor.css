@@ -450,6 +450,7 @@ body.ready {
   left: inherit;
   height: 100%;
   opacity:1;
+  z-index:1000;
 }
 
 .sym-editor .ui.menu-ui .menu-ui-overlay {
