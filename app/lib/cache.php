@@ -33,7 +33,11 @@ class Cache {
 	function end($cache,$cachecontent) {
 		
 		ob_end_clean();
-
+		
+		foreach(glob(__DIR__.'/../storage/cache/' . '/*') as $file) {
+        		unlink($file);
+    		}
+    	
 		file_put_contents($cache,$cachecontent);
 
 		readfile($cache);
