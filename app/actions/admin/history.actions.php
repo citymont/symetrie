@@ -97,6 +97,10 @@ class AdminHistoryHandler {
 			}
 
 			file_put_contents($fileIndex, $data);
+			
+			// Clean all cache
+			$cache = new Cache();
+			$cache->clearCacheAll();
 		}
     }
 
