@@ -5,10 +5,12 @@ var extra = (function() {
 	// DOM elements
 	var allElements = [];
 	var allElementsField = [];
+	var urlUpload = '/public/contents/';
 
 	function init() {
 
 		bindElements();
+		createUplaodDiv();
 		loadHistoryData('choose.json', $('body').addClass('ready'));
 
 		return findElementsEditable();
@@ -68,17 +70,37 @@ var extra = (function() {
 			allElements.push('.' + className);
 			allElementsField.push(document.querySelector( '.' + className ));
 
-			if($(this).data('type') =="oneline") {
+			if($(this).data('type') =="image") {
+				
+				// Only for image field
 				document.querySelector('.' + className).onkeypress = onelineKeyPress;
-			}
-			editorContentOption($(this),className);
-			editorContentFocusable($(this));
 
-			var localV = (localStorage[className]) ? localStorage[className] : '' ; 
-			if ( $(this).text().trim() === '' && localV.trim() === '' || localV.trim() === '&nbsp;') {
-				$(this).addClass('empty');
-			}
+				$(this).on('click', function(event) {
+					event.preventDefault();
+					
+					var infoSize = $(this).attr('data-size');
+					setTargetImage($(this).attr('class'));
 
+					$('.uploadInner span').remove();
+					$('.uploadInner').append('<span>Format demandé : '+infoSize+'px </span>');
+					$('.uploadInner').show();
+					$('.uploadOverlay').show();
+				});
+
+			} else {
+
+				if($(this).data('type') =="oneline") {
+					document.querySelector('.' + className).onkeypress = onelineKeyPress;
+				}
+
+				editorContentOption($(this),className);
+				editorContentFocusable($(this));
+
+				var localV = (localStorage[className]) ? localStorage[className] : '' ; 
+				if ( $(this).text().trim() === '' && localV.trim() === '' || localV.trim() === '&nbsp;') {
+					$(this).addClass('empty');
+				}
+			}
 			
 		});
 
@@ -108,7 +130,7 @@ var extra = (function() {
 	}
 
 	function editorContentFocusable ( target ){
-		target.on('click', function(event) {
+		target.on('click', function(event) { 
 			event.preventDefault();
 			target.focus();
 		});
@@ -242,9 +264,55 @@ var extra = (function() {
 		});
 	}
 
+	function setTargetImage(value) {
+		targetImage = value;
+	}
+
+	function getTargetImage() {
+		return targetImage;
+	}
+
+	function createUplaodDiv() {
+
+		var $uploadClose = $( "<div id='uploadClose'>X</div>" ),
+			$uploadFunc = $('<div class="dropzone" id="dropzone-area"/>');
+			$uploadInner = $( "<div class='uploadInner'><h2>UPLOAD IMAGE</h2></div>" ),
+			$uploadOverlay = $( "<div class='uploadOverlay'></div>" );
+			
+			$uploadOverlay.add($uploadClose).on('click',function(event) {
+				$('.uploadOverlay').hide();
+				$('.uploadInner').hide();
+				//reinit dropzone
+				$('#dropzone-area').removeClass('dz-started');
+				$('#dropzone-area').html('<div class="dz-default dz-message"/>');
+			});
+
+			$uploadInner.append($uploadClose,$uploadFunc);
+			$(".sym-editor").append($uploadInner,$uploadOverlay);
+
+		var myDropzone = new Dropzone(document.getElementById('dropzone-area'), {
+				paramName: "file",
+				uploadMultiple: false,
+				acceptedFiles:'.jpg,.png,.jpeg,.gif',
+				parallelUploads: 1,
+				maxFiles:1,
+				url:urlUpload,
+				fallback: function(){ alert("vous ne pouvez pas uploader d'images");}
+			});
+
+			myDropzone.on('complete', function (file, xhr, formData) {
+				data = JSON.parse(file.xhr.responseText);
+				$('.'+extra.getTargetImage()).html('<img src="'+urlUpload+data.name+'">'); 
+				editor.saveState(event);
+			});
+
+	}
+
+
 	return {
 		init: init,
-		menuResize : menuResize
+		menuResize : menuResize,
+		getTargetImage : getTargetImage
 	};
 
 

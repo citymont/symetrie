@@ -27,11 +27,13 @@
 
 			// Load CSS
 			head.load( 
-	        	"{{ conf.assets_admin }}css/vendor/zenpen/css/style.css"
+	        	"{{ conf.assets_admin }}css/vendor/zenpen/css/style.css",
+	        	"{{ conf.assets_admin }}css/vendor/dropzone.css"
 	        );
 			// Load required scripts.	
 			head.js( 
 				"{{ conf.assets_admin }}js/libs/jquery-1.10.2.min.js",
+				"{{ conf.assets_admin }}js/vendor/dropzone.js",
 				"{{ conf.assets_admin }}js/extra.js",
 				"{{ conf.assets_admin }}js/vendor/zenpen/js/editor.js",
 	        	function(){

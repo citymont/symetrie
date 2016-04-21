@@ -684,3 +684,84 @@ body.ready .sym-center {
 [contenteditable="true"]:hover { 
   outline: 1px solid blue; 
 }
+
+[data-type="image"].empty {
+   background:red;
+   content:'ajouter image';
+}
+[contenteditable="true"].empty {
+  background:grey;
+}
+.uploadOverlay {
+  background:white;
+  opacity:0.6;
+  position: fixed;
+  width:200%;
+  height:200%;
+  top:0;
+  left:0;
+  display:none;
+  z-index: 100;
+}
+.uploadInner {
+  position: fixed;
+  left:20%;
+  width:60%;
+  height:60%;
+  top:20%;
+  background:blue;
+  text-align:center;
+  padding:20px;
+  font-family: 'Karla', sans-serif;
+  text-align: center;
+  display:none;
+  z-index: 102;
+}
+.uploadInner h2 {
+  color:white;
+}
+.uploadInner #uploadClose {
+  position: absolute;
+  right:10px;
+  top:10px;
+  color:white;
+  cursor: pointer;
+  padding:5px;
+
+}
+.uploadInner #uploadClose:hover {
+  color:yellow;
+}
+.uploadInner span {
+  display:block;
+  color:white;
+}
+.uploadInner input {
+  display:inline;
+  padding:10px;
+  margin-bottom:20px;
+  text-align:center;
+}
+.uploadInner .dropzone {
+  width:90%;
+  height:30%;
+  display:block;
+  margin:20px auto;
+  border:1px solid white;
+  padding: 5px;
+  min-height:130px;
+}
+.uploadInner .dropzone .dz-success-mark, .uploadInner .dropzone .dz-error-mark{
+  display:none;
+}
+.uploadInner .dropzone .dz-preview .dz-image {
+  border-radius: 0px;
+}
+.uploadInner .dropzone .dz-preview {
+  margin:0px;
+}
+.uploadInner .dropzone .dz-message:after {
+  content:'Upload un fichier';
+  font-size: 20px;
+  opacity:0.5;
+}

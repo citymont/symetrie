@@ -133,15 +133,24 @@ var editor = (function() {
 		if ( selection.isCollapsed === false ) {
 
 			currentNodeList = findNodes( selection.focusNode );
-
 			// Find if highlighting is in the editable area
+			// remove textOptions on image
+			if (event.target.dataset.type != "image") {
+				
 			//if ( hasNode( currentNodeList, "DIV") ) {
+			// hide text-options on interface texts
+			if(!event.target.parentNode.classList.contains("uploadInner") && 
+				!event.target.parentNode.classList.contains("wrapper") && 
+				!event.target.parentNode.classList.contains("extra-menu")){ 
+
 				updateBubbleStates();
 				updateBubblePosition();
 
 				// Show the ui bubble
 				textOptions.className = "text-options active";
+			}
 			//}
+			}
 		}
 
 		lastType = selection.isCollapsed;
