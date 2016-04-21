@@ -33,7 +33,11 @@ class Cache {
 	function end($cache,$cachecontent) {
 		
 		ob_end_clean();
-
+		
+		foreach(glob(__DIR__.'/../storage/cache/' . '/*') as $file) {
+        		unlink($file);
+    		}
+    	
 		file_put_contents($cache,$cachecontent);
 
 		readfile($cache);
@@ -45,6 +49,42 @@ class Cache {
 	
 	function start() {
 		ob_start();
+	}
+	
+	/**
+	 * Clear All cache
+	 */
+	function clearCacheAll() {
+
+		$this->clearCacheFile(__DIR__.'/../storage/cache/');
+		$this->clearCacheViews(__DIR__.'/../storage/views/');
+
+	}
+	/**
+	 * Clean Twig view cache
+	 */
+	
+	function clearCacheFile($dir) {
+	    foreach(glob($dir . '/*') as $file) {
+	        unlink($file);
+	    }
+	}
+
+	/**
+	 * Clean file cache
+	 */
+	
+	function clearCacheViews($dir) {
+	    foreach(glob($dir . '/*') as $file) {
+	        if(is_dir($file)){
+	        	$this->clearCacheViews($file);
+	        	rmdir($file);
+	        }
+	        else {
+	        	unlink($file);
+	        }
+	            
+	    }
 	}
 	
 }

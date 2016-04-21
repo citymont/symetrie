@@ -12,6 +12,7 @@ $ composer install
 $ php app/commands/install.php
 $ php app/commands/parser.php index (init the first model)
 ```
+Make sure that the /app/data and /app/storage folders and all its subfolders are writable
 
 ## Start
 
