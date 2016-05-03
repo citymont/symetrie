@@ -11,10 +11,25 @@
 <div class="logo">Symétrie</div>
 	<h1>Liste des pages</h1>
 	<ul>
-	{% for key in conf.get_routes|keys %}
-	        <li><a href="{{ conf.admin_conf_base }}{{ key }}">{{ key }}</a></li>
+	{% for key in conf.get_real_routes %}
+	        <li><a href="{{ conf.admin_conf_base }}{{ key }}">{{ key }} {% if key == "/" %}(Homepage){% endif %}</a></li>
 	    {% endfor %}
 	</ul>
+	<input type="submit" id="addpage" value="Ajouter une page">
+
+	<div class="addpage">
+		<form action="" method="post">
+			<select name="model">
+			{% for model in conf.modelList %}
+				{% if model != "index" %}
+					<option value="{{ model }}">{{ model }}</option> 
+				{% endif %}
+	    	{% endfor %}
+			</select> <input type="text" name="pagename" size="25" /> 
+			<input type="submit" value="ADD PAGE">
+		</form>
+		
+	</div>
 </div>
 
 {% if flash is empty %}{% else %}
@@ -32,6 +47,14 @@
 	        	function(){
 	            	$('body').addClass('ready');
 	            	$('.sym-flash').addClass('sym-hide');
+
+	            	$('.sym-admin-container #addpage').on('click',function() {
+		          	if($('.sym-admin-container .addpage').hasClass('active')) {
+						$('.sym-admin-container .addpage').removeClass('active');
+					} else {
+						$('.sym-admin-container .addpage').addClass('active');
+					}      
+		      	});
 	            }
 	        );
 </script>

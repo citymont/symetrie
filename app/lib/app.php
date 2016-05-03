@@ -262,4 +262,74 @@ class AppOrigin {
 		require(__DIR__.'/../commands/parser.php');
     	initParser($model,false);
 	}
+
+	/**
+	 * Create page from model
+	 * @param  string $model 
+	 * @param  string $page  page name
+	 */
+	public function createPage($model,$page) {
+		require(__DIR__.'/../commands/page.php');
+    	createPage($model,$page,false);
+	}
+
+	/**
+	 * Return model list
+	 * @return array model
+	 */
+	public function getModelList() {
+		$rawList = array_slice(scandir(__DIR__."/../model"), 2);
+		$finalList = array();
+
+		foreach ($rawList as $key => $value) {
+			$finalList[] = explode('.editable.html', $value)[0];
+		}
+		return $finalList;
+	}
+
+	/**
+	 * Return all pages
+	 * @return array model
+	 */
+	public function getAllPages() {
+
+        $rawList = scandir(__DIR__."/../data");
+        $finalList = array();
+		$adVal = new AdminValidator();
+		
+		// find all pages
+		
+		foreach ($adVal->validatorModel(__DIR__."/../data") as $value) {
+			if($value != "slices") {
+				$finalList[$value] = array();
+				foreach (scandir(__DIR__."/../data/".$value) as $value2) {
+					if(is_dir(__DIR__."/../data/".$value."/".$value2) && $value2 != "." && $value2 != "..") {
+						$finalList[$value][] = $value2;
+					}
+				}
+			}
+		}
+
+		// get Routes
+
+		$rawRoutes = $this->getRoutes();
+        $output = array();
+
+        // First, add ndex page
+        $output[] = '/';
+
+        foreach ($rawRoutes as $key => $value) {
+        	$modelsimple = explode("Handler",$value);
+        	$model = strtolower($modelsimple[0]);
+        	foreach ($finalList[$model] as $key1 => $value1) {
+        		$routeTokens = array(":string", ":number", ":alpha");
+				$routeWithoutTokens = str_replace($routeTokens, "", $key);
+        		$output[] = $routeWithoutTokens.$value1;
+        	}
+        	
+
+        }
+
+		return $output;
+	}
 }

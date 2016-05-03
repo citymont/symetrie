@@ -1,4 +1,3 @@
-#!/usr/bin/php
 <?php 
 /**
  * CLI : $ php app/commands/page.php MODEL PAGE 
@@ -11,33 +10,54 @@ if ( isset($_SERVER['argv']) ) {
 	$vars = $_SERVER['argv'];
 	$varsModel = $vars[1];
 	$varsPage = $vars[2];
+	createPage($varsModel,$varsPage, true);
 
-} else {
+} 
+if (isset($_GET['model'])) {
 	// variable URI
 	$varsModel = $_GET['model'];
 	$varsPage = $_GET['page'];
+	createPage($varsModel,$varsPage, true);
 }
 
-if(is_dir(__DIR__.'/../data/'.$varsModel.'./'.$varsPage)) {
-	print '----------------
+function createPage($varsModel,$varsPage,$result) {
 
-';
-print '
-Erreur : Page existante
+	if(is_dir(__DIR__.'/../data/'.$varsModel.'/'.$varsPage)) {
+	
+		if($result) {
+			print '----------------
 
-----------------';
-} else {
-	mkdir(__DIR__.'/../data/'.$varsModel.'./'.$varsPage);
+			';
+			print '
+			Erreur : Page existante
 
-print '----------------
+			----------------';
+		} else {
+			return 'error';
+		}
+	} else {
 
-';
-print 'Generation de la Page : '.$varsPage.' 
+		if(!is_dir(__DIR__.'/../data/'.$varsModel)) {
+			mkdir(__DIR__.'/../data/'.$varsModel);
+		}
 
-Pour le Template  : '.$varsModel.' ';
+		mkdir(__DIR__.'/../data/'.$varsModel.'/'.$varsPage);
 
-print '
+		if($result) {
+			print '----------------
 
-----------------';
+			';
+			print 'Generation de la Page : '.$varsPage.' 
+
+			Pour le Template  : '.$varsModel.' ';
+
+			print '
+
+			----------------';
+		} else {
+			return 'success';
+		}
+
+	}
 
 }
