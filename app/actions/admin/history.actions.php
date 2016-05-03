@@ -24,7 +24,7 @@ class AdminHistoryHandler {
 		$dossier = __DIR__."/../../data/".$model."/";
 
 		if($apiMethod == "list") {
-
+			if(isset($id)) { $dossier = $dossier.$id; }
 			$files = scandir($dossier, 1);
 
 			$output ="<ul>";
@@ -62,6 +62,50 @@ class AdminHistoryHandler {
 			
 		}
 
+		if($apiMethod == "slice") {
+
+			$dossier = __DIR__."/../../data/slices/";
+			$fileName = (isset($_GET['file'])) ? $v->validator($_GET['file'],'slice') : null ;
+
+			if($fileName) {
+				
+				$fileIndex = $dossier.$fileName;
+			}
+
+			print file_get_contents($fileIndex);
+			
+			
+		}
+
+		if($apiMethod == "slicecomplete") { // with HTML
+
+			$appActions = new Actions(); 
+
+			$dossier = __DIR__."/../../data/slices/";
+			$fileName = (isset($_GET['file'])) ? $v->validator($_GET['file'],'slice') : null ;
+
+			if($fileName) {
+		
+				$data = $dossier.$fileName;
+				
+				try {
+					if (!file_exists($data)) {
+						throw new Exception('No data');
+					} else {
+						$source = file_get_contents($data);
+					}
+					
+				} catch (Exception $e) {
+					 echo 'Erreur : ' . $e->getMessage();
+				}
+
+			}
+
+			$twig = $appActions->Twigloader();
+			$appActions->renderSliceView($twig, $source, $_GET['template']);
+			
+		}
+
       
     }
 
@@ -72,6 +116,7 @@ class AdminHistoryHandler {
     	$model = (isset($_POST['model'])) ? $v->validator($_POST['model'],'model') : null ;
 		$id = (isset($_POST['id'])) ? $v->validator($_POST['id'],'model_id',$model) : null ;
 		$publish = (isset($_POST['publish'])) ? $v->validator($_POST['publish'],'publish') : null ;
+		$apiMethod = (isset($_POST['method'])) ? $v->validator($_POST['method'],'method') : null;
 
 		$dossier = __DIR__."/../../data/".$model."/";
 
@@ -94,6 +139,23 @@ class AdminHistoryHandler {
 				$fileIndex = $dossier.'choose'.'.json';
 			} else {
 				$fileIndex = $dossier.$id.'/'.'choose'.'.json';
+			}
+
+			file_put_contents($fileIndex, $data);
+			
+			// Clean all cache
+			$cache = new Cache();
+			$cache->clearCacheAll();
+		}
+
+		if($apiMethod == "slice") {
+
+			$dossier = __DIR__."/../../data/slices/";
+			$fileName = (isset($_POST['file'])) ? $v->validator($_POST['file'],'slice') : null ;
+
+			if($fileName) {
+				
+				$fileIndex = $dossier.$fileName;
 			}
 
 			file_put_contents($fileIndex, $data);

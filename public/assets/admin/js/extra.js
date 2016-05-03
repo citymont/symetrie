@@ -10,7 +10,9 @@ var extra = (function() {
 	function init() {
 
 		bindElements();
-		createUplaodDiv();
+		createoverlay();
+		createUploadDiv(); 
+		editorFindSlice();
 		loadHistoryData('choose.json', $('body').addClass('ready'));
 
 		return findElementsEditable();
@@ -84,7 +86,7 @@ var extra = (function() {
 					$('.uploadInner span').remove();
 					$('.uploadInner').append('<span>Format demandé : '+infoSize+'px </span>');
 					$('.uploadInner').show();
-					$('.uploadOverlay').show();
+					$('.overlay').show();
 				});
 
 			} else {
@@ -182,6 +184,29 @@ var extra = (function() {
 		document.execCommand('undo', false, null);
 	}
 
+	/*
+		Find slices and create events
+	 */
+	function editorFindSlice () {
+
+		$('.slice').each(function() {
+
+			$(this).on('click', function(event) {
+				event.preventDefault();
+				$('.overlay').show();
+				$('.sliceInner').show();
+
+				setTargetSlice($(this).attr('data-source'));
+				loadSlice($(this).attr('data-schema'), $(this).attr('data-source'));
+
+			}).on('focusout', function(event) {
+				event.preventDefault();
+				
+			});
+
+		});
+	}
+
 	function onSaveDoc( event ) {
 		var classNames = $(event.target).attr('class');
 		
@@ -272,47 +297,173 @@ var extra = (function() {
 		return targetImage;
 	}
 
-	function createUplaodDiv() {
+	function setTargetSlice(value) {
+		targetSlice = value;
+	}
 
+	function getTargetSlice() {
+		return targetSlice;
+	}
+	function createoverlay() {
 		var $uploadClose = $( "<div id='uploadClose'>X</div>" ),
-			$uploadFunc = $('<div class="dropzone" id="dropzone-area"/>');
-			$uploadInner = $( "<div class='uploadInner'><h2>UPLOAD IMAGE</h2></div>" ),
-			$uploadOverlay = $( "<div class='uploadOverlay'></div>" );
-			
-			$uploadOverlay.add($uploadClose).on('click',function(event) {
-				$('.uploadOverlay').hide();
+			$uploadOverlay = $( "<div class='overlay'></div>" );
+
+		$uploadOverlay.add($uploadClose).on('click',function(event) {
+				$('.overlay').hide();
 				$('.uploadInner').hide();
 				//reinit dropzone
 				$('#dropzone-area').removeClass('dz-started');
 				$('#dropzone-area').html('<div class="dz-default dz-message"/>');
+				//reinit slice editor
+				$('.sliceInner').hide();
+				$('.sliceInner #editor_holder').html('');
 			});
+		$(".sym-editor").append($uploadOverlay);
 
-			$uploadInner.append($uploadClose,$uploadFunc);
-			$(".sym-editor").append($uploadInner,$uploadOverlay);
+	}
+	function createUploadDiv() {
 
+		var $uploadFunc = $('<div class="uploadzone" id="dropzone-area"/>'),
+			$uploadInner = $( "<div class='uploadInner'><h2>UPLOAD IMAGE</h2><input type='text' id='imageUrl' value=''/></div>" );
+			
+			$uploadInner.append($uploadFunc);
+			$(".sym-editor").append($uploadInner);
+				
 		var myDropzone = new Dropzone(document.getElementById('dropzone-area'), {
 				paramName: "file",
 				uploadMultiple: false,
 				acceptedFiles:'.jpg,.png,.jpeg,.gif',
 				parallelUploads: 1,
 				maxFiles:1,
+				autoDiscover:false,
 				url:urlUpload,
 				fallback: function(){ alert("vous ne pouvez pas uploader d'images");}
 			});
 
 			myDropzone.on('complete', function (file, xhr, formData) {
+				
 				data = JSON.parse(file.xhr.responseText);
-				$('.'+extra.getTargetImage()).html('<img src="'+urlUpload+data.name+'">'); 
+
+				if($('input#imageUrl')) { 
+					//TO DO
+					var dataURL = $('input#imageUrl').val();
+					
+					$('.'+extra.getTargetImage())
+						.html('<a href="'+dataURL+'"><img src="'+urlUpload+data.name+'"></a>');
+
+				} else {
+
+					$('.'+extra.getTargetImage())
+						.html('<img src="'+urlUpload+data.name+'">'); 
+				}
+
 				editor.saveState(event);
+
 			});
 
-	}
 
+	}
+	/*
+	 * Submit slice
+	 */
+	function onSaveSlice( data, file ) {
+		
+		var request = $.ajax({
+			url: Conf.url +"history",
+			type: "POST",
+			data: { data : JSON.stringify(data), method : 'slice', file : file },
+			dataType: "html"
+		});
+
+		request.done(function( msg ) {
+
+			var tpl = $('.slice[data-source='+extra.getTargetSlice()+']').attr('data-tpl');
+			
+			var request = $.ajax({
+				url: Conf.url +"history",
+				type: "GET",
+				data: { file : extra.getTargetSlice()+'.json', method: 'slicecomplete', template: tpl},
+				dataType: "html"
+			});
+
+			request.done(function( data ) {
+				$('.slice[data-source='+extra.getTargetSlice()+']').html(data);
+				$('.overlay').trigger('click');
+			});
+			
+		});
+
+		request.fail(function( jqXHR, textStatus ) {
+			console.log( "Request failed: " + textStatus );
+		});
+
+
+	}
+	function loadSlice(schema,source) {
+		
+		$.ajax({
+			url: Conf.url +"history",
+			type: "GET",
+			data: { file : source+'.json', method: 'slice'},
+			dataType: "html"
+		}).done(function( msg ) {
+			
+			editJSon(schema,source,msg);
+
+		});
+
+	}
+	function editJSon(schema,source,starting_value) {
+    
+    	var starting_value= JSON.parse(starting_value);
+      
+	    // Initialize the editor
+	    var editor = new JSONEditor(document.getElementById('editor_holder'),{
+	        ajax: true,
+	        disable_collapse: true,
+	        disable_edit_json: true,
+	        disable_properties : true,
+	        no_additional_properties: true,
+	        required_by_default: true,
+	        // The schema for the editor
+	        schema: {
+	          $ref: "/app/data/slices/schema/"+schema+".json"
+	        },
+	        
+	        // Seed the form with a starting value
+	        startval: starting_value
+	    });
+      
+    
+      	$('.sliceInner #submit').on('click',function() {
+          	onSaveSlice(editor.getValue(),source+'.json');        
+      	});
+
+      	// Hook up the validation indicator to update its 
+      	// status whenever the editor changes
+      	editor.on('change',function() {
+	        // Get an array of errors from the validator
+	        var errors = editor.validate();
+	        var indicator = document.getElementById('valid_indicator');
+	        
+	        // Not valid
+	        if(errors.length) {
+	          indicator.style.color = 'red';
+	          indicator.textContent = "not valid";
+	        }
+	        // Valid
+	        else {
+	          indicator.style.color = 'green';
+	          indicator.textContent = "valid";
+	        }
+      	});
+	}
 
 	return {
 		init: init,
 		menuResize : menuResize,
-		getTargetImage : getTargetImage
+		getTargetImage : getTargetImage,
+		getTargetSlice : getTargetSlice
 	};
 
 

@@ -9,7 +9,6 @@
     </head>
     <body>
     	{% include 'admin/editorControls.html.twig' %}
-
         {% block content %}
 
         {% endblock %}
@@ -34,6 +33,7 @@
 			head.js( 
 				"{{ conf.assets_admin }}js/libs/jquery-1.10.2.min.js",
 				"{{ conf.assets_admin }}js/vendor/dropzone.js",
+				"{{ conf.assets_admin }}js/vendor/jsoneditor.js",
 				"{{ conf.assets_admin }}js/extra.js",
 				"{{ conf.assets_admin }}js/vendor/zenpen/js/editor.js",
 	        	function(){

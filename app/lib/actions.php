@@ -134,6 +134,19 @@ class Actions {
 		}
 	}
 
+	/**
+	 * renderSliceView
+	 * @param  obj $engine    template engine
+	 * @param  string $modelName model name
+	 * @param  string $docId     doc name
+	 * @param  string $arrayData     array with Data
+	 * @return html            render teamplate + data
+	 */
+	public function renderSliceView($engine, $source, $template) {
+
+		echo $engine->render($template.'.html.twig', json_decode($source, true));
+
+	}
 
 	
 }

@@ -43,14 +43,24 @@ class AdminValidator {
 	    			break;
 
 	    		case 'method':
-	    			$pass = array('list','one');
+	    			$pass = array('list','one','slice','slicecomplete');
 	    			return (in_array($var, $pass)) ? $var : $this->e500() ;
 	    			break;
 
 	    		case 'filename':
-	    			$info = pathinfo($var); 
+	    			$info = pathinfo($var);
 	    			if( mb_strlen($info['filename']) === mb_strlen(intval($info['filename'])) or $var == "choose.json") {
 	    				return ($info['extension'] == "json" ) ? $var : $this->e500();
+	    			} else {
+	    				$this->e500();
+	    			}
+	    			
+	    			break;
+
+	    		case 'slice':
+	    			$info = pathinfo($var);
+	    			if( $info['extension'] == "json" ) {
+	    				return $var;
 	    			} else {
 	    				$this->e500();
 	    			}

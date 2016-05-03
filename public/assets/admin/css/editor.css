@@ -626,7 +626,7 @@ body.ready .sym-center {
   display:block;
   position:relative;
 }
-.sym-admin-container input {
+.sym-admin-container input, .sym-admin-container select {
   font-size: 18px;
   padding:10px;
   margin-top:20px;
@@ -646,6 +646,12 @@ body.ready .sym-center {
 .sym-admin-container input[type="submit"]:hover {
   background:white;
   color:blue;
+}
+.sym-admin-container .addpage {
+  display:none;
+}
+.sym-admin-container .addpage.active {
+  display:block;
 }
 .sym-start-page .logo{
   padding-top:40px;
@@ -685,14 +691,14 @@ body.ready .sym-center {
   outline: 1px solid blue; 
 }
 
-[data-type="image"].empty {
-   background:red;
-   content:'ajouter image';
+[data-type="image"] {
+   cursor: pointer;
 }
+
 [contenteditable="true"].empty {
   background:grey;
 }
-.uploadOverlay {
+.overlay {
   background:white;
   opacity:0.6;
   position: fixed;
@@ -742,7 +748,7 @@ body.ready .sym-center {
   margin-bottom:20px;
   text-align:center;
 }
-.uploadInner .dropzone {
+.uploadInner .uploadzone {
   width:90%;
   height:30%;
   display:block;
@@ -751,17 +757,58 @@ body.ready .sym-center {
   padding: 5px;
   min-height:130px;
 }
-.uploadInner .dropzone .dz-success-mark, .uploadInner .dropzone .dz-error-mark{
+.uploadInner .uploadzone .dz-success-mark, .uploadInner .uploadzone .dz-error-mark{
   display:none;
 }
-.uploadInner .dropzone .dz-preview .dz-image {
+.uploadInner .uploadzone .dz-preview .dz-image {
   border-radius: 0px;
 }
-.uploadInner .dropzone .dz-preview {
+.uploadInner .uploadzone .dz-preview {
   margin:0px;
 }
-.uploadInner .dropzone .dz-message:after {
+.uploadInner .uploadzone .dz-message:after {
   content:'Upload un fichier';
   font-size: 20px;
   opacity:0.5;
+}
+.sliceInner {
+  position: fixed;
+  left:20%;
+  width:60%;
+  height:60%;
+  top:20%;
+  background:blue;
+  text-align:center;
+  padding:20px;
+  font-family: 'Karla', sans-serif;
+  text-align: center;
+  display:none;
+  z-index: 102;
+  overflow: auto;
+}
+.sliceInner  #editor_holder h3 + div + div {
+padding:20px!important;
+border-radius: 0px!important;
+background:white;
+text-align: left;
+}
+.sliceInner  #editor_holder h3 {
+  text-align:center;
+  color:white;
+  text-align:center;
+}
+.sliceInner button {
+  display:inline;
+  padding:10px;
+  margin-bottom:20px;
+  text-align:center;
+}
+.sliceInner #valid_indicator {
+  display:block;
+}
+.slice {
+  cursor: pointer;
+}
+.slice:hover {
+  background:yellow;
 }
