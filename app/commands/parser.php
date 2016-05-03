@@ -74,7 +74,7 @@ class '.ucfirst($varsTpl).'Handler {
     function get($name = null, $b = null) {
 
     	$appActions = new Actions(); 
-    	$arrayData = [];
+    	$arrayData = array();
 
 		    if( defined(\'CACHE_FLAG\') ) { 
 		    	
