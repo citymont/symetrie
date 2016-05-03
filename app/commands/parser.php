@@ -74,6 +74,7 @@ class '.ucfirst($varsTpl).'Handler {
     function get($name = null, $b = null) {
 
     	$appActions = new Actions(); 
+    	$arrayData = [];
 
 		    if( defined(\'CACHE_FLAG\') ) { 
 		    	
@@ -85,7 +86,7 @@ class '.ucfirst($varsTpl).'Handler {
 
 			if( defined(\'ADMIN\') ) { 
 				
-				$appActions->Admin($this->modelName); 
+				$appActions->Admin($this->modelName,$arrayData); 
 		
 			}
 

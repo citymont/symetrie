@@ -36,9 +36,11 @@ class Actions {
 	 * Admin Twig instance
 	 * @param string $modelName
 	 */
-	function Admin($modelName) {
+	function Admin($modelName, $arrayData) {
 
 		$this->TwigAutoloader();
+
+		if(!$arrayData) {$arrayData = []; }
 
 		// Model ready for Twig
 		$model = '{% extends "baseAdmin.html.twig" %}{% block content %}';
@@ -60,7 +62,9 @@ class Actions {
 		$twig->addGlobal('data',new TwigData());
 		$app = new App(); 
 
-		echo $twig->render('model.html', array("admin"=>"no", "uri"=>$app->getRouteInfos(), "flash" => $app->getFlash()));
+		echo $twig->render(
+			'model.html', 
+			array_merge($arrayData,array("admin"=>"no", "uri"=>$app->getRouteInfos(), "flash" => $app->getFlash())));
 	}
 	/**
 	 * renderView
@@ -129,6 +133,7 @@ class Actions {
 			 echo 'Erreur : ' . $e->getMessage();
 		}
 	}
+
 
 	
 }
