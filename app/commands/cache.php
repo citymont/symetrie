@@ -6,27 +6,12 @@
  * 
  */
 
-function cache($dir) {
-    foreach(glob($dir . '/*') as $file) {
-        unlink($file);
-    }
-}
-function views($dir) {
-    foreach(glob($dir . '/*') as $file) {
-        if(is_dir($file)){
-        	views($file);
-        	rmdir($file);
-        }
-        else {
-        	unlink($file);
-        }
-            
-    }
-    
-}
+require(__DIR__.'/../lib/cache.php');
 
-cache(__DIR__.'/../storage/cache/');
-views(__DIR__.'/../storage/views/');
+$cache = new Cache;
+
+$cache->clearCacheFile(__DIR__.'/../storage/cache/');
+$cache->clearCacheViews(__DIR__.'/../storage/views/');
 
 print '----------------
 
