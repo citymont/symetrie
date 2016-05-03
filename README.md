@@ -22,12 +22,22 @@ Edit default page :  /public/admin.php/
 
 Show default page :  /public/index.php/
 
+## Wiki
+
+- [How to create a new template ?](WIKI.md)
+- [How to create a new page ?](WIKI.md)
+- [What is slices ?](WIKI.md)
+- [How to use slices ?](WIKI.md)
+
 ## Dependencies
+
 1. Twig
 2. ToroPHP (PHP >= 5.3)
 3. PHP >= 5.5.0 (for Password Hashing API)
+4. Codeguy/upload
 
 ## Extras
+
 1. [Vagrant Box Symétrie](https://github.com/citymont/symetrie-vagrant)
 2. [Frontpack for Symétrie (Grunt, bootstrap)](https://github.com/citymont/symetrie-bootstrap)
 
