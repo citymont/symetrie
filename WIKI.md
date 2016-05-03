@@ -89,7 +89,7 @@ Example :
 <h1>{{gender|raw}} {{prenom|raw}}</h1>
 ```
 
-## Include slice on your view-model file :
+#### Include slice on your view-model file :
 
 Example : 
 
@@ -105,7 +105,7 @@ Example :
 
 ```
 
-## And update your Action Handler
+#### And update your Action Handler
 
 Inside the get() function, you must load all data included into the slides.
 
