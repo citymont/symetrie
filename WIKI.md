@@ -20,7 +20,7 @@ After, this command will create the view controller and convert the model to Twi
 $ php app/commands/parser.php <modelname>
 ```
 
-Now, you must add the route to **[app/conf.php](https://github.com/citymont/symetrie/blob/master/app/conf.php)**
+Now, you must add the route to **[app/config/conf.php](https://github.com/citymont/symetrie/blob/master/app/config/conf.php)**
 
 
 ## How to create a new page ?
@@ -36,7 +36,7 @@ There are a template and a schema for each slide.
 
 
 Example : 
-> Schema : app/data/slices/schema/<shemaname>.json
+> Schema : app/model/slices/<shemaname>.json
 > 
 > Template : app/views/slices/<shemaname>.html.twig
 
@@ -76,7 +76,7 @@ Schema are based on JSON-editor https://github.com/jdorn/json-editor/ you can us
   }
 }
 ```
-Save your schema here : **app/data/slices/schema/<shemaname>.json**
+Save your schema here : **app/model/slices/<shemaname>.json**
 
 #### Template
 

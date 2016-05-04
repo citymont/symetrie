@@ -1,6 +1,6 @@
 <?php
 
-require_once(__DIR__."/lib/app.php");
+require_once(__DIR__."/../lib/app.php");
 
 class App extends AppOrigin {
 
@@ -12,6 +12,7 @@ class App extends AppOrigin {
         // Routes
         $this->routes = array(
 		    "/" => "IndexHandler",
+            "/:alpha" => "PageHandler",
 		    //"/uuuu/:alpha" => "IndexHandler",
 		    //"/index/:alpha/:alpha" => "IndexHandler"
 		);

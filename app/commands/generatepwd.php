@@ -3,7 +3,7 @@
  * CLI : $ php app/commands/generatepwd.php xxx 
  * URI : /app/commands/generatepwd.php?pwd=xxx
  *
- * Paste the result on conf.php $this->loginKey
+ * Paste the result on config/conf.php $this->loginKey
  * 
  */
 

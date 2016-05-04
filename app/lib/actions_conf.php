@@ -56,7 +56,7 @@ class TwigData {
 			}
 
     	} else {
-    		$file =  __DIR__."/../data/_".$datafile.".json"; // custom file
+    		$file =  __DIR__."/../config/_".$datafile.".json"; // custom file
     	}
 
     	try {
