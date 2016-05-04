@@ -66,7 +66,10 @@ app/
 
     lib/            - app functions
     
+    config/         - conf file
+
     model/          - file like *.editable.html as the model
+        slices/     - slices schema
 
     storage/
         cache/      - static cache
