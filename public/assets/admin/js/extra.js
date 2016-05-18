@@ -5,7 +5,8 @@ var extra = (function() {
 	// DOM elements
 	var allElements = [];
 	var allElementsField = [];
-	var urlUpload = '/public/contents/';
+	var urlUpload = '/contents/'; // or /public/contents/ 
+	var urlUploadDestinationFolder = '/img/';
 
 	function init() {
 
@@ -349,12 +350,12 @@ var extra = (function() {
 					var dataURL = $('input#imageUrl').val();
 					
 					$('.'+extra.getTargetImage())
-						.html('<a href="'+dataURL+'"><img src="'+urlUpload+data.name+'"></a>');
+						.html('<a href="'+dataURL+'"><img src="'+urlUpload+urlUploadDestinationFolder+data.name+'"></a>');
 
 				} else {
 
 					$('.'+extra.getTargetImage())
-						.html('<img src="'+urlUpload+data.name+'">'); 
+						.html('<img src="'+urlUpload+urlUploadDestinationFolder+data.name+'">'); 
 				}
 
 				editor.saveState(event);

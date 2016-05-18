@@ -39,6 +39,7 @@ class Cache {
     		}
     	
 		file_put_contents($cache,$cachecontent);
+		chmod($cache, 0755);
 
 		readfile($cache);
 	}

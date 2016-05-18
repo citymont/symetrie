@@ -49,7 +49,7 @@ $data .='{% endblock %}';
 
 // Création du dossier de stockage si n'existe pas
 if(!is_dir(__DIR__.'/../data/'.$varsTpl)) {
-	mkdir(__DIR__.'/../data/'.$varsTpl, 0, true);
+	mkdir(__DIR__.'/../data/'.$varsTpl, 0777, true);
 }
 
 if(!file_exists(__DIR__.'/../actions/'.$varsTpl.'.actions.php')) {

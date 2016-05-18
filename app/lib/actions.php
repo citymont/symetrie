@@ -24,7 +24,7 @@ class Actions {
 			$twigC['cache'] = __DIR__.'/../../app/storage/views';
 		}
 
-		$twig = new Twig_Environment($loader, $twigC);
+		$twig = new Sym_Twig_Environment($loader, $twigC);
 		$twig->addExtension(new Twig_Extension_Debug());
 		$twig->addGlobal('conf',new TwigConf());
 		$twig->addGlobal('data',new TwigData());
@@ -55,7 +55,7 @@ class Actions {
 		));
 
 		$loader = new Twig_Loader_Chain(array($loader, $loaderFiles));
-		$twig = new Twig_Environment($loader);
+		$twig = new Sym_Twig_Environment($loader);
 
 		// add globals variables
 		$twig->addGlobal('conf',new TwigConf());

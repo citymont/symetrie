@@ -4,7 +4,7 @@
  */
 require dirname(__DIR__) . '/../vendor/autoload.php';
 
-$storage = new \Upload\Storage\FileSystem(dirname( __FILE__ ));
+$storage = new \Upload\Storage\FileSystem(dirname( __FILE__ ).'/img');
 $file = new \Upload\File('file', $storage);
 
 // rename the file on upload

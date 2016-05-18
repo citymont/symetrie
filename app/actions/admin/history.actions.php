@@ -131,6 +131,8 @@ class AdminHistoryHandler {
 			}
 
 			file_put_contents($file, $data);
+			chmod($file, 0755);
+
 		}
 
 		if($publish == "true") {
@@ -142,6 +144,7 @@ class AdminHistoryHandler {
 			}
 
 			file_put_contents($fileIndex, $data);
+			chmod($fileIndex, 0755);
 			
 			// Clean all cache
 			$cache = new Cache();
@@ -159,6 +162,7 @@ class AdminHistoryHandler {
 			}
 
 			file_put_contents($fileIndex, $data);
+			chmod($fileIndex, 0755);
 			
 			// Clean all cache
 			$cache = new Cache();
