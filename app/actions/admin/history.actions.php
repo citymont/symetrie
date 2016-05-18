@@ -72,7 +72,16 @@ class AdminHistoryHandler {
 				$fileIndex = $dossier.$fileName;
 			}
 
-			print file_get_contents($fileIndex);
+			try {
+				if (!file_exists($fileIndex)) {
+					// Create empty file 
+					file_put_contents($fileIndex, "{}");
+				} else {
+					print file_get_contents($fileIndex);
+				}
+			} catch (Exception $e) {
+				
+			}
 			
 			
 		}

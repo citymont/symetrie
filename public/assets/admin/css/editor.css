@@ -1,5 +1,5 @@
 /* fonts */
-@import url(http://fonts.googleapis.com/css?family=Karla);
+@import url(http://fonts.googleapis.com/css?family=Karla:400,700);
 
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 
@@ -787,8 +787,10 @@ body.ready .sym-center {
   overflow: auto;
 }
 .sliceInner  #editor_holder h3 + div + div {
-padding:20px!important;
+padding:10px 0px!important;
+margin:20px!important;
 border-radius: 0px!important;
+border: 0px!important;
 background:white;
 text-align: left;
 }
@@ -797,14 +799,45 @@ text-align: left;
   color:white;
   text-align:center;
 }
+.sliceInner  #editor_holder .row h3 {
+  text-align:center;
+  color:blue;
+  margin:0;
+  text-align:center;
+}
+.sliceInner .form-control {
+  padding:10px 0px;
+}
+.sliceInner .form-control label {
+  display:inline-block!important;
+  width:150px;
+  font-weight: 700;
+  text-transform: capitalize;
+
+}
+.sliceInner .form-control input {
+  padding:4px;
+
+}
+.sliceInner .form-control textarea {
+  height: 150px!important;
+}
+
 .sliceInner button {
   display:inline;
   padding:10px;
-  margin-bottom:20px;
+  color:white;
+  background:black;
   text-align:center;
+  border:1px solid white;
+}
+.sliceInner button:hover {
+  color:black;
+  background:white;
 }
 .sliceInner #valid_indicator {
   display:block;
+  float:right;
 }
 .slice {
   cursor: pointer;
@@ -812,3 +845,7 @@ text-align: left;
 .slice:hover {
   background:yellow;
 }
+
+
+
+

@@ -408,7 +408,7 @@ var extra = (function() {
 			data: { file : source+'.json', method: 'slice'},
 			dataType: "html"
 		}).done(function( msg ) {
-			
+			delete editor;
 			editJSon(schema,source,msg);
 
 		});
@@ -481,3 +481,38 @@ function supportsHtmlStorage() {
 		return false;
 	}
 }
+
+// Json Editor Specify upload handler
+JSONEditor.defaults.options.upload = function(type, file, cbs) {
+	if (type === 'root.upload_fail') cbs.failure('Upload failed');
+	else {
+
+	    // Set up the request.
+	    var urlUpload = '/public/contents/';
+	    var files = file;
+		// Create a new FormData object.
+		var formData = new FormData();
+		formData.append('file', file, file.name);   
+
+		var request = $.ajax({
+			url: urlUpload,
+			type: "POST",
+			data: formData,
+					processData: false,  // indique à jQuery de ne pas traiter les données
+					contentType: false
+				});
+
+		request.done(function( msg ) {
+			var data = JSON.parse(msg);
+			$('.json-editor-btn-upload').hide();
+			cbs.success(data.name);
+			
+		});
+
+		request.fail(function( jqXHR, textStatus ) {
+			console.log( "Request failed: " + textStatus );
+		});
+
+
+	}
+};
