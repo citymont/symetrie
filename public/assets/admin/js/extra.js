@@ -428,7 +428,7 @@ var extra = (function() {
 	        required_by_default: true,
 	        // The schema for the editor
 	        schema: {
-	          $ref: "/app/model/slices/"+schema+".json"
+	          $ref: "/admin.php/admin/history?file="+schema+".json&method=slice_schema"
 	        },
 	        
 	        // Seed the form with a starting value

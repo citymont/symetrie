@@ -86,6 +86,29 @@ class AdminHistoryHandler {
 			
 		}
 
+		if($apiMethod == "slice_schema") {
+ 
+ 			$dossier = __DIR__."/../../model/slices/";
+ 			$fileName = (isset($_GET['file'])) ? $_GET['file'] : null ;
+ 
+ 			if($fileName) {
+ 				
+ 				$fileIndex = $dossier.$fileName;
+ 			}
+ 
+ 			try {
+ 				if (!file_exists($fileIndex)) {
+ 					// error
+ 				} else {
+ 					print file_get_contents($fileIndex);
+ 				}
+ 			} catch (Exception $e) {
+ 				
+ 			}
+ 
+ 			
+ 		}
+
 		if($apiMethod == "slicecomplete") { // with HTML
 
 			$appActions = new Actions(); 

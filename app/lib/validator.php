@@ -43,7 +43,7 @@ class AdminValidator {
 	    			break;
 
 	    		case 'method':
-	    			$pass = array('list','one','slice','slicecomplete');
+	    			$pass = array('list','one','slice','slicecomplete','slice_schema');
 	    			return (in_array($var, $pass)) ? $var : $this->e500() ;
 	    			break;
 
