@@ -1,4 +1,4 @@
-{% extends "base.html.twig" %}
+{% extends "sym.html.twig" %}
 
 {% block head %}
     {% include 'main/header.tpl.html' %}
@@ -21,11 +21,11 @@
 		<form action="" method="post">
 			<select name="model">
 			{% for model in conf.modelList %}
-				{% if model != "index" %}
+				{% if model != "index" and model != "slices" %}
 					<option value="{{ model }}">{{ model }}</option> 
 				{% endif %}
 	    	{% endfor %}
-			</select> <input type="text" name="pagename" size="25" /> 
+			</select> <input type="text" name="pagename" placeholder="Url de la nouvelle page" size="25" /> 
 			<input type="submit" value="ADD PAGE">
 		</form>
 		

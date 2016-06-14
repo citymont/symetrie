@@ -5,11 +5,12 @@ var extra = (function() {
 	// DOM elements
 	var allElements = [];
 	var allElementsField = [];
-	var urlUpload = '/contents/'; // or /public/contents/ 
+	var urlUpload = Conf.urlUpload; 
 	var urlUploadDestinationFolder = '/img/';
 
 	function init() {
 
+		localStorage.clear();
 		bindElements();
 		createoverlay();
 		createUploadDiv(); 
@@ -17,6 +18,10 @@ var extra = (function() {
 		loadHistoryData('choose.json', $('body').addClass('ready'));
 
 		return findElementsEditable();
+	}
+
+	function setUrlUpload(val) {
+		return extra.urlUpload = val;
 	}
 	
 	function bindElements() {
@@ -337,7 +342,7 @@ var extra = (function() {
 				parallelUploads: 1,
 				maxFiles:1,
 				autoDiscover:false,
-				url:urlUpload,
+				url:Conf.urlUpload,
 				fallback: function(){ alert("vous ne pouvez pas uploader d'images");}
 			});
 
@@ -350,12 +355,12 @@ var extra = (function() {
 					var dataURL = $('input#imageUrl').val();
 					
 					$('.'+extra.getTargetImage())
-						.html('<a href="'+dataURL+'"><img src="'+urlUpload+urlUploadDestinationFolder+data.name+'"></a>');
+						.html('<a href="'+dataURL+'"><img src="'+Conf.urlUpload+urlUploadDestinationFolder+data.name+'"></a>');
 
 				} else {
 
 					$('.'+extra.getTargetImage())
-						.html('<img src="'+urlUpload+urlUploadDestinationFolder+data.name+'">'); 
+						.html('<img src="'+Conf.urlUpload+urlUploadDestinationFolder+data.name+'">'); 
 				}
 
 				editor.saveState(event);
@@ -428,7 +433,7 @@ var extra = (function() {
 	        required_by_default: true,
 	        // The schema for the editor
 	        schema: {
-	          $ref: "/admin.php/admin/history?file="+schema+".json&method=slice_schema"
+	          $ref: Conf.url + "history?file="+schema+".json&method=slice_schema"
 	        },
 	        
 	        // Seed the form with a starting value
@@ -439,6 +444,10 @@ var extra = (function() {
       	$('.sliceInner #submit').on('click',function() {
           	onSaveSlice(editor.getValue(),source+'.json');        
       	});
+
+      	$('.sliceInner #close').on('click',function() {
+			$('.overlay').trigger('click');
+		});
 
       	// Hook up the validation indicator to update its 
       	// status whenever the editor changes
@@ -488,14 +497,14 @@ JSONEditor.defaults.options.upload = function(type, file, cbs) {
 	else {
 
 	    // Set up the request.
-	    var urlUpload = '/public/contents/';
+	    //var urlUpload = '/public/contents/';
 	    var files = file;
 		// Create a new FormData object.
 		var formData = new FormData();
 		formData.append('file', file, file.name);   
 
 		var request = $.ajax({
-			url: urlUpload,
+			url: Conf.urlUpload,
 			type: "POST",
 			data: formData,
 					processData: false,  // indique à jQuery de ne pas traiter les données

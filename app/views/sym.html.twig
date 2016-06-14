@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	{% block head %}
+	{% include 'main/header.tpl.html' %}
+	{% endblock %}
+	</head>
+	<body class="{{ conf.get_route_info.model }}">
+	{% block content %}
+	
+	{% endblock %}
+    </body>
+</html> 

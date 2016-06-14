@@ -94,7 +94,7 @@
 	color: #fff;
 	height: 0px;
 	width: 0px;
-	z-index: 5;
+	z-index: 995;
 	margin-top: 5px;
 	opacity: 0;
 }
@@ -181,6 +181,7 @@
 	border: 0px;
 	float: left;
 	width: 0px;
+	color:black;
 }
 
 .sym-editor .options button.active {
