@@ -21,6 +21,7 @@ class App extends AppOrigin {
         $this->assets = "/public/assets/";
         $this->adminAssets = "/public/assets/admin/";
         $this->adminConfBase = "/public/admin.php";
+        $this->urlUpload = "/public/contents/";
 
         // Dev Mode : model autoparser
         $this->devMode = true;

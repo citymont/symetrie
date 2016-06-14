@@ -17,11 +17,12 @@ class TwigConf {
 		$this->admin_conf_base = $a->adminConfBase;  
         $this->admin_conf_url = $a->adminConfBase.'/admin/';
         $this->get_routes = $a->getRoutes();
+        $this->get_route_info = $a->getRouteInfos();
         $this->get_real_routes = $a->getAllPages();
         $this->modelList = $a->getModelList();
         $this->assetsBuildCss = (isset($a->assetsBuildCss)) ? $a->assetsBuildCss : '';
         $this->assetsBuildJs = (isset($a->assetsBuildJs)) ? $a->assetsBuildJs : '';
-
+        $this->url_upload = $a->urlUpload;
 	}
 
 }

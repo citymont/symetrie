@@ -5,7 +5,7 @@
             {% include 'main/header.tpl.html' %}
         {% endblock %}
     </head>
-    <body>
+    <body class="{{ conf.get_route_info.model }}">
         {% block content %}
 
         {% endblock %}

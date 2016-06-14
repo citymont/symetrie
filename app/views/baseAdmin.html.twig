@@ -7,7 +7,7 @@
 		<script src="{{ conf.assets_admin }}js/libs/head.min.js"></script>
         {% endblock %}
     </head>
-    <body>
+    <body class="{{ conf.get_route_info.model }}">
     	{% include 'admin/editorControls.html.twig' %}
         {% block content %}
 
@@ -21,6 +21,7 @@
 		var Conf = Conf || {};
 
 			Conf.url = "{{ conf.admin_conf_url }}";
+			Conf.urlUpload = "{{ conf.url_upload }}";
 			Conf.model = "{{ uri['model'] }}";
 			Conf.id = "{{ uri['id'] }}";
 
