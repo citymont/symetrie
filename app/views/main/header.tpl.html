@@ -1,10 +1,19 @@
-
-	<title>{{ data.meta.title }}</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{{ data.meta.title }}</title>
 	<meta name="description" content="{{ data.meta.description }}">
-	<meta name="keywords" content="{{data.meta.keywords}}" />
-	<meta name="language" content="{{data.meta.language}}" />
-
+	<meta name="keywords" content="{{ data.meta.keywords }}">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+	<meta name="apple-mobile-web-app-title" content="{{ data.meta.title }}"/>
+	<meta name="application-name" content="{{ data.meta.title }}"/>
+	<meta property="og:title" content="{{ data.meta.title }}"/>
+	<meta property="og:url" content="{{ data.meta.url }}"/>
+	<meta property="og:description" content="{{ data.meta.description }}"/>
+	<meta property="og:image" content="{{ data.meta.ogimage }}"/>
+	<meta property="og:type" content="website"/>
+	<meta property="og:site_name" content="{{ data.meta.title }}"/>
+	<meta name="twitter:site" content="{{ data.meta.twitter }}"/>
+	<meta name="twitter:card" content="summary_large_image"/>
+	<meta name="twitter:url" content="{{ data.meta.url }}"/>
+  
 	<link href="{{ conf.assets }}css/main.css" rel="stylesheet">
