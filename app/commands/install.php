@@ -9,10 +9,16 @@
 print '----------------
 
 ';
+if(!is_dir(__DIR__.'/../data/slices/')) {
+	mkdir(__DIR__.'/../data/slices/',0755, true);
+
+print '
+Data Slices : OK
+';
+} 
 if(!is_dir(__DIR__.'/../storage/')) {
 	mkdir(__DIR__.'/../storage/',0777, true);
 }
-
 if(is_dir(__DIR__.'/../../public/contents/')) {
 	chmod(__DIR__.'/../../public/contents/',0755);
 	print '
