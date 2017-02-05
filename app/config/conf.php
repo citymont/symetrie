@@ -12,16 +12,16 @@ class App extends AppOrigin {
         // Routes
         $this->routes = array(
 		    "/" => "IndexHandler",
-            "/:alpha" => "PageHandler",
+            //"/:alpha" => "PageHandler",
 		    //"/uuuu/:alpha" => "IndexHandler",
 		    //"/index/:alpha/:alpha" => "IndexHandler"
 		);
 
         // Twig Conf Assets
-        $this->assets = "/public/assets/";
-        $this->adminAssets = "/public/assets/admin/";
-        $this->adminConfBase = "/public/admin.php";
-        $this->urlUpload = "/public/contents/";
+        $this->assets = "/assets/";
+        $this->adminAssets = "/assets/admin/";
+        $this->adminConfBase = "/admin.php";
+        $this->urlUpload = "/contents/";
 
         // Dev Mode : model autoparser
         $this->devMode = true;
