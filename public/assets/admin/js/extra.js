@@ -5,7 +5,7 @@ var extra = (function() {
 	// DOM elements
 	var allElements = [];
 	var allElementsField = [];
-	var urlUpload = Conf.urlUpload; 
+	var urlUpload = Conf.urlUpload;
 	var urlUploadDestinationFolder = '/img/';
 
 	function init() {
@@ -188,6 +188,9 @@ var extra = (function() {
 
 	function onUndo ( event ) {
 		document.execCommand('undo', false, null);
+		$('.saveDoc, .undo').removeClass('sym-display');
+		$('.saveDocPublish').removeClass('sym-display'); 
+		menuResize();
 	}
 
 	/*
@@ -226,12 +229,13 @@ var extra = (function() {
 		});
 
 		request.done(function( msg ) {
-			console.log( msg );
+			//console.log( msg );
 			$('.saveDoc, .undo').removeClass('sym-display');
 			if(!publishState) { 
 				$('.saveDocPublish').addClass('sym-display'); 
 			} else { 
 				$('.saveDocPublish').removeClass('sym-display'); 
+				menuResize();
 			}
 			// get new history
 			getJsonHistory();
@@ -393,7 +397,9 @@ var extra = (function() {
 			});
 
 			request.done(function( data ) {
-				$('.slice[data-source='+extra.getTargetSlice()+']').html(data);
+				if($('body').hasClass('admin')) {} else {
+					$('.slice[data-source='+extra.getTargetSlice()+']').html(data);
+				}
 				$('.overlay').trigger('click');
 			});
 			
@@ -431,23 +437,24 @@ var extra = (function() {
 	        disable_properties : true,
 	        no_additional_properties: true,
 	        required_by_default: true,
+	        iconlib: "fontawesome4",
 	        // The schema for the editor
 	        schema: {
-	          $ref: Conf.url + "history?file="+schema+".json&method=slice_schema"
+	          $ref: Conf.url +"history?file="+schema+".json&method=slice_schema"
 	        },
 	        
 	        // Seed the form with a starting value
 	        startval: starting_value
 	    });
-      
-    
+      	$('.sliceInner').attr('id','');
+    	$('.sliceInner').attr('id',schema);
       	$('.sliceInner #submit').on('click',function() {
           	onSaveSlice(editor.getValue(),source+'.json');        
       	});
-
       	$('.sliceInner #close').on('click',function() {
-			$('.overlay').trigger('click');
-		});
+          	$('.overlay').trigger('click');
+      	});
+
 
       	// Hook up the validation indicator to update its 
       	// status whenever the editor changes
@@ -473,7 +480,9 @@ var extra = (function() {
 		init: init,
 		menuResize : menuResize,
 		getTargetImage : getTargetImage,
-		getTargetSlice : getTargetSlice
+		getTargetSlice : getTargetSlice,
+		editorFindSlice : editorFindSlice,
+		createoverlay : createoverlay
 	};
 
 

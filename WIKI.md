@@ -14,7 +14,7 @@ To create a template, you can start with a file like that :
 
 **[app/model/<modelname>.indexeditable.html](https://github.com/citymont/symetrie/blob/master/app/model/index.editable.html)**
 
-After, this command will create the view controller and convert the model to Twig: 
+After, this command will create the view controller and convert the model to Twig format: 
 
 ```
 $ php app/commands/parser.php <modelname>
@@ -25,14 +25,14 @@ Now, you must add the route to **[app/config/conf.php](https://github.com/citymo
 
 ## How to create a new page ?
 
-To create a page, go to your admin and just click on **ADD PAGE**. Select a template and insert the page name.
+To create a page, go to your admin and just click on **ADD PAGE**. Select a template and insert the page name (url slug).
 
 
-## What is slices ?
+## What are slices ?
 
 Slices are small structured templates that you can use on every pages. Each slices can be administered.
 
-There are a template and a schema for each slide.
+There is a Twig template and a JSON schema for each slide.
 
 
 Example : 
@@ -43,10 +43,11 @@ Example :
 
 ## How to use slices ?
 
-Each slices are a combinaison of a shema and a template
+Each slice combinate a JSON schema and a Twig template.
 
-#### Shema
-Schema are based on JSON-editor https://github.com/jdorn/json-editor/ you can use like that :
+#### Schema
+Schema is based on JSON-editor https://github.com/jdorn/json-editor/ .
+You can create one like this :
 
 ```
 {
@@ -76,18 +77,17 @@ Schema are based on JSON-editor https://github.com/jdorn/json-editor/ you can us
   }
 }
 ```
-Save your schema here : **app/model/slices/<shemaname>.json**
+And save it here : **app/model/slices/<shemaname>.json**
 
 #### Template
 
-Like the other, slides templates are based on Twig.
-Save your template here : **app/views/slices/<shemaname>.html.twig**
-
-Example : 
+Create a Twig template like this : 
 
 ```
 <h1>{{gender|raw}} {{prenom|raw}}</h1>
 ```
+
+And save it here : **app/views/slices/<shemaname>.html.twig**
 
 #### Include slice on your view-model file :
 

@@ -4,37 +4,55 @@
     {% include 'main/header.tpl.html' %}
     <link href="{{ conf.assets_admin }}css/editor.css" rel="stylesheet">
   	<script src="{{ conf.assets_admin }}js/libs/head.min.js"></script>
+  	<link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css'>
 {% endblock %}
 
 {% block content %}
 <div class="sym-center sym-admin-container sym-start-page">
 <div class="logo">Symétrie</div>
-	<h1>Liste des pages</h1>
-	<ul>
-	{% for key in conf.get_real_routes %}
-	        <li><a href="{{ conf.admin_conf_base }}{{ key }}">{{ key }} {% if key == "/" %}(Homepage){% endif %}</a></li>
-	    {% endfor %}
-	</ul>
-	<input type="submit" id="addpage" value="Ajouter une page">
+	<div class="col-50">
+		<h1>Liste des pages</h1>
+		<ul>
+		{% for key in conf.get_real_routes %}
+		        <li><a href="{{ conf.admin_conf_base }}{{ key }}">{{ key }} {% if key == "/" %}(Homepage){% endif %}</a></li>
+		    {% endfor %}
+		</ul>
+		<input type="submit" id="addpage" value="Ajouter une page">
 
-	<div class="addpage">
-		<form action="" method="post">
-			<select name="model">
-			{% for model in conf.modelList %}
-				{% if model != "index" and model != "slices" %}
-					<option value="{{ model }}">{{ model }}</option> 
-				{% endif %}
-	    	{% endfor %}
-			</select> <input type="text" name="pagename" placeholder="Url de la nouvelle page" size="25" /> 
-			<input type="submit" value="ADD PAGE">
-		</form>
-		
+		<div class="addpage">
+			<form action="" method="post">
+				<select name="model">
+				{% for model in conf.modelList %}
+					{% if model != "index" and model != "slices" %}
+						<option value="{{ model }}">{{ model }}</option> 
+					{% endif %}
+		    	{% endfor %}
+				</select> <input type="text" name="pagename" placeholder="Url de la nouvelle page" size="25" /> 
+				<input type="submit" value="ADD PAGE">
+			</form>
+			
+		</div>
+	</div>
+	<div class="col-50">
+		<h1>Edition des slices</h1>
+		<div class="slice person" data-schema="person" data-source="person" data-tpl="slices/test">
+			Exemple de slices
+		</div>
 	</div>
 </div>
 
 {% if flash is empty %}{% else %}
  <div class="sym-flash">{{ flash }}</div>
 {% endif %}
+
+	<div class="sym-editor">
+	</div>
+
+	<div class="sliceInner">
+		<div id='editor_holder'></div>
+		<button id='submit'>Modifier la section</button> <button id='close'>Fermer</button>
+		<span id='valid_indicator'></span>
+	</div>
 
 <script type="text/javascript">
 		var Conf = Conf || {};
@@ -44,8 +62,14 @@
 			// Load required scripts.	
 			head.js( 
 				"{{ conf.assets_admin }}js/libs/jquery-1.10.2.min.js",
+				"{{ conf.assets_admin }}js/vendor/jsoneditor.js",
+				"{{ conf.assets_admin }}js/extra.js",
 	        	function(){
-	            	$('body').addClass('ready');
+
+	        		extra.createoverlay();
+	        		extra.editorFindSlice();
+
+	            	$('body').addClass('ready admin');
 	            	$('.sym-flash').addClass('sym-hide');
 
 	            	$('.sym-admin-container #addpage').on('click',function() {

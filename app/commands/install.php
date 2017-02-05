@@ -25,6 +25,12 @@ if(is_dir(__DIR__.'/../../public/contents/')) {
 	Content Upload (rewritable) : OK
 	';
 }
+if(is_dir(__DIR__.'/../../public/contents/img')) {
+	chmod(__DIR__.'/../../public/contents/img',0755);
+	print '
+	Content Upload Image (rewritable) : OK
+	';
+}
 
 if(!is_dir(__DIR__.'/../storage/cache/')) {
 	mkdir(__DIR__.'/../storage/cache/',0777, true);

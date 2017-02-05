@@ -1,0 +1,16 @@
+body {
+	font-family: 'Helvetica', 'Arial', sans-serif;
+}
+section {
+	width:80%;
+	margin:auto;
+}
+header {
+	padding-top: 2em;
+	font-size:2em;
+}
+article {
+	font-size:1em;
+	line-height: 1.25em;
+	color:grey;
+}
