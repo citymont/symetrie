@@ -14,15 +14,15 @@ class TwigConf {
 		$a = new App();
 		$this->assets = $a->assets;
 		$this->assets_admin = $a->adminAssets;
-		$this->admin_conf_base = $a->adminConfBase;  
-        $this->admin_conf_url = $a->adminConfBase.'/admin/';
-        $this->get_routes = $a->getRoutes();
-        $this->get_route_info = $a->getRouteInfos();
-        $this->get_real_routes = $a->getAllPages();
-        $this->modelList = $a->getModelList();
-        $this->assetsBuildCss = (isset($a->assetsBuildCss)) ? $a->assetsBuildCss : '';
-        $this->assetsBuildJs = (isset($a->assetsBuildJs)) ? $a->assetsBuildJs : '';
-        $this->url_upload = $a->urlUpload;
+		$this->admin_conf_base = $a->adminConfBase;
+		$this->admin_conf_url = $a->adminConfBase.'/admin/';
+		$this->get_routes = $a->getRoutes();
+		$this->get_route_info = $a->getRouteInfos();
+		$this->get_real_routes = $a->getAllPages();
+		$this->modelList = $a->getModelList();
+		$this->assetsBuildCss = (isset($a->assetsBuildCss)) ? $a->assetsBuildCss : '';
+		$this->assetsBuildJs = (isset($a->assetsBuildJs)) ? $a->assetsBuildJs : '';
+		$this->url_upload = $a->urlUpload;
 	}
 
 }
@@ -39,70 +39,70 @@ class TwigData {
 	}
 
 	function getData($datafile,$sliceName) {
- 		
- 		$type = (strpos($datafile, 'slice') !== false) ? true : false ;
 
-    	if ($type=="slice")  {
-    		
-    		list($t1, $datafile) = explode("/", $datafile);
-    		$file =  __DIR__."/../data/slices/".$datafile.".json"; 
-    		
-    		try {
+		$type = (strpos($datafile, 'slice') !== false) ? true : false ;
+
+		if ($type=="slice")  {
+
+			list($t1, $datafile) = explode("/", $datafile);
+			$file =  __DIR__."/../data/slices/".$datafile.".json";
+
+			try {
 				if (!file_exists($file)) {
-					// Create empty file 
+					// Create empty file
 					file_put_contents($file, "{}");
-				} 
+				}
 			} catch (Exception $e) {
-				
+
 			}
 
-    	} else {
+		} else {
     		$file =  __DIR__."/../config/_".$datafile.".json"; // custom file
     	}
 
     	try {
-			if (!file_exists($file)) {
-				
-				if($type=="slice") {
-					$json2= '{ "'.$sliceName.'": ""}';
-					return json_decode($json2, true);
-				} else {
-					throw new Exception('No readfile');
-				}
+    		if (!file_exists($file)) {
 
-			} else {
-				
-				if($type=="slice") {
-					$json = file_get_contents($file);
-					$json2= '{ "'.$sliceName.'": '. $json .'}';
-				} else {
-					$json2 = file_get_contents($file);
-				}
-				return json_decode($json2, true);
-			}
-			
-		} catch (Exception $e) {
-			if($type!="slice") { echo 'Erreur getdata() : ' . $e->getMessage(); }
-		}
- 
+    			if($type=="slice") {
+    				$json2= '{ "'.$sliceName.'": ""}';
+    				return json_decode($json2, true);
+    			} else {
+    				throw new Exception('No readfile');
+    			}
+
+    		} else {
+
+    			if($type=="slice") {
+    				$json = file_get_contents($file);
+    				$json2= '{ "'.$sliceName.'": '. $json .'}';
+    			} else {
+    				$json2 = file_get_contents($file);
+    			}
+    			return json_decode($json2, true);
+    		}
+
+    	} catch (Exception $e) {
+    		if($type!="slice") { echo 'Erreur getdata() : ' . $e->getMessage(); }
+    	}
+
     }
 
-}
+  }
 
-class Sym_Twig_Environment extends Twig_Environment {
+  class Sym_Twig_Environment extends Twig_Environment {
 
   /**
   * This exists so template cache files use the same
   * group between apache and cli
   */
   protected function writeCacheFile($file, $content){
-      if (!is_dir(dirname($file))) {
-          $old = umask(0002);
-          mkdir(dirname($file),0777,true);
-          umask($old);
-      }
-      parent::writeCacheFile($file, $content);
-      chmod($file,0777);
+  	if (!is_dir(dirname($file))) {
+  		$old = umask(0002);
+  		mkdir(dirname($file),0777,true);
+  		umask($old);
+  	}
+  	parent::writeCacheFile($file, $content);
+  	chmod($file,0777);
   }
 }
 

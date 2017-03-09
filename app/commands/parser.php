@@ -1,8 +1,8 @@
-<?php 
+<?php
 /**
  * CLI : $ php app/commands/parser.php index
  * URI : /app/commands/parser.php?model=index
- * 
+ *
  */
 
 require(__DIR__.'/../lib/simple_html_dom.php');
@@ -24,94 +24,94 @@ if (isset($_GET['model'])) {
 function initParser($varsTpl,$result) {
 
 // Create DOM from HTML PAGE
-$html = file_get_html(__DIR__.'/../model/'.$varsTpl.'.editable.html');
+	$html = file_get_html(__DIR__.'/../model/'.$varsTpl.'.editable.html');
 
-// trouve tous les champs éditable   
-$ret = $html->find('*[contenteditable]'); 
+// trouve tous les champs éditable
+	$ret = $html->find('*[contenteditable]');
 	foreach ( $ret as $e ) {
-	// Remove a attribute, set it's value as null! 	
+	// Remove a attribute, set it's value as null!
 		$e->contenteditable = null;
 		$e->{'data-type'} = null;
 		$class = explode(" ", $e->class);
 		$e->innertext='{{ '.$class[0].'|raw }}';
 	}
-	
-$html = str_replace(array("\n", "\r", "\t"), "", $html);
+
+	$html = str_replace(array("\n", "\r", "\t"), "", $html);
 
 // nom du template FINAL
-$dossier = __DIR__.'/../../app/views/';
+	$dossier = __DIR__.'/../../app/views/';
 
-$file = $dossier.$varsTpl.'.html.twig';
+	$file = $dossier.$varsTpl.'.html.twig';
 
-$data = '{% extends "base.html.twig" %}{% block content %}';
-$data .= trim($html);
-$data .='{% endblock %}';
+	$data = '{% extends "base.html.twig" %}{% block content %}';
+	$data .= trim($html);
+	$data .='{% endblock %}';
 
 // Création du dossier de stockage si n'existe pas
-if(!is_dir(__DIR__.'/../data/'.$varsTpl)) {
-	mkdir(__DIR__.'/../data/'.$varsTpl, 0777, true);
-}
+	if(!is_dir(__DIR__.'/../data/'.$varsTpl)) {
+		mkdir(__DIR__.'/../data/'.$varsTpl, 0777, true);
+	}
 
-if(!file_exists(__DIR__.'/../actions/'.$varsTpl.'.actions.php')) {
-	$data = '<?php
+	if(!file_exists(__DIR__.'/../actions/'.$varsTpl.'.actions.php')) {
+		$data = '<?php
 
-class '.ucfirst($varsTpl).'Handler {
+		class '.ucfirst($varsTpl).'Handler {
 
-	private $modelName = "";
-	private $docId = "";
+			private $modelName = "";
+			private $docId = "";
 
-    function __construct() {
+			function __construct() {
 
-    	$app = new App();
-    	$infos = $app->getRouteInfos(\'/\');
-    	$this->modelName = $infos[\'model\'];
-    	$this->docId = $infos[\'id\'];
+				$app = new App();
+				$infos = $app->getRouteInfos(\'/\');
+				$this->modelName = $infos[\'model\'];
+				$this->docId = $infos[\'id\'];
 
-    	if($app->devMode) $app->devModeAutoParser($infos[\'model\']);
-
-    }
-
-    function get($name = null, $b = null) {
-
-    	$appActions = new Actions(); 
-    	$arrayData = array();
-
-		    if( defined(\'CACHE_FLAG\') ) { 
-		    	
-				$twig = $appActions->Twigloader();
-
-				$appActions->renderView($twig, $this->modelName,$this->docId);
+				if($app->devMode) $app->devModeAutoParser($infos[\'model\']);
 
 			}
 
-			if( defined(\'ADMIN\') ) { 
-				
-				$appActions->Admin($this->modelName,$arrayData); 
-		
+			function get($name = null, $b = null) {
+
+				$appActions = new Actions();
+				$arrayData = array();
+
+				if( defined(\'CACHE_FLAG\') ) {
+
+					$twig = $appActions->Twigloader();
+
+					$appActions->renderView($twig, $this->modelName,$this->docId);
+
+				}
+
+				if( defined(\'ADMIN\') ) {
+
+					$appActions->Admin($this->modelName,$arrayData);
+
+				}
+
+
 			}
-
-      
-    }
-}
+		}
 
 
-';
-	file_put_contents(__DIR__.'/../actions/'.$varsTpl.'.actions.php', $data);
-}
+		';
+		file_put_contents(__DIR__.'/../actions/'.$varsTpl.'.actions.php', $data);
+	}
 
 // Sauvegarde du template dans un fichier
-file_put_contents($file, $data);
+	file_put_contents($file, $data);
 
-if($result) {
+	if($result) {
 
-	print '----------------
+		print '----------------
 
-	';
-	print 'Generation du Template  : '.$varsTpl.' ';
-	print '
+		';
+		print 'Generation du Template  : '.$varsTpl.' ';
+		print '
 
-	----------------';
-		
+		----------------';
+
 	}
 
 }

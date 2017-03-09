@@ -1,9 +1,9 @@
 #!/usr/bin/php
-<?php 
+<?php
 /**
- * CLI : $ php app/commands/install.php 
+ * CLI : $ php app/commands/install.php
  * URI : /app/commands/install.php
- * 
+ *
  */
 
 print '----------------
@@ -12,10 +12,10 @@ print '----------------
 if(!is_dir(__DIR__.'/../data/slices/')) {
 	mkdir(__DIR__.'/../data/slices/',0755, true);
 
-print '
-Data Slices : OK
-';
-} 
+	print '
+	Data Slices : OK
+	';
+}
 if(!is_dir(__DIR__.'/../storage/')) {
 	mkdir(__DIR__.'/../storage/',0777, true);
 }
@@ -35,21 +35,21 @@ if(is_dir(__DIR__.'/../../public/contents/img')) {
 if(!is_dir(__DIR__.'/../storage/cache/')) {
 	mkdir(__DIR__.'/../storage/cache/',0777, true);
 
-print '
-Cache : OK
-';
-} 
+	print '
+	Cache : OK
+	';
+}
 if(!is_dir(__DIR__.'/../storage/views/')) {
 	mkdir(__DIR__.'/../storage/views/',0777, true);
-	
-print '
-Cache Views : OK
-';
+
+	print '
+	Cache Views : OK
+	';
 
 } else {
-print '
-Cache folder already ceated
-';
+	print '
+	Cache folder already ceated
+	';
 }
 
 print '

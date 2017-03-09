@@ -1,10 +1,10 @@
-<?php 
+<?php
 /**
- * CLI : $ php app/commands/generatepwd.php xxx 
+ * CLI : $ php app/commands/generatepwd.php xxx
  * URI : /app/commands/generatepwd.php?pwd=xxx
  *
  * Paste the result on config/conf.php $this->loginKey
- * 
+ *
  */
 
 if ( isset($_SERVER['argv']) ) {
@@ -21,15 +21,15 @@ if (isset($_GET['model'])) {
 if(empty($varsPwd)) return print 'error';
 
 if (version_compare(phpversion(), '5.5.0', '<')) {
-	
+
 	/* if PHP < 5.5 */
 	print md5($varsPwd);
 
-} else  {  
-	
+} else  {
+
 	/* if PHP >= 5.5 */
 	$options = [
-    	'cost' => 12,
+	'cost' => 12,
 	];
 
 	print password_hash($varsPwd, PASSWORD_BCRYPT, $options);

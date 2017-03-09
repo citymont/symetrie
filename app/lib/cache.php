@@ -4,15 +4,15 @@
  * Cache Class
  */
 class Cache {
-	
+
 	// http://blog.alexis-ragot.com/systeme-de-cache-php
-	
+
 	/**
-	 * Vérifie si le fichier en cache est valide (lifetime) 
+	 * Vérifie si le fichier en cache est valide (lifetime)
 	 * @param  string $cache filename
-	 * @return bool       
+	 * @return bool
 	 */
-	
+
 	function check_cache($cache){
 		$a = new App();
 		clearstatcache();
@@ -25,19 +25,19 @@ class Cache {
 	}
 
 	/**
-	 * Fin du buffer 
+	 * Fin du buffer
 	 * @param  string $cache        filename
 	 * @param  string $cachecontent contenu à ajouter dans le fichier
 	 */
-	
+
 	function end($cache,$cachecontent) {
-		
+
 		ob_end_clean();
-		
+
 		foreach(glob(__DIR__.'/../storage/cache/' . '/*') as $file) {
-        		unlink($file);
-    		}
-    	
+			unlink($file);
+		}
+
 		file_put_contents($cache,$cachecontent);
 		chmod($cache, 0755);
 
@@ -47,11 +47,11 @@ class Cache {
 	/**
 	 * Démarrage du buffer
 	 */
-	
+
 	function start() {
 		ob_start();
 	}
-	
+
 	/**
 	 * Clear All cache
 	 */
@@ -64,28 +64,28 @@ class Cache {
 	/**
 	 * Clean Twig view cache
 	 */
-	
+
 	function clearCacheFile($dir) {
-	    foreach(glob($dir . '/*') as $file) {
-	        unlink($file);
-	    }
+		foreach(glob($dir . '/*') as $file) {
+			unlink($file);
+		}
 	}
 
 	/**
 	 * Clean file cache
 	 */
-	
+
 	function clearCacheViews($dir) {
-	    foreach(glob($dir . '/*') as $file) {
-	        if(is_dir($file)){
-	        	$this->clearCacheViews($file);
-	        	rmdir($file);
-	        }
-	        else {
-	        	unlink($file);
-	        }
-	            
-	    }
+		foreach(glob($dir . '/*') as $file) {
+			if(is_dir($file)){
+				$this->clearCacheViews($file);
+				rmdir($file);
+			}
+			else {
+				unlink($file);
+			}
+
+		}
 	}
-	
+
 }

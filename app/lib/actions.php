@@ -17,8 +17,8 @@ class Actions {
 		$this->TwigAutoloader();
 
 		$loader = new Twig_Loader_Filesystem(array(__DIR__.'/../../app/views/')); // or dirname(__FILE__)
-		
-		$app = new App(); 
+
+		$app = new App();
 		$twigC = array('debug' => false);
 		if ($app->cacheTwig === true) {
 			$twigC['cache'] = __DIR__.'/../../app/storage/views';
@@ -48,11 +48,11 @@ class Actions {
 		$model .= '{% endblock %}';
 
 		$loaderFiles = new Twig_Loader_Filesystem(array(__DIR__.'/../../app/views/')); // or dirname(__FILE__)
-		
+
 		$loader = new Twig_Loader_Array(array(
-				'baseAdmin.html.twig' => file_get_contents(__DIR__."/../../app/views/baseAdmin.html.twig"),
-				'model.html' => $model,
-		));
+			'baseAdmin.html.twig' => file_get_contents(__DIR__."/../../app/views/baseAdmin.html.twig"),
+			'model.html' => $model,
+			));
 
 		$loader = new Twig_Loader_Chain(array($loader, $loaderFiles));
 		$twig = new Sym_Twig_Environment($loader);
@@ -60,10 +60,10 @@ class Actions {
 		// add globals variables
 		$twig->addGlobal('conf',new TwigConf());
 		$twig->addGlobal('data',new TwigData());
-		$app = new App(); 
+		$app = new App();
 
 		echo $twig->render(
-			'model.html', 
+			'model.html',
 			array_merge($arrayData,array("admin"=>"no", "uri"=>$app->getRouteInfos(), "flash" => $app->getFlash())));
 	}
 	/**
@@ -85,9 +85,9 @@ class Actions {
 				// Render
 				echo $engine->render($modelName.'.html.twig', json_decode($json, true));
 			}
-			
+
 		} catch (Exception $e) {
-			 echo 'Erreur : ' . $e->getMessage();
+			echo 'Erreur : ' . $e->getMessage();
 		}
 	}
 
@@ -104,7 +104,7 @@ class Actions {
 			echo $engine->render($modelName.'.html.twig', array("flash" => $app->getFlash()));
 
 		} catch (Exception $e) {
-			 echo 'Erreur : ' . $e->getMessage();
+			echo 'Erreur : ' . $e->getMessage();
 		}
 	}
 
@@ -128,9 +128,9 @@ class Actions {
 				// Render
 				echo $engine->render($modelName.'.html.twig', array_merge(json_decode($json, true),$arrayData));
 			}
-			
+
 		} catch (Exception $e) {
-			 echo 'Erreur : ' . $e->getMessage();
+			echo 'Erreur : ' . $e->getMessage();
 		}
 	}
 
@@ -148,5 +148,5 @@ class Actions {
 
 	}
 
-	
+
 }

@@ -1,8 +1,8 @@
-<?php 
+<?php
 /**
- * CLI : $ php app/commands/page.php MODEL PAGE 
+ * CLI : $ php app/commands/page.php MODEL PAGE
  * URI : /app/commands/page.php?model=yyyy&page=xxxx
- * 
+ *
  */
 
 if ( isset($_SERVER['argv']) ) {
@@ -12,7 +12,7 @@ if ( isset($_SERVER['argv']) ) {
 	$varsPage = $vars[2];
 	createPage($varsModel,$varsPage, true);
 
-} 
+}
 if (isset($_GET['model'])) {
 	// variable URI
 	$varsModel = $_GET['model'];
@@ -23,7 +23,7 @@ if (isset($_GET['model'])) {
 function createPage($varsModel,$varsPage,$result) {
 
 	if(is_dir(__DIR__.'/../data/'.$varsModel.'/'.$varsPage)) {
-	
+
 		if($result) {
 			print '----------------
 
@@ -47,7 +47,7 @@ function createPage($varsModel,$varsPage,$result) {
 			print '----------------
 
 			';
-			print 'Generation de la Page : '.$varsPage.' 
+			print 'Generation de la Page : '.$varsPage.'
 
 			Pour le Template  : '.$varsModel.' ';
 

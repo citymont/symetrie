@@ -2,22 +2,22 @@
 
 class AdminHistoryHandler {
 
-    function __construct() {
+	function __construct() {
 
-	    if( !defined('ADMIN') ) { 
-	    	
-	    	header('HTTP/1.0 404 Not Found');
-    		echo "Not found"; 
-    		exit;  
+		if( !defined('ADMIN') ) {
 
-	    }
-    }
+			header('HTTP/1.0 404 Not Found');
+			echo "Not found";
+			exit;
 
-    function get() {
+		}
+	}
 
-    	$v = new AdminValidator();
+	function get() {
 
-    	$apiMethod = (isset($_GET['method'])) ? $v->validator($_GET['method'],'method') : null;
+		$v = new AdminValidator();
+
+		$apiMethod = (isset($_GET['method'])) ? $v->validator($_GET['method'],'method') : null;
 		$model = (isset($_GET['model'])) ? $v->validator($_GET['model'],'model') : null;
 		$id = (isset($_GET['id'])) ? $v->validator($_GET['id'],'model_id',$model) : null;
 
@@ -31,14 +31,14 @@ class AdminHistoryHandler {
 			$i = 0;
 
 			foreach ($files as $value) {
-			
+
 				$time = explode('.',$value);
-				if($value === '.' || $value === '..' || $value === 'choose.json') {continue;} 
+				if($value === '.' || $value === '..' || $value === 'choose.json') {continue;}
 				$output .= "<li data-val='".$value."'>".date('d/m/Y h:m:s',$time[0])."</li>";
-				
+
 				$i++;
 				if($i == 25) break;
-			
+
 			}
 
 			$output .="</ul>";
@@ -52,14 +52,14 @@ class AdminHistoryHandler {
 
 			if($fileName) {
 				if(!$id) {
-				$fileIndex = $dossier.$fileName;
-			} else {
-				$fileIndex = $dossier.$id.'/'.$fileName;
+					$fileIndex = $dossier.$fileName;
+				} else {
+					$fileIndex = $dossier.$id.'/'.$fileName;
+				}
+
+				print file_get_contents($fileIndex);
 			}
 
-			print file_get_contents($fileIndex);
-			}
-			
 		}
 
 		if($apiMethod == "slice") {
@@ -68,84 +68,84 @@ class AdminHistoryHandler {
 			$fileName = (isset($_GET['file'])) ? $v->validator($_GET['file'],'slice') : null ;
 
 			if($fileName) {
-				
+
 				$fileIndex = $dossier.$fileName;
 			}
 
 			try {
 				if (!file_exists($fileIndex)) {
-					// Create empty file 
+					// Create empty file
 					file_put_contents($fileIndex, "{}");
 				} else {
 					print file_get_contents($fileIndex);
 				}
 			} catch (Exception $e) {
-				
+
 			}
-			
-			
+
+
 		}
 
 		if($apiMethod == "slice_schema") {
- 
- 			$dossier = __DIR__."/../../model/slices/";
- 			$fileName = (isset($_GET['file'])) ? $_GET['file'] : null ;
- 
- 			if($fileName) {
- 				
- 				$fileIndex = $dossier.$fileName;
- 			}
- 
- 			try {
- 				if (!file_exists($fileIndex)) {
+
+			$dossier = __DIR__."/../../model/slices/";
+			$fileName = (isset($_GET['file'])) ? $_GET['file'] : null ;
+
+			if($fileName) {
+
+				$fileIndex = $dossier.$fileName;
+			}
+
+			try {
+				if (!file_exists($fileIndex)) {
  					// error
- 				} else {
- 					print file_get_contents($fileIndex);
- 				}
- 			} catch (Exception $e) {
- 				
- 			}
- 
- 			
- 		}
+				} else {
+					print file_get_contents($fileIndex);
+				}
+			} catch (Exception $e) {
+
+			}
+
+
+		}
 
 		if($apiMethod == "slicecomplete") { // with HTML
 
-			$appActions = new Actions(); 
+			$appActions = new Actions();
 
 			$dossier = __DIR__."/../../data/slices/";
 			$fileName = (isset($_GET['file'])) ? $v->validator($_GET['file'],'slice') : null ;
 
 			if($fileName) {
-		
+
 				$data = $dossier.$fileName;
-				
+
 				try {
 					if (!file_exists($data)) {
 						throw new Exception('No data');
 					} else {
 						$source = file_get_contents($data);
 					}
-					
+
 				} catch (Exception $e) {
-					 echo 'Erreur : ' . $e->getMessage();
+					echo 'Erreur : ' . $e->getMessage();
 				}
 
 			}
 
 			$twig = $appActions->Twigloader();
 			$appActions->renderSliceView($twig, $source, $_GET['template']);
-			
+
 		}
 
-      
-    }
 
-    function post() {
-    	
-    	$v = new AdminValidator();
+	}
 
-    	$model = (isset($_POST['model'])) ? $v->validator($_POST['model'],'model') : null ;
+	function post() {
+
+		$v = new AdminValidator();
+
+		$model = (isset($_POST['model'])) ? $v->validator($_POST['model'],'model') : null ;
 		$id = (isset($_POST['id'])) ? $v->validator($_POST['id'],'model_id',$model) : null ;
 		$publish = (isset($_POST['publish'])) ? $v->validator($_POST['publish'],'publish') : null ;
 		$apiMethod = (isset($_POST['method'])) ? $v->validator($_POST['method'],'method') : null;
@@ -156,7 +156,7 @@ class AdminHistoryHandler {
 
 		if($publish == "false") {
 
-			if(!$id) { 
+			if(!$id) {
 				$file = $dossier.time().'.json';
 			} else {
 				$file = $dossier.$id.'/'.time().'.json';
@@ -177,7 +177,7 @@ class AdminHistoryHandler {
 
 			file_put_contents($fileIndex, $data);
 			chmod($fileIndex, 0755);
-			
+
 			// Clean all cache
 			$cache = new Cache();
 			$cache->clearCacheAll();
@@ -189,18 +189,18 @@ class AdminHistoryHandler {
 			$fileName = (isset($_POST['file'])) ? $v->validator($_POST['file'],'slice') : null ;
 
 			if($fileName) {
-				
+
 				$fileIndex = $dossier.$fileName;
 			}
 
 			file_put_contents($fileIndex, $data);
 			chmod($fileIndex, 0755);
-			
+
 			// Clean all cache
 			$cache = new Cache();
 			$cache->clearCacheAll();
 		}
-    }
+	}
 
 }
 

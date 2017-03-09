@@ -1,9 +1,9 @@
 #!/usr/bin/php
-<?php 
+<?php
 /**
- * CLI : $ php app/commands/cache.php 
+ * CLI : $ php app/commands/cache.php
  * URI : /app/commands/cache.php
- * 
+ *
  */
 
 require(__DIR__.'/../lib/cache.php');
