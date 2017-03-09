@@ -1,7 +1,7 @@
 var extra = (function() {
 
 	var saveDocElement;
-	
+
 	// DOM elements
 	var allElements = [];
 	var allElementsField = [];
@@ -13,7 +13,7 @@ var extra = (function() {
 		localStorage.clear();
 		bindElements();
 		createoverlay();
-		createUploadDiv(); 
+		createUploadDiv();
 		editorFindSlice();
 		loadHistoryData('choose.json', $('body').addClass('ready'));
 
@@ -23,7 +23,7 @@ var extra = (function() {
 	function setUrlUpload(val) {
 		return extra.urlUpload = val;
 	}
-	
+
 	function bindElements() {
 
 		saveDocElement = document.querySelector( '.saveDoc' );
@@ -34,8 +34,8 @@ var extra = (function() {
 		saveUndoElement.onclick = onUndo;
 
 		$('.ui.menu-ui .wrapper .logo').on('mouseover', getJsonHistory());
-		$('.ui.menu-ui .wrapper .logo').on('click', function() { 
-			
+		$('.ui.menu-ui .wrapper .logo').on('click', function() {
+
 			if($(this).hasClass('active')) {
 				$(this).removeClass('active');
 				$('.ui.menu-ui .wrapper').css({'right':'0px'});
@@ -45,21 +45,21 @@ var extra = (function() {
 				$('.ui.menu-ui .wrapper').css({'right':'300px'});
 				$('.menu-ui-overlay').css({'width':'400px', 'height':'100%'});
 			}
-			
+
 		});
 
 	}
 
 	function menuResize() {
-		if($('.saveDoc').hasClass('sym-display') ) { 
-			var heightOverlay = '150px'} 
+		if($('.saveDoc').hasClass('sym-display') ) {
+			var heightOverlay = '150px'}
 		else {
 			heightOverlay = '40px';
 		}
 
 		if($('.ui.menu-ui .wrapper .logo').hasClass('active')) {
 			var widthOverlay = '400px';
-			var heightOverlay = '100%'} 
+			var heightOverlay = '100%'}
 		else {
 			widthOverlay = '100px';
 		}
@@ -79,13 +79,13 @@ var extra = (function() {
 			allElementsField.push(document.querySelector( '.' + className ));
 
 			if($(this).data('type') =="image") {
-				
+
 				// Only for image field
 				document.querySelector('.' + className).onkeypress = onelineKeyPress;
 
 				$(this).on('click', function(event) {
 					event.preventDefault();
-					
+
 					var infoSize = $(this).attr('data-size');
 					setTargetImage($(this).attr('class'));
 
@@ -104,16 +104,16 @@ var extra = (function() {
 				editorContentOption($(this),className);
 				editorContentFocusable($(this));
 
-				var localV = (localStorage[className]) ? localStorage[className] : '' ; 
+				var localV = (localStorage[className]) ? localStorage[className] : '' ;
 				if ( $(this).text().trim() === '' && localV.trim() === '' || localV.trim() === '&nbsp;') {
 					$(this).addClass('empty');
 				}
 			}
-			
+
 		});
 
 		editorContentEmpty();
-		
+
 		return config(allElements,allElementsField);
 	}
 
@@ -138,7 +138,7 @@ var extra = (function() {
 	}
 
 	function editorContentFocusable ( target ){
-		target.on('click', function(event) { 
+		target.on('click', function(event) {
 			event.preventDefault();
 			target.focus();
 		});
@@ -148,21 +148,21 @@ var extra = (function() {
 
 		var thisP = target.innerWidth();
 		var $options = $('<div class="cEdit-option"></div>').css({left: thisP});
-		
+
 		// clean HTML on div
 		var $box = $('<a href="clean">1</a> ')
 				.on('click', function(event) {
 					event.preventDefault();
 					$('.'+className).html($('.'+className).text());
 				});
-		
+
 		// unclean HTML on div
 		var $box2 = $('<a href="clean">2</a>')
 				.on('click', function(event) {
 					event.preventDefault();
 					$('.'+className).html(localStorage[className]);
 				});
-			
+
 		$options.append($box).append($box2);
 		target.before($options.hide());
 
@@ -189,7 +189,7 @@ var extra = (function() {
 	function onUndo ( event ) {
 		document.execCommand('undo', false, null);
 		$('.saveDoc, .undo').removeClass('sym-display');
-		$('.saveDocPublish').removeClass('sym-display'); 
+		$('.saveDocPublish').removeClass('sym-display');
 		menuResize();
 	}
 
@@ -210,7 +210,7 @@ var extra = (function() {
 
 			}).on('focusout', function(event) {
 				event.preventDefault();
-				
+
 			});
 
 		});
@@ -218,7 +218,7 @@ var extra = (function() {
 
 	function onSaveDoc( event ) {
 		var classNames = $(event.target).attr('class');
-		
+
 		var publishState = (classNames == "saveDocPublish sym-display") ? true : false;
 
 		var request = $.ajax({
@@ -231,10 +231,10 @@ var extra = (function() {
 		request.done(function( msg ) {
 			//console.log( msg );
 			$('.saveDoc, .undo').removeClass('sym-display');
-			if(!publishState) { 
-				$('.saveDocPublish').addClass('sym-display'); 
-			} else { 
-				$('.saveDocPublish').removeClass('sym-display'); 
+			if(!publishState) {
+				$('.saveDocPublish').addClass('sym-display');
+			} else {
+				$('.saveDocPublish').removeClass('sym-display');
 				menuResize();
 			}
 			// get new history
@@ -257,7 +257,7 @@ var extra = (function() {
 	function loadHistoryData( file , callback) {
 
 		var callback = callback;
-		
+
 		$.getJSON( Conf.url +"history" , { model : Conf.model, id : Conf.id, file : file, method : 'one' }, function( json ) {
 			$.each( json, function( i, value ) {
 				localStorage[i] = value;
@@ -267,20 +267,20 @@ var extra = (function() {
 			for (var i = allElements.length - 1; i >= 0; i--) {
 
 				if(localStorage[preState(allElements[i])]) {
-					allElementsField[i].innerHTML = localStorage[preState(allElements[i])];	
+					allElementsField[i].innerHTML = localStorage[preState(allElements[i])];
 				}
-				
+
 			};
-			
+
 			callback;
 		});
 	}
 
-	function getJsonHistory() { 
+	function getJsonHistory() {
 
 		$("#extra-menu-model").html(Conf.model);
 		if (Conf.id) { $("#extra-menu-page").html(Conf.id); };
-		
+
 		$.ajax({
 			url: Conf.url +"history",
 			type: "GET",
@@ -293,7 +293,7 @@ var extra = (function() {
 					loadHistoryData($(this).attr('data-val'));
 					$("#extra-menu-history li").removeClass('active');
 					$(this).addClass('active');
-					$('.saveDocPublish').addClass('sym-display'); 
+					$('.saveDocPublish').addClass('sym-display');
 			    });
 
 		});
@@ -334,11 +334,13 @@ var extra = (function() {
 	function createUploadDiv() {
 
 		var $uploadFunc = $('<div class="uploadzone" id="dropzone-area"/>'),
-			$uploadInner = $( "<div class='uploadInner'><h2>UPLOAD IMAGE</h2><input type='text' id='imageUrl' value=''/></div>" );
-			
+			//$addOption = "<i>Url : </i><input type='text' id='imageUrl' value=''/>",
+			$addOption = "",
+			$uploadInner = $( "<div class='uploadInner'><div id='uploadClose'>X</div><h2>UPLOAD IMAGE</h2>"+$addOption+"</div>" );
+
 			$uploadInner.append($uploadFunc);
 			$(".sym-editor").append($uploadInner);
-				
+
 		var myDropzone = new Dropzone(document.getElementById('dropzone-area'), {
 				paramName: "file",
 				uploadMultiple: false,
@@ -351,25 +353,28 @@ var extra = (function() {
 			});
 
 			myDropzone.on('complete', function (file, xhr, formData) {
-				
+
 				data = JSON.parse(file.xhr.responseText);
 
-				if($('input#imageUrl')) { 
+				if($('input#imageUrl').val()) {
 					//TO DO
 					var dataURL = $('input#imageUrl').val();
-					
 					$('.'+extra.getTargetImage())
 						.html('<a href="'+dataURL+'"><img src="'+Conf.urlUpload+urlUploadDestinationFolder+data.name+'"></a>');
 
 				} else {
 
 					$('.'+extra.getTargetImage())
-						.html('<img src="'+Conf.urlUpload+urlUploadDestinationFolder+data.name+'">'); 
+						.html('<img src="'+Conf.urlUpload+urlUploadDestinationFolder+data.name+'">');
 				}
 
 				editor.saveState(event);
 
 			});
+
+			$('.uploadInner #uploadClose').on('click',function() {
+          	$('.overlay').trigger('click');
+      });
 
 
 	}
@@ -377,7 +382,7 @@ var extra = (function() {
 	 * Submit slice
 	 */
 	function onSaveSlice( data, file ) {
-		
+
 		var request = $.ajax({
 			url: Conf.url +"history",
 			type: "POST",
@@ -388,7 +393,7 @@ var extra = (function() {
 		request.done(function( msg ) {
 
 			var tpl = $('.slice[data-source='+extra.getTargetSlice()+']').attr('data-tpl');
-			
+
 			var request = $.ajax({
 				url: Conf.url +"history",
 				type: "GET",
@@ -402,7 +407,7 @@ var extra = (function() {
 				}
 				$('.overlay').trigger('click');
 			});
-			
+
 		});
 
 		request.fail(function( jqXHR, textStatus ) {
@@ -412,7 +417,7 @@ var extra = (function() {
 
 	}
 	function loadSlice(schema,source) {
-		
+
 		$.ajax({
 			url: Conf.url +"history",
 			type: "GET",
@@ -426,9 +431,9 @@ var extra = (function() {
 
 	}
 	function editJSon(schema,source,starting_value) {
-    
+
     	var starting_value= JSON.parse(starting_value);
-      
+
 	    // Initialize the editor
 	    var editor = new JSONEditor(document.getElementById('editor_holder'),{
 	        ajax: true,
@@ -442,27 +447,27 @@ var extra = (function() {
 	        schema: {
 	          $ref: Conf.url +"history?file="+schema+".json&method=slice_schema"
 	        },
-	        
+
 	        // Seed the form with a starting value
 	        startval: starting_value
 	    });
       	$('.sliceInner').attr('id','');
     	$('.sliceInner').attr('id',schema);
       	$('.sliceInner #submit').on('click',function() {
-          	onSaveSlice(editor.getValue(),source+'.json');        
+          	onSaveSlice(editor.getValue(),source+'.json');
       	});
       	$('.sliceInner #close').on('click',function() {
           	$('.overlay').trigger('click');
       	});
 
 
-      	// Hook up the validation indicator to update its 
+      	// Hook up the validation indicator to update its
       	// status whenever the editor changes
       	editor.on('change',function() {
 	        // Get an array of errors from the validator
 	        var errors = editor.validate();
 	        var indicator = document.getElementById('valid_indicator');
-	        
+
 	        // Not valid
 	        if(errors.length) {
 	          indicator.style.color = 'red';
@@ -510,7 +515,7 @@ JSONEditor.defaults.options.upload = function(type, file, cbs) {
 	    var files = file;
 		// Create a new FormData object.
 		var formData = new FormData();
-		formData.append('file', file, file.name);   
+		formData.append('file', file, file.name);
 
 		var request = $.ajax({
 			url: Conf.urlUpload,
@@ -524,7 +529,7 @@ JSONEditor.defaults.options.upload = function(type, file, cbs) {
 			var data = JSON.parse(msg);
 			$('.json-editor-btn-upload').hide();
 			cbs.success(data.name);
-			
+
 		});
 
 		request.fail(function( jqXHR, textStatus ) {

@@ -426,8 +426,8 @@ th {
   padding: 0;
 }
 
-/* 
-  Symétrie EDITOR 
+/*
+  Symétrie EDITOR
 */
 
 body {
@@ -483,21 +483,21 @@ body.ready {
   float:right;
   margin-right:10px;
 }
-.sym-editor .ui.menu-ui .wrapper .extra-menu b { 
+.sym-editor .ui.menu-ui .wrapper .extra-menu b {
   font-size:14px;
 }
 
-.sym-editor .ui.menu-ui .wrapper .extra-menu ul { 
+.sym-editor .ui.menu-ui .wrapper .extra-menu ul {
   list-style:none;
   padding:0;
 }
 
-.sym-editor .ui.menu-ui .wrapper .extra-menu ul li { 
+.sym-editor .ui.menu-ui .wrapper .extra-menu ul li {
   margin-bottom:4px;
   cursor: pointer;
 }
 
-.sym-editor .ui.menu-ui .wrapper .extra-menu ul li:hover, .sym-editor .ui.menu-ui .wrapper .extra-menu ul li.active { 
+.sym-editor .ui.menu-ui .wrapper .extra-menu ul li:hover, .sym-editor .ui.menu-ui .wrapper .extra-menu ul li.active {
   color:#23FF00;
 }
 
@@ -618,7 +618,7 @@ body.ready .sym-center {
   margin:0;
 }
 .sym-admin-container a {
-  color:white; 
+  color:white;
   text-decoration: none;
 }
 .sym-admin-container a:hover {
@@ -676,7 +676,7 @@ body.ready .sym-center {
 
   -webkit-transition:all 0.2s ease-in-out;
   transition:all 0.2s ease-in-out;
-  
+
 }
 .sym-flash.sym-hide {
   opacity: 0;
@@ -693,8 +693,8 @@ body.ready .sym-center {
   transition:all 0.4s ease-in-out;
 
 }
-[contenteditable="true"]:hover { 
-  outline: 1px solid blue; 
+[contenteditable="true"]:hover {
+  outline: 1px solid blue;
 }
 
 [data-type="image"] {
@@ -772,8 +772,8 @@ body.ready .sym-center {
 .uploadInner .uploadzone .dz-preview {
   margin:0px;
 }
-.uploadInner .uploadzone .dz-message:after {
-  content:'Upload un fichier';
+.uploadInner .uploadzone.dz-clickable:after {
+  content:'Ajouter un fichier';
   font-size: 20px;
   opacity:0.5;
 }
