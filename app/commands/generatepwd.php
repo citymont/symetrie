@@ -24,6 +24,8 @@ if (version_compare(phpversion(), '5.5.0', '<')) {
 
 	/* if PHP < 5.5 */
 	print md5($varsPwd);
+	print '
+	';
 
 } else  {
 
@@ -33,5 +35,6 @@ if (version_compare(phpversion(), '5.5.0', '<')) {
 	];
 
 	print password_hash($varsPwd, PASSWORD_BCRYPT, $options);
-
+	print '
+	';
 }
