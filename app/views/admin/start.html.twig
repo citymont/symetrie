@@ -24,13 +24,13 @@
 				<select name="model">
 				{% for model in conf.modelList %}
 					{% if model != "index" and model != "slices" %}
-						<option value="{{ model }}">{{ model }}</option> 
+						<option value="{{ model }}">{{ model }}</option>
 					{% endif %}
 		    	{% endfor %}
-				</select> <input type="text" name="pagename" placeholder="Url de la nouvelle page" size="25" /> 
+				</select> <input type="text" name="pagename" placeholder="Url de la nouvelle page" size="25" />
 				<input type="submit" value="ADD PAGE">
 			</form>
-			
+
 		</div>
 	</div>
 	<div class="col-50">
@@ -58,9 +58,10 @@
 		var Conf = Conf || {};
 
 			Conf.url = "{{ conf.admin_conf_url }}";
+			Conf.urlUpload = "{{ conf.url_upload }}";
 
-			// Load required scripts.	
-			head.js( 
+			// Load required scripts.
+			head.js(
 				"{{ conf.assets_admin }}js/libs/jquery-1.10.2.min.js",
 				"{{ conf.assets_admin }}js/vendor/jsoneditor.js",
 				"{{ conf.assets_admin }}js/extra.js",
@@ -77,7 +78,7 @@
 						$('.sym-admin-container .addpage').removeClass('active');
 					} else {
 						$('.sym-admin-container .addpage').addClass('active');
-					}      
+					}
 		      	});
 	            }
 	        );
