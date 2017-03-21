@@ -302,7 +302,7 @@ class AppOrigin {
 
 		foreach ($adVal->validatorModel(__DIR__."/../data") as $value) {
 			if($value != "slices") {
-				$finalList[$value] = array();
+				$finalList[$value] = array('');
 				foreach (scandir(__DIR__."/../data/".$value) as $value2) {
 					if(is_dir(__DIR__."/../data/".$value."/".$value2) && $value2 != "." && $value2 != "..") {
 						$finalList[$value][] = $value2;
@@ -316,8 +316,6 @@ class AppOrigin {
 		$rawRoutes = $this->getRoutes();
 		$output = array();
 
-        // First, add ndex page
-		$output[] = '/';
 
 		foreach ($rawRoutes as $key => $value) {
 			$modelsimple = explode("Handler",$value);
