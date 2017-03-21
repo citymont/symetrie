@@ -139,7 +139,6 @@ dfn {
 h1 {
   font-size: 2em;
   margin: 0.67em 0;
-  color:white;
 }
 
 /**
@@ -618,6 +617,9 @@ body.ready .sym-center {
   padding:0;
   margin:0;
 }
+.sym-admin-container h1 {
+	color:white;
+}
 .sym-admin-container a {
   color:white;
   text-decoration: none;
@@ -863,7 +865,7 @@ body.admin .sliceInner {
       padding-right: 20px;
 }
 .sliceInner .row a {
-  display: block;
+  display: inline-block!important;
     position: relative;
     top: -30px;
     color:blue;
@@ -896,6 +898,7 @@ body.admin .sliceInner {
 .sliceInner #editor_holder .row button {
   border-radius:10px;
   padding:6px 10px;
+  cursor: pointer;
 }
 .sliceInner .actions {
   position: fixed;
@@ -951,7 +954,7 @@ body.admin .slice:hover {
 }
 .sliceInner input[type="file"] {
   color:transparent;
-  width:130px;
+  width:140px;
 }
 .sliceInner input[type="file"]::-webkit-file-upload-button {
   visibility: hidden;
