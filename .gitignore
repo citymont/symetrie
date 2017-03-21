@@ -2,7 +2,7 @@ composer.lock
 /app/data/*
 /app/storage/cache/*
 /app/storage/views/*
-/public/contents/*
+/public/contents/img/*
 /vendor/
 /bower_components/
 /node_modules/
