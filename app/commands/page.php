@@ -13,10 +13,10 @@ if ( isset($_SERVER['argv']) ) {
 	createPage($varsModel,$varsPage, true);
 
 }
-if (isset($_GET['model'])) {
+if (isset(htmlspecialchars($_GET['model']))) {
 	// variable URI
-	$varsModel = $_GET['model'];
-	$varsPage = $_GET['page'];
+	$varsModel = htmlspecialchars($_GET['model']);
+	$varsPage = htmlspecialchars($_GET['page']);
 	createPage($varsModel,$varsPage, true);
 }
 

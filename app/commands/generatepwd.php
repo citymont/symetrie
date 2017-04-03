@@ -13,9 +13,9 @@ if ( isset($_SERVER['argv']) ) {
 	$varsPwd = $vars[1];
 }
 
-if (isset($_GET['model'])) {
+if (isset(htmlspecialchars($_GET['model']))) {
 	// variable URI
-	$varsPwd = $_GET['pwd'];
+	$varsPwd = htmlspecialchars($_GET['pwd']);
 }
 
 if(empty($varsPwd)) return print 'error';
