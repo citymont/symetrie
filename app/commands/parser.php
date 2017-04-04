@@ -14,7 +14,7 @@ if ( isset($_SERVER['argv']) ) {
 	initParser($varsTpl,true);
 }
 
-if (isset(htmlspecialchars($_GET['model']))) {
+if (isset($_GET['model'])) {
 	// variable URI
 	$varsTpl = htmlspecialchars($_GET['model']);
 	initParser($varsTpl,true);

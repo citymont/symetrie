@@ -13,7 +13,7 @@ if ( isset($_SERVER['argv']) ) {
 	$varsPwd = $vars[1];
 }
 
-if (isset(htmlspecialchars($_GET['model']))) {
+if (isset($_GET['model'])) {
 	// variable URI
 	$varsPwd = htmlspecialchars($_GET['pwd']);
 }
