@@ -1,7 +1,7 @@
 <?php
 /**
  * Application
- * v.0.9.6
+ * v.0.9.7
  */
 
 require(__DIR__."/../../vendor/autoload.php");
@@ -321,11 +321,14 @@ class AppOrigin {
 			$modelsimple = explode("Handler",$value);
 			$model = strtolower($modelsimple[0]);
 			foreach ($finalList[$model] as $key1 => $value1) {
-				$routeTokens = array(":string", ":number", ":alpha");
-				$routeWithoutTokens = str_replace($routeTokens, "", $key);
-				$output[] = $routeWithoutTokens.$value1;
-			}
+				if($key1==0 && count($finalList[$model])>1) {
 
+				} else {
+					$routeTokens = array(":string", ":number", ":alpha");
+					$routeWithoutTokens = str_replace($routeTokens, "", $key);
+					$output[] = $routeWithoutTokens.$value1;
+				}
+			}
 
 		}
 
